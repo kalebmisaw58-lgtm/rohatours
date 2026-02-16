@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RohaTours | Private Expeditions & Authentic Ethiopia Travel</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Discover Ethiopia with RohaTours. Expert-led private expeditions to Lalibela, Gondar, and Axum.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+        const firebaseConfig = JSON.parse(__firebase_config);
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'rohatours-app';
+
+        let unsubscribeTrips = null;
+
+        async function initAuth() {
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } catch (error) {
+                console.error("Auth failed", error);
+            }
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setupTripsListener(user.uid);
+            } else if (unsubscribeTrips) {
+                unsubscribeTrips();
+            }
+        });
+
+        function setupTripsListener(uid) {
+            const tripsCol = collection(db, 'artifacts', appId, 'public', 'data', 'bookings');
+            unsubscribeTrips = onSnapshot(tripsCol, (snapshot) => {
+                const trips = [];
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if (data.userId === uid) {
+                        trips.push({ id: doc.id, ...data });
+                    }
+                });
+                renderDashboard(trips);
+            }, (error) => {
+                console.error("Dashboard listen error:", error);
+            });
+        }
+
+        window.saveBookingToCloud = async (bookingData) => {
+            if (!auth.currentUser) await initAuth();
+            try {
+                const bookingsCol = collection(db, 'artifacts', appId, 'public', 'data', 'bookings');
+                const docRef = await addDoc(bookingsCol, {
+                    ...bookingData,
+                    userId: auth.currentUser.uid,
+                    createdAt: serverTimestamp()
+                });
+                return docRef.id;
+            } catch (e) {
+                console.error("Error adding document: ", e);
+                throw e;
+            }
+        };
+
+        function renderDashboard(trips) {
+            const container = document.getElementById('trips-container');
+            if (!container) return;
+
+            if (trips.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 border-2 border-dashed border-stone-200 rounded-3xl">
+                        <p class="text-slate-400">No expeditions booked yet.</p>
+                        <a href="#destinations" class="text-[#C5A059] font-bold mt-2 inline-block">Explore Destinations</a>
+                    </div>`;
+                return;
+            }
+
+            container.innerHTML = trips.map(trip => `
+                <div class="bg-white p-6 rounded-2xl border border-stone-100 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${
+                                trip.status === 'confirmed' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'
+                            }">
+                                ${trip.status || 'pending'}
+                            </span>
+                            <span class="text-xs text-slate-400">ID: ${trip.id.substring(0, 8)}</span>
+                        </div>
+                        <h4 class="font-serif text-xl">${trip.package}</h4>
+                        <p class="text-sm text-slate-500">${trip.travelerCount} Traveler(s)</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        initAuth();
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap');
+        :root { --primary-gold: #C5A059; --deep-green: #1B3022; --stone: #F4F1EA; }
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        h1, h2, h3, h4, .font-serif { font-family: 'Playfair Display', serif; }
+        .hero-gradient { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&fit=crop&q=80&w=2000'); background-size: cover; background-position: center; }
+        .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .btn-gold { background-color: var(--primary-gold); color: white; transition: all 0.3s ease; }
+        .btn-gold:hover { background-color: #b38e4a; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(197, 160, 89, 0.3); }
+        .page-view { display: none; }
+        .page-view.active { display: block; }
+        .destination-card { transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .destination-card:hover { transform: translateY(-8px); }
+        .loading-spinner { border-top-color: #C5A059; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-[#FDFDFB] text-slate-800">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav border-b border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+            <div class="cursor-pointer" onclick="window.location.hash='landing'">
+                <span class="text-2xl font-serif font-bold tracking-wider text-[#1B3022]">ROHA<span class="text-[#C5A059]">TOURS</span></span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#landing" class="text-sm font-semibold hover:text-[#C5A059]">Home</a>
+                <a href="#destinations" class="text-sm font-semibold hover:text-[#C5A059]">Expeditions</a>
+                <a href="#gallery" class="text-sm font-semibold hover:text-[#C5A059]">Gallery</a>
+                <a href="#dashboard" class="text-sm font-semibold hover:text-[#C5A059] flex items-center gap-2">
+                    <i class="far fa-user-circle"></i> My Trips
+                </a>
+                <a href="#booking" class="btn-gold px-6 py-2 rounded-full text-sm font-bold uppercase tracking-widest">Book Now</a>
+            </div>
+            <div class="md:hidden">
+                <button onclick="toggleMobileMenu(true)" class="p-2"><i class="fas fa-bars text-xl"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-[60] p-8 flex flex-col hidden">
+        <div class="flex justify-between items-center mb-12">
+            <span class="text-xl font-serif font-bold text-[#1B3022]">ROHA<span class="text-[#C5A059]">TOURS</span></span>
+            <button onclick="toggleMobileMenu(false)" class="text-2xl">&times;</button>
+        </div>
+        <div class="flex flex-col space-y-6 text-xl font-serif">
+            <a href="#landing" onclick="toggleMobileMenu(false)">Home</a>
+            <a href="#destinations" onclick="toggleMobileMenu(false)">Expeditions</a>
+            <a href="#dashboard" onclick="toggleMobileMenu(false)">My Trips</a>
+            <a href="#booking" onclick="toggleMobileMenu(false)" class="btn-gold py-4 rounded-xl text-center text-sm font-bold font-sans uppercase">Book Now</a>
+        </div>
+    </div>
+
+    <!-- LANDING/HOMEPAGE VIEW -->
+    <div id="landing-page" class="page-view active">
+        <!-- Hero Section -->
+        <section class="relative h-screen flex items-center justify-center hero-gradient text-white">
+            <div class="text-center px-4 max-w-4xl">
+                <span class="text-[#C5A059] font-bold uppercase tracking-[0.3em] text-sm mb-4 block">Est. in the Land of Origins</span>
+                <h1 class="text-5xl md:text-8xl mb-6 leading-tight">Ethiopia, <br><i class="font-serif italic text-[#C5A059]">Revealed.</i></h1>
+                <p class="text-lg md:text-2xl mb-10 font-light opacity-90 max-w-2xl mx-auto leading-relaxed">We don't just show you the landmarks; we invite you into the living history of our ancestors.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#destinations" class="btn-gold px-12 py-5 rounded-full text-sm font-bold uppercase tracking-widest">Explore Expeditions</a>
+                    <a href="#gallery" class="bg-white/10 backdrop-blur-md border border-white/20 px-12 py-5 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-white hover:text-[#1B3022] transition">View Gallery</a>
+                </div>
+            </div>
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </div>
+        </section>
+
+        <!-- Value Proposition Section -->
+        <section class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-16">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-shield-alt text-[#C5A059] text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-serif mb-3">Private & Secure</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Your safety and privacy are paramount. Every vehicle and guide is vetted to international standards.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-map-marked-alt text-[#C5A059] text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-serif mb-3">Expert-Led</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Our guides are historians, archaeologists, and locals who have called these lands home for generations.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-leaf text-[#C5A059] text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-serif mb-3">Sustainable Travel</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">A portion of every booking goes directly back into the local communities and preservation of historical sites.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Preview -->
+        <section class="py-24 bg-stone-50 border-t border-stone-100">
+            <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-16">
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?q=80&w=1200" class="rounded-[40px] shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-4xl md:text-5xl font-serif mb-6 leading-snug">The Soul of <br>the South</h2>
+                    <p class="text-slate-600 mb-8 leading-relaxed">The Omo Valley is more than a destination; it's a testament to human resilience and cultural diversity. Join our 10-day immersive expedition to meet the masters of body art and tradition.</p>
+                    <a href="#destinations" class="text-[#C5A059] font-bold uppercase tracking-widest text-sm border-b-2 border-[#C5A059] pb-1 hover:text-[#1B3022] hover:border-[#1B3022] transition">Discover the Omo Valley</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- DESTINATIONS VIEW -->
+    <div id="destinations-page" class="page-view pt-32 pb-24 bg-stone-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="mb-16 text-center">
+                <h2 class="text-4xl md:text-5xl font-serif mb-4">Historical Masterpieces</h2>
+                <p class="text-slate-500 max-w-2xl mx-auto">Discover the pillars of the North as separate, immersive private expeditions.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Lalibela -->
+                <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200">
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1605649487212-47bdab064df7?q=80&w=800')"></div>
+                    <div class="p-8">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">3 Days • Spiritual Marvel</span>
+                        <h3 class="text-2xl font-serif mb-4">Lalibela Churches</h3>
+                        <p class="text-sm text-slate-500 mb-6 leading-relaxed">The "New Jerusalem." Explore 11 monolithic churches carved entirely from volcanic rock in the 12th century.</p>
+                        <button onclick="preSelectPackage('Lalibela Churches')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Expedition</button>
+                    </div>
+                </div>
+
+                <!-- Gondar -->
+                <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200">
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1627318041007-8846c968940c?q=80&w=800')"></div>
+                    <div class="p-8">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">2 Days • Royal History</span>
+                        <h3 class="text-2xl font-serif mb-4">Gondar Castles</h3>
+                        <p class="text-sm text-slate-500 mb-6 leading-relaxed">The "Camelot of Africa." Visit the Royal Enclosure (Fasil Ghebbi) and the iconic Debre Berhan Selassie church.</p>
+                        <button onclick="preSelectPackage('Gondar Castles')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Expedition</button>
+                    </div>
+                </div>
+
+                <!-- Axum -->
+                <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200">
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1634647311394-399085ec6f37?q=80&w=800')"></div>
+                    <div class="p-8">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">2 Days • Ancient Empire</span>
+                        <h3 class="text-2xl font-serif mb-4">Axum Empire</h3>
+                        <p class="text-sm text-slate-500 mb-6 leading-relaxed">The birthplace of Ethiopian civilization. Stand before giant obelisks and the purported home of the Ark of the Covenant.</p>
+                        <button onclick="preSelectPackage('Axum Empire')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Expedition</button>
+                    </div>
+                </div>
+
+                <!-- Omo Valley -->
+                <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200">
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?q=80&w=800')"></div>
+                    <div class="p-8">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">10 Days • Culture</span>
+                        <h3 class="text-2xl font-serif mb-4">Omo Valley Tribes</h3>
+                        <p class="text-sm text-slate-500 mb-6 leading-relaxed">A deep dive into the lives of the Southern tribes including the Hamer and Mursi people.</p>
+                        <button onclick="preSelectPackage('Omo Valley')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Expedition</button>
+                    </div>
+                </div>
+
+                <!-- Danakil -->
+                <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200">
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=800')"></div>
+                    <div class="p-8">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">4 Days • Geology</span>
+                        <h3 class="text-2xl font-serif mb-4">Danakil Adventure</h3>
+                        <p class="text-sm text-slate-500 mb-6 leading-relaxed">The hottest place on earth. See the Erta Ale lava lake and the colorful Dallol sulfur fields.</p>
+                        <button onclick="preSelectPackage('Danakil Adventure')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Expedition</button>
+                    </div>
+                </div>
+
+                <!-- Harar -->
+                <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200">
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1540339832862-47452993c71b?q=80&w=800')"></div>
+                    <div class="p-8">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">3 Days • Heritage</span>
+                        <h3 class="text-2xl font-serif mb-4">Harar Jugol</h3>
+                        <p class="text-sm text-slate-500 mb-6 leading-relaxed">Experience the walled city of Harar, the hyena men, and a labyrinth of vibrant alleyways.</p>
+                        <button onclick="preSelectPackage('Harar Jugol')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Expedition</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DASHBOARD VIEW -->
+    <div id="dashboard-page" class="page-view pt-32 pb-24 bg-stone-50 min-h-screen">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-4xl font-serif mb-8">My Expeditions</h2>
+            <div class="grid grid-cols-1 gap-6" id="trips-container">
+                <div class="animate-pulse space-y-4">
+                    <div class="h-24 bg-stone-200 rounded-2xl"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOKING VIEW -->
+    <div id="booking-page" class="page-view bg-stone-50 min-h-screen pt-32 pb-24">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="bg-white p-8 md:p-12 rounded-[40px] shadow-sm border border-stone-200">
+                <h2 class="text-3xl font-serif mb-8">Request Your Private Expedition</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="text-xs font-bold uppercase tracking-widest block mb-2">Full Name</label>
+                        <input id="formName" type="text" placeholder="John Doe" class="w-full bg-stone-50 border-stone-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-[#C5A059]">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold uppercase tracking-widest block mb-2">Email</label>
+                        <input id="formEmail" type="email" placeholder="john@example.com" class="w-full bg-stone-50 border-stone-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-[#C5A059]">
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label class="text-xs font-bold uppercase tracking-widest block mb-2">Select Expedition</label>
+                    <select id="formPackage" class="w-full bg-stone-50 border-stone-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-[#C5A059]">
+                        <option value="Lalibela Churches">Lalibela Churches</option>
+                        <option value="Gondar Castles">Gondar Castles</option>
+                        <option value="Axum Empire">Axum Empire</option>
+                        <option value="Omo Valley">Omo Valley Tribes</option>
+                        <option value="Danakil Adventure">Danakil Adventure</option>
+                        <option value="Harar Jugol">Harar Jugol</option>
+                    </select>
+                </div>
+                <div class="mb-8">
+                    <label class="text-xs font-bold uppercase tracking-widest block mb-2">Traveler Count</label>
+                    <input id="formCount" type="number" min="1" value="1" class="w-full bg-stone-50 border-stone-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-[#C5A059]">
+                </div>
+                <button onclick="submitBooking()" id="submitBtn" class="w-full btn-gold py-5 rounded-2xl font-bold uppercase tracking-widest flex items-center justify-center space-x-3">
+                    <span id="btnText">Request Expedition</span>
+                    <div id="btnSpinner" class="hidden w-5 h-5 border-2 border-white border-t-transparent rounded-full loading-spinner"></div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GALLERY -->
+    <div id="gallery-page" class="page-view pt-32 pb-24 px-4">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-4xl font-serif mb-12">Ethiopia in Frames</h2>
+            <div class="columns-1 md:columns-3 gap-6 space-y-6">
+                <img src="https://images.unsplash.com/photo-1605649487212-47bdab064df7?q=80&w=800" class="rounded-2xl">
+                <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?q=80&w=800" class="rounded-2xl">
+                <img src="https://images.unsplash.com/photo-1627318041007-8846c968940c?q=80&w=800" class="rounded-2xl">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleRouting() {
+            const hash = window.location.hash.substring(1) || 'landing';
+            document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+            const target = document.getElementById(hash + '-page');
+            if (target) {
+                target.classList.add('active');
+                window.scrollTo(0,0);
+            }
+        }
+        window.addEventListener('hashchange', handleRouting);
+        window.addEventListener('load', handleRouting);
+
+        function toggleMobileMenu(show) {
+            const menu = document.getElementById('mobile-menu');
+            if(show) menu.classList.remove('hidden');
+            else menu.classList.add('hidden');
+        }
+
+        function preSelectPackage(pkgName) {
+            document.getElementById('formPackage').value = pkgName;
+            window.location.hash = 'booking';
+        }
+
+        async function submitBooking() {
+            const name = document.getElementById('formName').value;
+            const email = document.getElementById('formEmail').value;
+            const pkg = document.getElementById('formPackage').value;
+            const count = document.getElementById('formCount').value;
+            const btn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const spinner = document.getElementById('btnSpinner');
+
+            if (!name || !email) { alert("Details required."); return; }
+
+            btn.disabled = true;
+            btnText.innerText = "Requesting...";
+            spinner.classList.remove('hidden');
+
+            // Updated section for MongoDB/Vercel
+            try {
+                const response = await fetch('/api/bookings', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        customerName: name,
+                        customerEmail: email,
+                        package: pkg,
+                        travelerCount: parseInt(count),
+                        status: 'pending',
+                        createdAt: new Date()
+                    })
+                });
+
+                if (response.ok) {
+                    window.location.hash = 'dashboard';
+                    document.getElementById('formName').value = "";
+                    document.getElementById('formEmail').value = "";
+                } else {
+                    throw new Error('Server error');
+                }
+            } catch (err) {
+                console.error("Booking error:", err);
+                alert("Request failed. Check console for details.");
+            } finally {
+                btn.disabled = false;
+                btnText.innerText = "Request Expedition";
+                spinner.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
