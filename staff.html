@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RohaTours | Staff Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6">Customer Bookings</h1>
+        
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <table class="min-w-full leading-normal">
+                <thead>
+                    <tr class="bg-blue-600 text-white text-left text-sm uppercase font-semibold">
+                        <th class="px-5 py-3 border-b">Customer</th>
+                        <th class="px-5 py-3 border-b">Package</th>
+                        <th class="px-5 py-3 border-b">Travelers</th>
+                        <th class="px-5 py-3 border-b">Date</th>
+                        <th class="px-5 py-3 border-b">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="bookingTableBody">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        async function loadBookings() {
+            const tbody = document.getElementById('bookingTableBody');
+            try {
+                const response = await fetch('/api/get-bookings');
+                const data = await response.json();
+
+                tbody.innerHTML = data.map(booking => `
+                    <tr class="border-b hover:bg-gray-50">
+                        <td class="px-5 py-4">
+                            <div class="font-bold">${booking.customerName}</div>
+                            <div class="text-xs text-gray-500">${booking.customerEmail}</div>
+                        </td>
+                        <td class="px-5 py-4">${booking.package}</td>
+                        <td class="px-5 py-4">${booking.travelerCount}</td>
+                        <td class="px-5 py-4 text-sm">
+                            ${new Date(booking.createdAt).toLocaleDateString()}
+                        </td>
+                        <td class="px-5 py-4">
+                            <span class="px-2 py-1 text-xs font-bold rounded bg-yellow-100 text-yellow-800">
+                                ${booking.status}
+                            </span>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (err) {
+                tbody.innerHTML = '<tr><td colspan="5" class="p-5 text-red-500">Error loading data</td></tr>';
+            }
+        }
+        loadBookings();
+    </script>
+</body>
+</html>
