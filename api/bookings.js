@@ -18,8 +18,7 @@ async function connectToDatabase() {
     }
 
     try {
-        // Removed deprecated 'useNewUrlParser' and 'useUnifiedTopology'
-        // These are now default behavior in the modern MongoDB driver (v4+).
+        // Optimization for modern MongoDB driver (v4+)
         const client = new MongoClient(uri, {
             maxPoolSize: 10,
             serverSelectionTimeoutMS: 5000,
@@ -27,6 +26,8 @@ async function connectToDatabase() {
         });
 
         await client.connect();
+        
+        // Use the default database from the URI if possible, or fallback to 'rohatours'
         const db = client.db('rohatours');
 
         cachedClient = client;
