@@ -18,8 +18,8 @@ async function connectToDatabase() {
     }
 
     try {
-        // Optimization: Removed deprecated 'useNewUrlParser' and 'useUnifiedTopology'
-        // These are now default in the latest MongoDB driver.
+        // Removed deprecated 'useNewUrlParser' and 'useUnifiedTopology'
+        // These are now default behavior in the modern MongoDB driver (v4+).
         const client = new MongoClient(uri, {
             maxPoolSize: 10,
             serverSelectionTimeoutMS: 5000,
