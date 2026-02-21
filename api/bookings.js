@@ -7,37 +7,41 @@ let cachedClient = null;
 let cachedDb = null;
 
 async function connectToDatabase() {
-    // If the database connection is cached, use it instead of creating a new one
+    // If the database connection is cached, use it
     if (cachedClient && cachedDb) {
         return { client: cachedClient, db: cachedDb };
     }
 
     if (!uri) {
-        console.error('MONGODB_URI is not defined in environment variables');
-        throw new Error('Please define the MONGODB_URI environment variable');
+        console.error('CRITICAL: MONGODB_URI is missing from environment variables');
+        throw new Error('MONGODB_URI environment variable is not defined');
     }
 
     try {
+        // Optimization: Removed deprecated 'useNewUrlParser' and 'useUnifiedTopology'
+        // These are now default in the latest MongoDB driver.
         const client = new MongoClient(uri, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            connectTimeoutMS: 10000, // 10 seconds timeout
+            maxPoolSize: 10,
+            serverSelectionTimeoutMS: 5000,
+            socketTimeoutMS: 45000,
         });
 
         await client.connect();
-        const db = client.db('rohatours'); // Ensure this matches your Atlas DB name
+        const db = client.db('rohatours');
 
         cachedClient = client;
         cachedDb = db;
+        
+        console.log('Successfully connected to MongoDB Atlas');
         return { client, db };
     } catch (e) {
-        console.error('Failed to connect to MongoDB:', e);
-        throw e;
+        console.error('MongoDB Connection Error:', e.message);
+        throw new Error(`Failed to connect to database: ${e.message}`);
     }
 }
 
 export default async function handler(req, res) {
-    // Set CORS headers
+    // CORS configuration
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -50,25 +54,24 @@ export default async function handler(req, res) {
         const { db } = await connectToDatabase();
         const bookings = db.collection('bookings');
 
-        // HANDLE GET REQUEST
+        // GET: Fetch all bookings
         if (req.method === 'GET') {
-            const allBookings = await bookings.find({}).sort({ createdAt: -1 }).toArray();
+            const allBookings = await bookings.find({}).sort({ createdAt: -1 }).limit(50).toArray();
             return res.status(200).json(allBookings);
         }
 
-        // HANDLE POST REQUEST
+        // POST: Create a new booking
         if (req.method === 'POST') {
             const { customerName, customerEmail, package: pkg, travelerCount } = req.body;
 
-            // Simple validation
             if (!customerName || !customerEmail) {
-                return res.status(400).json({ message: 'Missing required fields' });
+                return res.status(400).json({ success: false, message: 'Customer name and email are required.' });
             }
 
             const newBooking = {
                 customerName,
                 customerEmail,
-                package: pkg || 'Custom Expedition',
+                package: pkg || 'General Inquiry',
                 travelerCount: parseInt(travelerCount) || 1,
                 status: 'pending',
                 createdAt: new Date()
@@ -77,7 +80,7 @@ export default async function handler(req, res) {
             const result = await bookings.insertOne(newBooking);
             return res.status(201).json({ 
                 success: true, 
-                message: 'Booking created', 
+                message: 'Booking successfully created', 
                 id: result.insertedId 
             });
         }
@@ -86,8 +89,7 @@ export default async function handler(req, res) {
         return res.status(405).end(`Method ${req.method} Not Allowed`);
 
     } catch (error) {
-        console.error("Database Error:", error);
-        // Return the error message to help debug in the browser console
+        console.error("API Route Error:", error);
         return res.status(500).json({ 
             success: false, 
             message: 'Internal Server Error', 
