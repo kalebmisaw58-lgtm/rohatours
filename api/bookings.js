@@ -1,33 +1,37 @@
 import { MongoClient } from 'mongodb';
 
-// We pull the client outside the handler to keep the connection "warm" 
-// for faster performance on the next click.
-const client = new MongoClient(process.env.MONGODB_URI);
+const uri = process.env.MONGODB_URI;
+const client = new MongoClient(uri);
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method Not Allowed' });
-  }
+    try {
+        await client.connect();
+        const database = client.db('rohatours'); // Ensure this matches your Atlas DB name
+        const bookings = database.collection('bookings');
 
-  try {
-    // You don't necessarily need to call connect() every single time 
-    // if you define the client outside, but it's safe to keep for now.
-    await client.connect();
-    const db = client.db('RohaTours'); 
-    
-    // Insert the data
-    const result = await db.collection('bookings').insertOne({
-      ...req.body,
-      createdAt: new Date() // Better to set the date on the server side
-    });
+        // HANDLE GET REQUEST (Fetching trips for the dashboard)
+        if (req.method === 'GET') {
+            const allBookings = await bookings.find({}).sort({ createdAt: -1 }).toArray();
+            return res.status(200).json(allBookings);
+        }
 
-    // Explicitly send a success JSON back to the index.html
-    return res.status(201).json({ success: true, id: result.insertedId });
+        // HANDLE POST REQUEST (Saving a new booking)
+        if (req.method === 'POST') {
+            const newBooking = {
+                ...req.body,
+                createdAt: new Date(),
+                status: req.body.status || 'pending'
+            };
+            const result = await bookings.insertOne(newBooking);
+            return res.status(201).json({ message: 'Booking created', id: result.insertedId });
+        }
 
-  } catch (error) {
-    console.error("Database Error:", error);
-    return res.status(500).json({ error: error.message });
-  } 
-  // Notice we removed client.close() - Vercel handles the cleanup, 
-  // and keeping it open makes the next booking faster!
+        // IF METHOD IS NOT GET OR POST
+        res.setHeader('Allow', ['GET', 'POST']);
+        return res.status(405).end(`Method ${req.method} Not Allowed`);
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Internal Server Error', error: error.message });
+    }
 }
