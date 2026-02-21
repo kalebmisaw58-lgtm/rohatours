@@ -7,25 +7,37 @@ let cachedClient = null;
 let cachedDb = null;
 
 async function connectToDatabase() {
+    // If the database connection is cached, use it instead of creating a new one
     if (cachedClient && cachedDb) {
         return { client: cachedClient, db: cachedDb };
     }
 
     if (!uri) {
+        console.error('MONGODB_URI is not defined in environment variables');
         throw new Error('Please define the MONGODB_URI environment variable');
     }
 
-    const client = new MongoClient(uri);
-    await client.connect();
-    const db = client.db('rohatours'); // Ensure this matches your Atlas DB name
+    try {
+        const client = new MongoClient(uri, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            connectTimeoutMS: 10000, // 10 seconds timeout
+        });
 
-    cachedClient = client;
-    cachedDb = db;
-    return { client, db };
+        await client.connect();
+        const db = client.db('rohatours'); // Ensure this matches your Atlas DB name
+
+        cachedClient = client;
+        cachedDb = db;
+        return { client, db };
+    } catch (e) {
+        console.error('Failed to connect to MongoDB:', e);
+        throw e;
+    }
 }
 
 export default async function handler(req, res) {
-    // Set CORS headers if you are testing from different domains
+    // Set CORS headers
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -75,6 +87,7 @@ export default async function handler(req, res) {
 
     } catch (error) {
         console.error("Database Error:", error);
+        // Return the error message to help debug in the browser console
         return res.status(500).json({ 
             success: false, 
             message: 'Internal Server Error', 
