@@ -361,39 +361,21 @@
     </div>
 
     <script>
-        // Simple client-side routing
+        // ROUTING LOGIC
         function handleRouting() {
             const hash = window.location.hash.substring(1) || 'landing';
-            
-            // Handle scrolling for specific sections within the landing page
-            if (hash === 'gallery-section') {
-                const landing = document.getElementById('landing-page');
-                landing.classList.add('active');
-                document.getElementById('gallery-section').scrollIntoView({ behavior: 'smooth' });
-                return;
-            }
-
             document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
             const target = document.getElementById(hash + '-page');
             if (target) {
                 target.classList.add('active');
+                if(hash === 'dashboard') fetchTrips();
                 window.scrollTo(0,0);
             }
         }
         window.addEventListener('hashchange', handleRouting);
         window.addEventListener('load', handleRouting);
 
-        function toggleMobileMenu(show) {
-            const menu = document.getElementById('mobile-menu');
-            if(show) menu.classList.remove('hidden');
-            else menu.classList.add('hidden');
-        }
-
-        function preSelectPackage(pkgName) {
-            document.getElementById('formPackage').value = pkgName;
-            window.location.hash = 'booking';
-        }
-
+        // MONGODB ATLAS API LOGIC
         async function submitBooking() {
             const name = document.getElementById('formName').value;
             const email = document.getElementById('formEmail').value;
@@ -404,7 +386,7 @@
             const spinner = document.getElementById('btnSpinner');
 
             if (!name || !email) {
-                alert("Please enter all details.");
+                alert("Please enter your name and email.");
                 return;
             }
 
@@ -413,28 +395,65 @@
             spinner.classList.remove('hidden');
 
             try {
-                // Using the Firebase saving function defined in the module script
-                await window.saveBookingToCloud({
-                    customerName: name,
-                    customerEmail: email,
-                    package: pkg,
-                    travelerCount: parseInt(count),
-                    status: 'pending'
+                // This connects to your api/bookings.js file
+                const response = await fetch('/api/bookings', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        customerName: name,
+                        customerEmail: email,
+                        package: pkg,
+                        travelerCount: parseInt(count),
+                        status: 'pending',
+                        createdAt: new Date()
+                    })
                 });
 
-                // Clear form and redirect to dashboard to see the new trip
-                window.location.hash = 'dashboard';
-                document.getElementById('formName').value = "";
-                document.getElementById('formEmail').value = "";
+                if (response.ok) {
+                    window.location.hash = 'dashboard';
+                } else {
+                    throw new Error('Database Error');
+                }
             } catch (err) {
-                alert("Error submitting request. Please try again.");
-                console.error(err);
+                console.error("MongoDB Atlas error:", err);
+                alert("Submission failed. Check your API server.");
             } finally {
                 btn.disabled = false;
                 btnText.innerText = "Request Expedition";
                 spinner.classList.add('hidden');
             }
         }
+
+        async function fetchTrips() {
+            const container = document.getElementById('trips-container');
+            if(!container) return;
+            
+            try {
+                const res = await fetch('/api/bookings');
+                const trips = await res.json();
+                
+                if (!trips || trips.length === 0) {
+                    container.innerHTML = `<p class="text-slate-400">No expeditions found.</p>`;
+                    return;
+                }
+
+                container.innerHTML = trips.map(trip => `
+                    <div class="bg-white p-6 rounded-2xl border mb-4 text-left shadow-sm">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h4 class="font-serif text-xl">${trip.package}</h4>
+                                <p class="text-sm text-slate-500">${trip.customerName}</p>
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-amber-50 text-amber-600 border border-amber-100">
+                                ${trip.status || 'pending'}
+                            </span>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                container.innerHTML = `<p class="text-red-400">Error connecting to database.</p>`;
+            }
+        }
     </script>
-</body>
+    </body>
 </html>
