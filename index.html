@@ -274,83 +274,83 @@
 
         // MONGODB ATLAS API LOGIC
         async function submitBooking() {
-            const name = document.getElementById('formName').value;
-            const email = document.getElementById('formEmail').value;
-            const pkg = document.getElementById('formPackage').value;
-            const count = document.getElementById('formCount').value;
-            const btn = document.getElementById('submitBtn');
-            const btnText = document.getElementById('btnText');
-            const spinner = document.getElementById('btnSpinner');
+        const name = document.getElementById(&#39;formName&#39;).value;
+        const email = document.getElementById(&#39;formEmail&#39;).value;
+        const pkg = document.getElementById(&#39;formPackage&#39;).value;
+        const count = document.getElementById(&#39;formCount&#39;).value;
+        const btn = document.getElementById(&#39;submitBtn&#39;);
+        const btnText = document.getElementById(&#39;btnText&#39;);
+        const spinner = document.getElementById(&#39;btnSpinner&#39;);
 
-            if (!name || !email) {
-                alert("Please enter your name and email.");
+        if (!name || !email) {
+            alert(&quot;Please enter all details.&quot;);
+            return;
+        }
+
+        btn.disabled = true;
+        btnText.innerText = &quot;Requesting...&quot;;
+        spinner.classList.remove(&#39;hidden&#39;);
+
+        try {
+            const response = await fetch(&#39;/api/bookings&#39;, {
+                method: &#39;POST&#39;,
+                headers: { &#39;Content-Type&#39;: &#39;application/json&#39; },
+                body: JSON.stringify({
+                    customerName: name,
+                    customerEmail: email,
+                    package: pkg,
+                    travelerCount: parseInt(count)
+                })
+            });
+
+            if (response.ok) {
+                window.location.hash = &#39;dashboard&#39;;
+                // Clear form
+                document.getElementById(&#39;formName&#39;).value = &quot;&quot;;
+                document.getElementById(&#39;formEmail&#39;).value = &quot;&quot;;
+                fetchTrips(); // Refresh the list
+            } else {
+                const errData = await response.json();
+                throw new Error(errData.error || &#39;Submission failed&#39;);
+            }
+        } catch (err) {
+            console.error(&quot;Booking Error:&quot;, err);
+            alert(&quot;Error: &quot; + err.message);
+        } finally {
+            btn.disabled = false;
+            btnText.innerText = &quot;Request Expedition&quot;;
+            spinner.classList.add(&#39;hidden&#39;);
+        }
+    }
+
+    async function fetchTrips() {
+        const container = document.getElementById(&#39;trips-container&#39;);
+        if (!container) return;
+        
+        try {
+            const res = await fetch(&#39;/api/bookings&#39;);
+            const trips = await res.json();
+            
+            if (!trips || trips.length === 0) {
+                container.innerHTML = `&lt;p class=&quot;text-slate-400&quot;&gt;No expeditions found.&lt;/p&gt;`;
                 return;
             }
 
-            btn.disabled = true;
-            btnText.innerText = "Requesting...";
-            spinner.classList.remove('hidden');
-
-            try {
-                // This connects to your api/bookings.js file
-                const response = await fetch('/api/bookings', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        customerName: name,
-                        customerEmail: email,
-                        package: pkg,
-                        travelerCount: parseInt(count),
-                        status: 'pending',
-                        createdAt: new Date()
-                    })
-                });
-
-                if (response.ok) {
-                    window.location.hash = 'dashboard';
-                } else {
-                    throw new Error('Database Error');
-                }
-            } catch (err) {
-                console.error("MongoDB Atlas error:", err);
-                alert("Submission failed. Check your API server.");
-            } finally {
-                btn.disabled = false;
-                btnText.innerText = "Request Expedition";
-                spinner.classList.add('hidden');
-            }
+            container.innerHTML = trips.map(trip =&gt; `
+                &lt;div class=&quot;bg-white p-6 rounded-2xl border mb-4 text-left shadow-sm flex justify-between items-center&quot;&gt;
+                    &lt;div&gt;
+                        &lt;h4 class=&quot;font-serif text-xl&quot;&gt;${trip.package}&lt;/h4&gt;
+                        &lt;p class=&quot;text-sm text-slate-500&quot;&gt;${trip.customerName}&lt;/p&gt;
+                    &lt;/div&gt;
+                    &lt;span class=&quot;px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-amber-50 text-amber-600&quot;&gt;
+                        ${trip.status || &#39;pending&#39;}
+                    &lt;/span&gt;
+                &lt;/div&gt;
+            `).join(&#39;&#39;);
+        } catch (err) {
+            container.innerHTML = `&lt;p class=&quot;text-red-400&quot;&gt;Could not load trips.&lt;/p&gt;`;
         }
-
-        async function fetchTrips() {
-            const container = document.getElementById('trips-container');
-            if(!container) return;
-            
-            try {
-                const res = await fetch('/api/bookings');
-                const trips = await res.json();
-                
-                if (!trips || trips.length === 0) {
-                    container.innerHTML = `<p class="text-slate-400">No expeditions found.</p>`;
-                    return;
-                }
-
-                container.innerHTML = trips.map(trip => `
-                    <div class="bg-white p-6 rounded-2xl border mb-4 text-left shadow-sm">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h4 class="font-serif text-xl">${trip.package}</h4>
-                                <p class="text-sm text-slate-500">${trip.customerName}</p>
-                            </div>
-                            <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-amber-50 text-amber-600 border border-amber-100">
-                                ${trip.status || 'pending'}
-                            </span>
-                        </div>
-                    </div>
-                `).join('');
-            } catch (err) {
-                container.innerHTML = `<p class="text-red-400">Error connecting to database.</p>`;
-            }
-        }
+    }
     </script>
     </body>
 </html>
