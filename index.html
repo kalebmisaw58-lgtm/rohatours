@@ -381,41 +381,30 @@
             document.getElementById('formPackage').value = pkgName;
             window.location.hash = 'booking';
         }
+try {
+    const response = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            customerName: name,
+            customerEmail: email,
+            package: pkg,
+            travelerCount: parseInt(count)
+        })
+    });
 
-        async function submitBooking() {
-            const name = document.getElementById('formName').value;
-            const email = document.getElementById('formEmail').value;
-            const pkg = document.getElementById('formPackage').value;
-            const count = document.getElementById('formCount').value;
-            const btn = document.getElementById('submitBtn');
-            const btnText = document.getElementById('btnText');
-            const spinner = document.getElementById('btnSpinner');
+    const data = await response.json();
 
-            if (!name || !email) { alert("Please enter details."); return; }
+    if (!response.ok) {
+        throw new Error(data.message || "Booking failed");
+    }
 
-            btn.disabled = true;
-            btnText.innerText = "Requesting...";
-            spinner.classList.remove('hidden');
-
-            try {
-                await window.saveBookingToCloud({
-                    customerName: name,
-                    customerEmail: email,
-                    package: pkg,
-                    travelerCount: parseInt(count),
-                    status: 'pending'
-                });
-                window.location.hash = 'dashboard';
-                document.getElementById('formName').value = "";
-                document.getElementById('formEmail').value = "";
-            } catch (err) {
-                alert("Error submitting request.");
-            } finally {
-                btn.disabled = false;
-                btnText.innerText = "Request Destination";
-                spinner.classList.add('hidden');
-            }
-        }
+    window.location.hash = 'dashboard';
+    document.getElementById('formName').value = "";
+    document.getElementById('formEmail').value = "";
+}
     </script>
     <!-- Footer Section -->
 
