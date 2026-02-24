@@ -10,15 +10,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, query, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-          // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCtNaU2YaNiG1Uo9YI2sfQAebedyPYDU_w",
   authDomain: "rohatours-7bbef.firebaseapp.com",
@@ -28,100 +23,57 @@ const firebaseConfig = {
   appId: "1:67942609321:web:8aa7e60d18d66c154914b8"
 };
 
-// Initialize Firebase
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'rohatours-app';
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
 
-        let unsubscribeTrips = null;
+let unsubscribeTrips = null;
 
-        async function initAuth() {
-            try {
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
-            } catch (error) {
-                console.error("Auth failed", error);
-            }
-        }
+async function initAuth() {
+    try {
+        await signInAnonymously(auth);
+    } catch (error) {
+        console.error("Auth failed", error);
+    }
+}
 
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setupTripsListener(user.uid);
-            } else if (unsubscribeTrips) {
-                unsubscribeTrips();
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        setupTripsListener(user.uid);
+    }
+});
+
+function setupTripsListener(uid) {
+    const tripsCol = collection(db, 'bookings');
+
+    unsubscribeTrips = onSnapshot(tripsCol, (snapshot) => {
+        const trips = [];
+        snapshot.forEach((doc) => {
+            const data = doc.data();
+            if (data.userId === uid) {
+                trips.push({ id: doc.id, ...data });
             }
         });
+        renderDashboard(trips);
+    });
+}
 
-        function setupTripsListener(uid) {
-            const tripsCol = collection(db, 'artifacts', appId, 'public', 'data', 'bookings');
-            unsubscribeTrips = onSnapshot(tripsCol, (snapshot) => {
-                const trips = [];
-                snapshot.forEach((doc) => {
-                    const data = doc.data();
-                    if (data.userId === uid) {
-                        trips.push({ id: doc.id, ...data });
-                    }
-                });
-                renderDashboard(trips);
-            }, (error) => {
-                console.error("Dashboard listen error:", error);
-            });
-        }
+window.saveBookingToCloud = async (bookingData) => {
+    if (!auth.currentUser) await initAuth();
 
-        window.saveBookingToCloud = async (bookingData) => {
-            if (!auth.currentUser) await initAuth();
-            try {
-                const bookingsCol = collection(db, 'artifacts', appId, 'public', 'data', 'bookings');
-                const docRef = await addDoc(bookingsCol, {
-                    ...bookingData,
-                    userId: auth.currentUser.uid,
-                    createdAt: serverTimestamp()
-                });
-                return docRef.id;
-            } catch (e) {
-                console.error("Error adding document: ", e);
-                throw e;
-            }
-        };
+    const bookingsCol = collection(db, 'bookings');
 
-        function renderDashboard(trips) {
-            const container = document.getElementById('trips-container');
-            if (!container) return;
+    const docRef = await addDoc(bookingsCol, {
+        ...bookingData,
+        userId: auth.currentUser.uid,
+        createdAt: serverTimestamp()
+    });
 
-            if (trips.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-12 border-2 border-dashed border-stone-200 rounded-3xl">
-                        <p class="text-slate-400">No trips booked yet.</p>
-                        <a href="#destinations" class="text-[#C5A059] font-bold mt-2 inline-block">Explore Destinations</a>
-                    </div>`;
-                return;
-            }
+    return docRef.id;
+};
 
-            container.innerHTML = trips.map(trip => `
-                <div class="bg-white p-6 rounded-2xl border border-stone-100 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div>
-                        <div class="flex items-center gap-3 mb-2">
-                            <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${
-                                trip.status === 'confirmed' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'
-                            }">
-                                ${trip.status || 'pending'}
-                            </span>
-                            <span class="text-xs text-slate-400">ID: ${trip.id.substring(0, 8)}</span>
-                        </div>
-                        <h4 class="font-serif text-xl">${trip.package}</h4>
-                        <p class="text-sm text-slate-500">${trip.travelerCount} Traveler(s)</p>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        initAuth();
-    </script>
+initAuth();
+</script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap');
