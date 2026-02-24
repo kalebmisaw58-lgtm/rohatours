@@ -5,16 +5,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RohaTours | Private Expeditions & Authentic Ethiopia Travel</title>
     
-    <!-- SEO Meta Tags -->
     <meta name="description" content="Discover Ethiopia with RohaTours. Expert-led private expeditions to Lalibela, Gondar, and Axum.">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"> 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'rohatours-app';
+
+        let unsubscribeTrips = null;
+
+        async function initAuth() {
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } catch (error) {
+                console.error("Auth failed", error);
+            }
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setupTripsListener(user.uid);
+            } else if (unsubscribeTrips) {
+                unsubscribeTrips();
+            }
+        });
+
+        function setupTripsListener(uid) {
+            const tripsCol = collection(db, 'artifacts', appId, 'public', 'data', 'bookings');
+            unsubscribeTrips = onSnapshot(tripsCol, (snapshot) => {
+                const trips = [];
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    if (data.userId === uid) {
+                        trips.push({ id: doc.id, ...data });
+                    }
+                });
+                renderDashboard(trips);
+            }, (error) => {
+                console.error("Dashboard listen error:", error);
+            });
+        }
+
+        window.saveBookingToCloud = async (bookingData) => {
+            if (!auth.currentUser) await initAuth();
+            try {
+                const bookingsCol = collection(db, 'artifacts', appId, 'public', 'data', 'bookings');
+                const docRef = await addDoc(bookingsCol, {
+                    ...bookingData,
+                    userId: auth.currentUser.uid,
+                    createdAt: serverTimestamp()
+                });
+                return docRef.id;
+            } catch (e) {
+                console.error("Error adding document: ", e);
+                throw e;
+            }
+        };
+
+        function renderDashboard(trips) {
+            const container = document.getElementById('trips-container');
+            if (!container) return;
+
+            if (trips.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 border-2 border-dashed border-stone-200 rounded-3xl">
+                        <p class="text-slate-400">No trips booked yet.</p>
+                        <a href="#destinations" class="text-[#C5A059] font-bold mt-2 inline-block">Explore Destinations</a>
+                    </div>`;
+                return;
+            }
+
+            container.innerHTML = trips.map(trip => `
+                <div class="bg-white p-6 rounded-2xl border border-stone-100 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${
+                                trip.status === 'confirmed' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'
+                            }">
+                                ${trip.status || 'pending'}
+                            </span>
+                            <span class="text-xs text-slate-400">ID: ${trip.id.substring(0, 8)}</span>
+                        </div>
+                        <h4 class="font-serif text-xl">${trip.package}</h4>
+                        <p class="text-sm text-slate-500">${trip.travelerCount} Traveler(s)</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        initAuth();
+    </script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap');
         :root { --primary-gold: #C5A059; --deep-green: #1B3022; --stone: #F4F1EA; }
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         h1, h2, h3, h4, .font-serif { font-family: 'Playfair Display', serif; }
-        .hero-gradient { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1523805009345-7448845a9e53?auto=format&fit=crop&q=80&w=2000'); background-size: cover; background-position: center; }
+        .hero-gradient { 
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1627318041007-8846c968940c?auto=format&fit=crop&q=80&w=2000'); 
+            background-size: cover; 
+            background-position: center; 
+        }
         .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
         .btn-gold { background-color: var(--primary-gold); color: white; transition: all 0.3s ease; }
         .btn-gold:hover { background-color: #b38e4a; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(197, 160, 89, 0.3); }
@@ -64,7 +167,6 @@
         </div>
     </div>
 
-    <!-- Page: Landing -->
     <div id="landing-page" class="page-view active">
         <section class="relative h-screen flex items-center justify-center hero-gradient text-white">
             <div class="text-center px-4 max-w-4xl">
@@ -102,7 +204,6 @@
         </section>
     </div>
 
-    <!-- Page: About -->
     <div id="about-page" class="page-view pt-32 pb-24 bg-white">
         <div class="max-w-7xl mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-24">
@@ -139,7 +240,6 @@
         </div>
     </div>
 
-    <!-- Page: Destinations -->
     <div id="destinations-page" class="page-view pt-32 pb-24 bg-stone-50">
         <div class="max-w-7xl mx-auto px-4">
             <div class="mb-16 text-center">
@@ -148,7 +248,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Lalibela -->
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
                     <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&q=80&w=800')"></div>
                     <div class="p-8 flex-grow">
@@ -170,7 +269,6 @@
                     </div>
                 </div>
 
-                <!-- Gondar -->
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
                     <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1627318041007-8846c968940c?auto=format&fit=crop&q=80&w=800')"></div>
                     <div class="p-8 flex-grow">
@@ -192,7 +290,6 @@
                     </div>
                 </div>
 
-                <!-- Danakil -->
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
                     <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=800')"></div>
                     <div class="p-8 flex-grow">
@@ -217,7 +314,6 @@
         </div>
     </div>
 
-    <!-- Page: Dashboard -->
     <div id="dashboard-page" class="page-view pt-32 pb-24 bg-stone-50 min-h-screen">
         <div class="max-w-4xl mx-auto px-4 text-center">
             <h2 class="text-4xl font-serif mb-8">My Trips</h2>
@@ -229,11 +325,10 @@
         </div>
     </div>
 
-    <!-- Page: Booking -->
     <div id="booking-page" class="page-view bg-stone-50 min-h-screen pt-32 pb-24">
         <div class="max-w-4xl mx-auto px-4">
             <div class="bg-white p-8 md:p-12 rounded-[40px] shadow-sm border border-stone-200">
-                <h2 class="text-3xl font-serif mb-8">Request Your Private Expedition</h2>
+                <h2 class="text-3xl font-serif mb-8">Request Your Private Destination</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <input id="formName" type="text" placeholder="Full Name" class="w-full bg-stone-50 border-stone-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-[#C5A059]">
                     <input id="formEmail" type="email" placeholder="Email Address" class="w-full bg-stone-50 border-stone-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-[#C5A059]">
@@ -250,7 +345,7 @@
                     <input id="formCount" type="number" min="1" value="1" class="w-full bg-stone-50 border-stone-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-[#C5A059]">
                 </div>
                 <button onclick="submitBooking()" id="submitBtn" class="w-full btn-gold py-5 rounded-2xl font-bold uppercase tracking-widest flex items-center justify-center space-x-3">
-                    <span id="btnText">Request Expedition</span>
+                    <span id="btnText">Request Destination</span>
                     <div id="btnSpinner" class="hidden w-5 h-5 border-2 border-white border-t-transparent rounded-full loading-spinner"></div>
                 </button>
             </div>
@@ -258,99 +353,69 @@
     </div>
 
     <script>
-        // ROUTING LOGIC
         function handleRouting() {
             const hash = window.location.hash.substring(1) || 'landing';
+            if (hash === 'gallery-section') {
+                const landing = document.getElementById('landing-page');
+                landing.classList.add('active');
+                document.getElementById('gallery-section').scrollIntoView({ behavior: 'smooth' });
+                return;
+            }
             document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
             const target = document.getElementById(hash + '-page');
             if (target) {
                 target.classList.add('active');
-                if(hash === 'dashboard') fetchTrips();
                 window.scrollTo(0,0);
             }
         }
         window.addEventListener('hashchange', handleRouting);
         window.addEventListener('load', handleRouting);
 
-        // MONGODB ATLAS API LOGIC
-        async function submitBooking() {
-        const name = document.getElementById(&#39;formName&#39;).value;
-        const email = document.getElementById(&#39;formEmail&#39;).value;
-        const pkg = document.getElementById(&#39;formPackage&#39;).value;
-        const count = document.getElementById(&#39;formCount&#39;).value;
-        const btn = document.getElementById(&#39;submitBtn&#39;);
-        const btnText = document.getElementById(&#39;btnText&#39;);
-        const spinner = document.getElementById(&#39;btnSpinner&#39;);
-
-        if (!name || !email) {
-            alert(&quot;Please enter all details.&quot;);
-            return;
+        function toggleMobileMenu(show) {
+            const menu = document.getElementById('mobile-menu');
+            if(show) menu.classList.remove('hidden');
+            else menu.classList.add('hidden');
         }
 
-        btn.disabled = true;
-        btnText.innerText = &quot;Requesting...&quot;;
-        spinner.classList.remove(&#39;hidden&#39;);
+        function preSelectPackage(pkgName) {
+            document.getElementById('formPackage').value = pkgName;
+            window.location.hash = 'booking';
+        }
 
-        try {
-            const response = await fetch(&#39;/api/bookings&#39;, {
-                method: &#39;POST&#39;,
-                headers: { &#39;Content-Type&#39;: &#39;application/json&#39; },
-                body: JSON.stringify({
+        async function submitBooking() {
+            const name = document.getElementById('formName').value;
+            const email = document.getElementById('formEmail').value;
+            const pkg = document.getElementById('formPackage').value;
+            const count = document.getElementById('formCount').value;
+            const btn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const spinner = document.getElementById('btnSpinner');
+
+            if (!name || !email) { alert("Please enter details."); return; }
+
+            btn.disabled = true;
+            btnText.innerText = "Requesting...";
+            spinner.classList.remove('hidden');
+
+            try {
+                await window.saveBookingToCloud({
                     customerName: name,
                     customerEmail: email,
                     package: pkg,
-                    travelerCount: parseInt(count)
-                })
-            });
-
-            if (response.ok) {
-                window.location.hash = &#39;dashboard&#39;;
-                // Clear form
-                document.getElementById(&#39;formName&#39;).value = &quot;&quot;;
-                document.getElementById(&#39;formEmail&#39;).value = &quot;&quot;;
-                fetchTrips(); // Refresh the list
-            } else {
-                const errData = await response.json();
-                throw new Error(errData.error || &#39;Submission failed&#39;);
+                    travelerCount: parseInt(count),
+                    status: 'pending'
+                });
+                window.location.hash = 'dashboard';
+                document.getElementById('formName').value = "";
+                document.getElementById('formEmail').value = "";
+            } catch (err) {
+                alert("Error submitting request.");
+            } finally {
+                btn.disabled = false;
+                btnText.innerText = "Request Destination";
+                spinner.classList.add('hidden');
             }
-        } catch (err) {
-            console.error(&quot;Booking Error:&quot;, err);
-            alert(&quot;Error: &quot; + err.message);
-        } finally {
-            btn.disabled = false;
-            btnText.innerText = &quot;Request Expedition&quot;;
-            spinner.classList.add(&#39;hidden&#39;);
         }
-    }
-
-    async function fetchTrips() {
-        const container = document.getElementById(&#39;trips-container&#39;);
-        if (!container) return;
-        
-        try {
-            const res = await fetch(&#39;/api/bookings&#39;);
-            const trips = await res.json();
-            
-            if (!trips || trips.length === 0) {
-                container.innerHTML = `&lt;p class=&quot;text-slate-400&quot;&gt;No expeditions found.&lt;/p&gt;`;
-                return;
-            }
-
-            container.innerHTML = trips.map(trip =&gt; `
-                &lt;div class=&quot;bg-white p-6 rounded-2xl border mb-4 text-left shadow-sm flex justify-between items-center&quot;&gt;
-                    &lt;div&gt;
-                        &lt;h4 class=&quot;font-serif text-xl&quot;&gt;${trip.package}&lt;/h4&gt;
-                        &lt;p class=&quot;text-sm text-slate-500&quot;&gt;${trip.customerName}&lt;/p&gt;
-                    &lt;/div&gt;
-                    &lt;span class=&quot;px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-amber-50 text-amber-600&quot;&gt;
-                        ${trip.status || &#39;pending&#39;}
-                    &lt;/span&gt;
-                &lt;/div&gt;
-            `).join(&#39;&#39;);
-        } catch (err) {
-            container.innerHTML = `&lt;p class=&quot;text-red-400&quot;&gt;Could not load trips.&lt;/p&gt;`;
-        }
-    }
     </script>
-    </body>
+</body>
 </html>
