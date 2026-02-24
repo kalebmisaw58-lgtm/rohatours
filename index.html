@@ -13,7 +13,22 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getFirestore, collection, addDoc, query, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+          // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCtNaU2YaNiG1Uo9YI2sfQAebedyPYDU_w",
+  authDomain: "rohatours-7bbef.firebaseapp.com",
+  projectId: "rohatours-7bbef",
+  storageBucket: "rohatours-7bbef.firebasestorage.app",
+  messagingSenderId: "67942609321",
+  appId: "1:67942609321:web:8aa7e60d18d66c154914b8"
+};
+
+// Initialize Firebase
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
