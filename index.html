@@ -6,6 +6,17 @@
     <title>RohaTours | Private Expeditions & Authentic Ethiopia Travel</title>
     
     <meta name="description" content="Discover Ethiopia with RohaTours. Expert-led private expeditions to Lalibela, Gondar, and Axum.">
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rohatours.vercel.app/">
+    <meta property="og:title" content="RohaTours | Private Expeditions & Authentic Ethiopia Travel">
+    <meta property="og:description" content="Expert-led private expeditions to Lalibela, Gondar, Axum, Danakil and beyond. Discover the soul of Ethiopia.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1627318041007-8846c968940c?auto=format&fit=crop&q=80&w=1200">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="RohaTours | Private Expeditions & Authentic Ethiopia Travel">
+    <meta name="twitter:description" content="Expert-led private expeditions to Lalibela, Gondar, Axum, Danakil and beyond. Discover the soul of Ethiopia.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1627318041007-8846c968940c?auto=format&fit=crop&q=80&w=1200">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
@@ -77,11 +88,20 @@ function renderDashboard(trips) {
     const container = document.getElementById('trips-container');
     if (!container) return;
 
+    // Remove loading skeleton
+    const loading = document.getElementById('trips-loading');
+    if (loading) loading.remove();
+
     // Clear previous content
     container.innerHTML = '';
 
     if (trips.length === 0) {
-        container.innerHTML = '<p class="text-slate-500 text-sm">You have no trips booked yet.</p>';
+        container.innerHTML = `
+            <div class="text-center py-16">
+                <i class="fas fa-suitcase-rolling text-4xl text-stone-300 mb-4 block"></i>
+                <p class="text-slate-500 text-sm">You have no trips booked yet.</p>
+                <a href="#booking" class="inline-block mt-4 btn-gold px-8 py-3 rounded-full text-sm font-bold uppercase tracking-widest">Book a Destination</a>
+            </div>`;
         return;
     }
 
@@ -95,6 +115,8 @@ function renderDashboard(trips) {
                 <h3 class="font-serif text-xl text-[#1B3022] mb-1">${trip.package}</h3>
                 <p class="text-sm text-slate-500 mb-2">Name: ${trip.customerName}</p>
                 <p class="text-sm text-slate-500 mb-2">Email: ${trip.customerEmail}</p>
+                ${trip.customerPhone ? `<p class="text-sm text-slate-500 mb-2">Phone: ${trip.customerPhone}</p>` : ''}
+                ${trip.travelDate ? `<p class="text-sm text-slate-500 mb-2">Travel Date: ${trip.travelDate}</p>` : ''}
                 <p class="text-sm text-slate-500">Travelers: ${trip.travelerCount}</p>
             </div>
             <span class="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full 
@@ -129,6 +151,7 @@ function renderDashboard(trips) {
         .inclusion-item i { color: var(--primary-gold); font-size: 0.85rem; }
         .loading-spinner { border-top-color: #C5A059; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .nav-link.active { color: #C5A059; }
     </style>
 </head>
 <body class="bg-[#FDFDFB] text-slate-800">
@@ -139,10 +162,10 @@ function renderDashboard(trips) {
                 <span class="text-2xl font-serif font-bold tracking-wider text-[#1B3022]">ROHA<span class="text-[#C5A059]">TOURS</span></span>
             </div>
             <div class="hidden md:flex items-center space-x-8">
-                <a href="#landing" class="text-sm font-semibold hover:text-[#C5A059]">Home</a>
-                <a href="#destinations" class="text-sm font-semibold hover:text-[#C5A059]">Destinations</a>
-                <a href="#about" class="text-sm font-semibold hover:text-[#C5A059]">About Us</a>
-                <a href="#dashboard" class="text-sm font-semibold hover:text-[#C5A059] flex items-center gap-2">
+                <a href="#landing" data-page="landing" class="nav-link text-sm font-semibold hover:text-[#C5A059]">Home</a>
+                <a href="#destinations" data-page="destinations" class="nav-link text-sm font-semibold hover:text-[#C5A059]">Destinations</a>
+                <a href="#about" data-page="about" class="nav-link text-sm font-semibold hover:text-[#C5A059]">About Us</a>
+                <a href="#dashboard" data-page="dashboard" class="nav-link text-sm font-semibold hover:text-[#C5A059] flex items-center gap-2">
                     <i class="far fa-user-circle"></i> My Trips
                 </a>
                 <a href="#booking" class="btn-gold px-6 py-2 rounded-full text-sm font-bold uppercase tracking-widest">Book Now</a>
@@ -188,28 +211,28 @@ function renderDashboard(trips) {
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div class="aspect-square rounded-3xl overflow-hidden shadow-sm group">
-                        <img src="https://images.unsplash.com/flagged/photo-1572644973628-e9be84915d59?w=500&auto=format&fit=crop&q=60" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lalibela">
+                        <img src="https://images.unsplash.com/flagged/photo-1572644973628-e9be84915d59?w=500&auto=format&fit=crop&q=60" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lalibela">
                     </div>
                     <div class="aspect-square rounded-3xl overflow-hidden shadow-sm group">
-                        <img src="https://images.unsplash.com/photo-1608634193723-1865aa4416ce?w=500&auto=format&fit=crop&q=60" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Gondar">
+                        <img src="https://images.unsplash.com/photo-1608634193723-1865aa4416ce?w=500&auto=format&fit=crop&q=60" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Gondar">
                     </div>
                     <div class="aspect-square rounded-3xl overflow-hidden shadow-sm group">
-                        <img src="https://images.unsplash.com/photo-1516533075015-a3838414c3ca?q=80&w=870&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Danakil">
+                        <img src="https://images.unsplash.com/photo-1516533075015-a3838414c3ca?q=80&w=870&auto=format&fit=crop" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Danakil">
                     </div>
                     <div class="aspect-square rounded-3xl overflow-hidden shadow-sm group">
-                        <img src="https://images.unsplash.com/photo-1524734627574-bbb084c4ee66?w=500&auto=format&fit=crop&q=60" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Omo Valley">
+                        <img src="https://images.unsplash.com/photo-1524734627574-bbb084c4ee66?w=500&auto=format&fit=crop&q=60" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Omo Valley">
                     </div>
                     <div class="aspect-square rounded-3xl overflow-hidden shadow-sm group">
-                        <img src="https://plus.unsplash.com/premium_photo-1695297516798-d275bdf26575?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZXRoaW9waWFuJTIwZm9vZHxlbnwwfHwwfHx8MA%3D%3D" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lalibela">
+                        <img src="https://plus.unsplash.com/premium_photo-1695297516798-d275bdf26575?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZXRoaW9waWFuJTIwZm9vZHxlbnwwfHwwfHx8MA%3D%3D" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lalibela">
                     </div>
                     <div class="aspect-square rounded-3xl overflow-hidden shadow-sm group">
-                        <img src="https://media.istockphoto.com/id/1168053027/photo/church-of-our-lady-of-zion-in-axum-ethiopia.webp?a=1&b=1&s=612x612&w=0&k=20&c=PY7SNICdmAdB2Oxn5te5xt24Buu53p5QyaeSk-uZrx0=" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Gondar">
+                        <img src="https://media.istockphoto.com/id/1168053027/photo/church-of-our-lady-of-zion-in-axum-ethiopia.webp?a=1&b=1&s=612x612&w=0&k=20&c=PY7SNICdmAdB2Oxn5te5xt24Buu53p5QyaeSk-uZrx0=" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Gondar">
                     </div>
                     <div class="aspect-square rounded-3xl overflow-hidden shadow-sm group">
-                        <img src="https://images.unsplash.com/photo-1518079562269-53db1e4433b8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGFsaWJlbGF8ZW58MHx8MHx8fDA%3D" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Danakil">
+                        <img src="https://images.unsplash.com/photo-1518079562269-53db1e4433b8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGFsaWJlbGF8ZW58MHx8MHx8fDA%3D" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Danakil">
                     </div>
                     <div class="aspect-square rounded-3xl overflow-hidden shadow-sm group">
-                        <img src="https://images.unsplash.com/photo-1646647689051-ed33eecf1c21?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bGFsaWJlbGF8ZW58MHx8MHx8fDA%3D" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Omo Valley">
+                        <img src="https://images.unsplash.com/photo-1646647689051-ed33eecf1c21?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bGFsaWJlbGF8ZW58MHx8MHx8fDA%3D" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Omo Valley">
                     </div>
                 </div>
             </div>
@@ -221,7 +244,7 @@ function renderDashboard(trips) {
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-24">
                 <div class="relative">
                     <div class="aspect-[4/5] rounded-[40px] overflow-hidden shadow-2xl">
-                        <img src="IMG-20230128-WA0030.jpg" alt="Lead Tour Guide" class="w-full h-full object-cover">
+                        <img src="IMG-20230128-WA0030.jpg" loading="lazy" alt="Lead Tour Guide" class="w-full h-full object-cover">
                     </div>
                     <div class="absolute -bottom-6 -right-6 bg-[#1B3022] p-8 rounded-3xl text-white shadow-xl hidden lg:block max-w-xs">
                         <p class="font-serif italic text-lg mb-2">"Ethiopia is not a destination you visit; it is a story you enter."</p>
@@ -327,7 +350,7 @@ function renderDashboard(trips) {
                     <div class="p-8 flex-grow">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">2 Days • Royal History</span>
                         <h3 class="text-2xl font-serif mb-4">Axum Monuments</h3>
-                        <p class="text-sm text-slate-500 mb-6 leading-relaxed">The "Camelot of Africa." Visit the Royal Enclosure and Debre Berhan Selassie.</p>
+                        <p class="text-sm text-slate-500 mb-6 leading-relaxed">Home to towering ancient obelisks and the legendary Ark of the Covenant. Walk through the ruins of one of the world's earliest civilizations.</p>
                         
                         <div class="bg-stone-50 rounded-2xl p-5 mb-6">
                             <h4 class="text-[10px] font-bold uppercase text-slate-400 tracking-[0.2em] mb-4">Package Includes</h4>
@@ -339,49 +362,50 @@ function renderDashboard(trips) {
                             </div>
                         </div>
 
-                        <button onclick="preSelectPackage('Gondar Castles')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Destination</button>
+                        <button onclick="preSelectPackage('Axum Monuments')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Destination</button>
                     </div>
                 </div>
+
+                <!-- Omo Valley -->
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1564101151838-630e722d7b1f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZGFuYWtpbCUyMGRlcHJlc3Npb258ZW58MHx8MHx8fDA%3D')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1524734627574-bbb084c4ee66?w=500&auto=format&fit=crop&q=60')"></div>
                     <div class="p-8 flex-grow">
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">4 Days • Geological Wonder</span>
-                        <h3 class="text-2xl font-serif mb-4">Danakil Adventure</h3>
-                        <p class="text-sm text-slate-500 mb-6 leading-relaxed">Witness bubbling lava lakes and neon-yellow sulfur springs in the hottest place on Earth.</p>
-                        
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">5 Days • Cultural Immersion</span>
+                        <h3 class="text-2xl font-serif mb-4">Omo Valley Tribes</h3>
+                        <p class="text-sm text-slate-500 mb-6 leading-relaxed">Journey into one of the world's most diverse cultural landscapes. Meet the Mursi, Hamar, and Karo tribes living as they have for centuries.</p>
                         <div class="bg-stone-50 rounded-2xl p-5 mb-6">
                             <h4 class="text-[10px] font-bold uppercase text-slate-400 tracking-[0.2em] mb-4">Package Includes</h4>
                             <div class="grid grid-cols-2 gap-y-3">
-                                <div class="inclusion-item"><i class="fas fa-shield-alt"></i> Armed Guard</div>
-                                <div class="inclusion-item"><i class="fas fa-car-side"></i> 2x 4x4 Support</div>
-                                <div class="inclusion-item"><i class="fas fa-campground"></i> Logistics</div>
-                                <div class="inclusion-item"><i class="fas fa-utensils"></i> Private Chef</div>
+                                <div class="inclusion-item"><i class="fas fa-user-shield"></i> Expert Guide</div>
+                                <div class="inclusion-item"><i class="fas fa-car-side"></i> Luxury 4x4</div>
+                                <div class="inclusion-item"><i class="fas fa-campground"></i> Bush Camp</div>
+                                <div class="inclusion-item"><i class="fas fa-utensils"></i> Full Board</div>
                             </div>
                         </div>
-
-                        <button onclick="preSelectPackage('Danakil Adventure')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Destination</button>
+                        <button onclick="preSelectPackage('Omo Valley Tribes')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Destination</button>
                     </div>
                 </div>
+
+                <!-- Simien Mountains -->
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1564101151838-630e722d7b1f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZGFuYWtpbCUyMGRlcHJlc3Npb258ZW58MHx8MHx8fDA%3D')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=500&auto=format&fit=crop&q=60')"></div>
                     <div class="p-8 flex-grow">
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">4 Days • Geological Wonder</span>
-                        <h3 class="text-2xl font-serif mb-4">Danakil Adventure</h3>
-                        <p class="text-sm text-slate-500 mb-6 leading-relaxed">Witness bubbling lava lakes and neon-yellow sulfur springs in the hottest place on Earth.</p>
-                        
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">4 Days • Highland Trek</span>
+                        <h3 class="text-2xl font-serif mb-4">Simien Mountains</h3>
+                        <p class="text-sm text-slate-500 mb-6 leading-relaxed">Trek the "Roof of Africa." Encounter Gelada baboons, Ethiopian wolves, and breathtaking escarpments in this UNESCO World Heritage park.</p>
                         <div class="bg-stone-50 rounded-2xl p-5 mb-6">
                             <h4 class="text-[10px] font-bold uppercase text-slate-400 tracking-[0.2em] mb-4">Package Includes</h4>
                             <div class="grid grid-cols-2 gap-y-3">
-                                <div class="inclusion-item"><i class="fas fa-shield-alt"></i> Armed Guard</div>
-                                <div class="inclusion-item"><i class="fas fa-car-side"></i> 2x 4x4 Support</div>
-                                <div class="inclusion-item"><i class="fas fa-campground"></i> Logistics</div>
-                                <div class="inclusion-item"><i class="fas fa-utensils"></i> Private Chef</div>
+                                <div class="inclusion-item"><i class="fas fa-hiking"></i> Trek Guide</div>
+                                <div class="inclusion-item"><i class="fas fa-car-side"></i> Luxury 4x4</div>
+                                <div class="inclusion-item"><i class="fas fa-campground"></i> Lodge Stay</div>
+                                <div class="inclusion-item"><i class="fas fa-utensils"></i> Full Board</div>
                             </div>
                         </div>
-
-                        <button onclick="preSelectPackage('Danakil Adventure')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Destination</button>
+                        <button onclick="preSelectPackage('Simien Mountains')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Destination</button>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -390,7 +414,7 @@ function renderDashboard(trips) {
         <div class="max-w-4xl mx-auto px-4 text-center">
             <h2 class="text-4xl font-serif mb-8">My Trips</h2>
             <div class="grid grid-cols-1 gap-6" id="trips-container">
-                <div class="animate-pulse space-y-4">
+                <div id="trips-loading" class="animate-pulse space-y-4">
                     <div class="h-24 bg-stone-200 rounded-2xl"></div>
                 </div>
             </div>
@@ -401,15 +425,35 @@ function renderDashboard(trips) {
         <div class="max-w-4xl mx-auto px-4">
             <div class="bg-white p-8 md:p-12 rounded-[40px] shadow-sm border border-stone-200">
                 <h2 class="text-3xl font-serif mb-8">Request Your Private Destination</h2>
+
+                <!-- Success message (hidden by default) -->
+                <div id="bookingSuccess" class="hidden mb-8 bg-green-50 border border-green-200 rounded-2xl p-6 text-center">
+                    <i class="fas fa-check-circle text-green-500 text-3xl mb-3 block"></i>
+                    <h3 class="font-serif text-xl text-[#1B3022] mb-1">Request Received</h3>
+                    <p class="text-sm text-slate-500">We'll be in touch within 24 hours to confirm your expedition.</p>
+                    <a href="#dashboard" class="inline-block mt-4 btn-gold px-8 py-3 rounded-full text-sm font-bold uppercase tracking-widest">View My Trips</a>
+                </div>
+
+                <div id="bookingForm">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <input id="formName" type="text" placeholder="Full Name" class="w-full bg-stone-50 border-stone-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-[#C5A059]">
                     <input id="formEmail" type="email" placeholder="Email Address" class="w-full bg-stone-50 border-stone-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-[#C5A059]">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <input id="formPhone" type="tel" placeholder="Phone Number (e.g. +251 911 000 000)" class="w-full bg-stone-50 border-stone-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-[#C5A059]">
+                    <div class="relative">
+                        <label class="text-xs font-bold uppercase tracking-widest text-slate-400 block mb-1 ml-1">Travel Date</label>
+                        <input id="formDate" type="date" class="w-full bg-stone-50 border-stone-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-[#C5A059]">
+                    </div>
                 </div>
                 <div class="mb-6">
                     <select id="formPackage" class="w-full bg-stone-50 border-stone-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-[#C5A059]">
                         <option value="Lalibela Churches">Lalibela Churches</option>
                         <option value="Gondar Castles">Gondar Castles</option>
                         <option value="Danakil Adventure">Danakil Adventure</option>
+                        <option value="Axum Monuments">Axum Monuments</option>
+                        <option value="Omo Valley Tribes">Omo Valley Tribes</option>
+                        <option value="Simien Mountains">Simien Mountains</option>
                     </select>
                 </div>
                 <div class="mb-8">
@@ -420,6 +464,7 @@ function renderDashboard(trips) {
                     <span id="btnText">Request Destination</span>
                     <div id="btnSpinner" class="hidden w-5 h-5 border-2 border-white border-t-transparent rounded-full loading-spinner"></div>
                 </button>
+                </div><!-- end bookingForm -->
             </div>
         </div>
     </div>
@@ -427,17 +472,33 @@ function renderDashboard(trips) {
     <script>
         function handleRouting() {
             const hash = window.location.hash.substring(1) || 'landing';
+
+            // Always close mobile menu on navigation
+            toggleMobileMenu(false);
+
             if (hash === 'gallery-section') {
                 const landing = document.getElementById('landing-page');
                 landing.classList.add('active');
                 document.getElementById('gallery-section').scrollIntoView({ behavior: 'smooth' });
                 return;
             }
+
             document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
             const target = document.getElementById(hash + '-page');
             if (target) {
                 target.classList.add('active');
-                window.scrollTo(0,0);
+                window.scrollTo(0, 0);
+            }
+
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.toggle('active', link.dataset.page === hash);
+            });
+
+            // Reset booking form state when navigating to booking page
+            if (hash === 'booking') {
+                document.getElementById('bookingSuccess').classList.add('hidden');
+                document.getElementById('bookingForm').classList.remove('hidden');
             }
         }
         window.addEventListener('hashchange', handleRouting);
@@ -457,13 +518,15 @@ function renderDashboard(trips) {
         async function submitBooking() {
             const name = document.getElementById('formName').value;
             const email = document.getElementById('formEmail').value;
+            const phone = document.getElementById('formPhone').value;
+            const date = document.getElementById('formDate').value;
             const pkg = document.getElementById('formPackage').value;
             const count = document.getElementById('formCount').value;
             const btn = document.getElementById('submitBtn');
             const btnText = document.getElementById('btnText');
             const spinner = document.getElementById('btnSpinner');
 
-            if (!name || !email) { alert("Please enter details."); return; }
+            if (!name || !email) { alert("Please enter your name and email."); return; }
 
             btn.disabled = true;
             btnText.innerText = "Requesting...";
@@ -473,15 +536,23 @@ function renderDashboard(trips) {
                 await window.saveBookingToCloud({
                     customerName: name,
                     customerEmail: email,
+                    customerPhone: phone,
+                    travelDate: date,
                     package: pkg,
                     travelerCount: parseInt(count),
                     status: 'pending'
                 });
-                window.location.hash = 'dashboard';
+
+                // Show success, hide form
+                document.getElementById('bookingForm').classList.add('hidden');
+                document.getElementById('bookingSuccess').classList.remove('hidden');
+
                 document.getElementById('formName').value = "";
                 document.getElementById('formEmail').value = "";
+                document.getElementById('formPhone').value = "";
+                document.getElementById('formDate').value = "";
             } catch (err) {
-                alert("Error submitting request.");
+                alert("Error submitting request. Please try again.");
             } finally {
                 btn.disabled = false;
                 btnText.innerText = "Request Destination";
@@ -501,10 +572,7 @@ function renderDashboard(trips) {
 Pioneering luxury private destinations through the heart of Ethiopia. From the rock-hewn heights of Lalibela to the vibrant tribal cultures of the South, we reveal the soul of the Land of Origins.
 </p>
 <div class="flex space-x-4 text-base">
-<a href="https://www.instagram.com/mekuanintasnake?igsh=MWwxc20zbno1NXpjOA==" class="text-slate-400 hover:text-[#C5A059] transition"><i class="fab fa-instagram"></i></a>
-<a href="#" class="text-slate-400 hover:text-[#C5A059] transition"><i class="fab fa-facebook-f"></i></a>
-<a href="#" class="text-slate-400 hover:text-[#C5A059] transition"><i class="fab fa-tripadvisor"></i></a>
-<a href="#" class="text-slate-400 hover:text-[#C5A059] transition"><i class="fab fa-whatsapp"></i></a>
+<a href="https://www.instagram.com/mekuanintasnake?igsh=MWwxc20zbno1NXpjOA==" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-[#C5A059] transition"><i class="fab fa-instagram"></i></a>
 </div>
 </div>
 
@@ -533,7 +601,7 @@ Pioneering luxury private destinations through the heart of Ethiopia. From the r
                 </li>
                 <li class="flex items-center gap-2">
                     <i class="fas fa-phone-alt text-[#C5A059]"></i>
-                    <span>+251 911 000 000</span>
+                    <a href="tel:+251963575717" class="hover:text-white transition">+251 963 575 717</a>
                 </li>
             </ul>
         </div>
