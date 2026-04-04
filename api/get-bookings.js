@@ -9,7 +9,7 @@ async function connectToDatabase() {
     if (!uri) throw new Error('MONGODB_URI environment variable is not defined');
     const client = new MongoClient(uri, { maxPoolSize: 10, serverSelectionTimeoutMS: 5000 });
     await client.connect();
-    const db = client.db('rohatours');
+    const db = client.db('RohaTours');
     cachedClient = client;
     cachedDb = db;
     return { client, db };
