@@ -2,60 +2,222 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RohaTours | Staff Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+    </style>
 </head>
-<body class="bg-gray-100 p-8">
-    <div class="max-w-6xl mx-auto">
-        <h1 class="text-3xl font-bold mb-6">Customer Bookings</h1>
-        
-        <div class="bg-white shadow-md rounded-lg overflow-hidden">
-            <table class="min-w-full leading-normal">
-                <thead>
-                    <tr class="bg-blue-600 text-white text-left text-sm uppercase font-semibold">
-                        <th class="px-5 py-3 border-b">Customer</th>
-                        <th class="px-5 py-3 border-b">Package</th>
-                        <th class="px-5 py-3 border-b">Travelers</th>
-                        <th class="px-5 py-3 border-b">Date</th>
-                        <th class="px-5 py-3 border-b">Status</th>
-                    </tr>
-                </thead>
-                <tbody id="bookingTableBody">
-                    </tbody>
-            </table>
+<body class="bg-stone-50 min-h-screen">
+
+    <!-- Login Screen -->
+    <div id="loginScreen" class="min-h-screen flex items-center justify-center px-4">
+        <div class="bg-white rounded-[32px] shadow-sm border border-stone-200 p-10 w-full max-w-md">
+            <div class="text-center mb-8">
+                <span class="text-2xl font-serif font-bold tracking-wider text-[#1B3022]">ROHA<span class="text-[#C5A059]">TOURS</span></span>
+                <p class="text-slate-500 text-sm mt-2">Staff Portal</p>
+            </div>
+
+            <div id="loginError" class="hidden mb-4 bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3"></div>
+
+            <div class="mb-4">
+                <label class="text-xs font-bold uppercase tracking-widest text-slate-400 block mb-2">Email</label>
+                <input id="loginEmail" type="email" placeholder="staff@rohatours.com"
+                    class="w-full bg-stone-50 border border-stone-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-[#C5A059] text-sm">
+            </div>
+            <div class="mb-6">
+                <label class="text-xs font-bold uppercase tracking-widest text-slate-400 block mb-2">Password</label>
+                <input id="loginPassword" type="password" placeholder="••••••••"
+                    class="w-full bg-stone-50 border border-stone-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-[#C5A059] text-sm">
+            </div>
+            <button onclick="handleLogin()" id="loginBtn"
+                class="w-full bg-[#1B3022] text-white py-4 rounded-2xl font-bold uppercase tracking-widest text-sm hover:bg-[#2a4a34] transition flex items-center justify-center gap-3">
+                <span id="loginBtnText">Sign In</span>
+                <div id="loginSpinner" class="hidden w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+            </button>
         </div>
     </div>
 
-    <script>
-        async function loadBookings() {
-            const tbody = document.getElementById('bookingTableBody');
-            try {
-                const response = await fetch('/api/get-bookings');
-                const data = await response.json();
+    <!-- Dashboard Screen -->
+    <div id="dashboardScreen" class="hidden">
+        <!-- Header -->
+        <nav class="bg-[#1B3022] text-white px-6 py-4 flex justify-between items-center">
+            <span class="text-xl font-serif font-bold tracking-wider">ROHA<span class="text-[#C5A059]">TOURS</span> <span class="text-sm font-sans font-normal text-slate-400 ml-2">Staff Dashboard</span></span>
+            <div class="flex items-center gap-4">
+                <span id="staffEmail" class="text-xs text-slate-400"></span>
+                <button onclick="handleLogout()" class="text-xs font-bold uppercase tracking-widest text-[#C5A059] hover:text-white transition">
+                    <i class="fas fa-sign-out-alt mr-1"></i> Logout
+                </button>
+            </div>
+        </nav>
 
-                tbody.innerHTML = data.map(booking => `
-                    <tr class="border-b hover:bg-gray-50">
-                        <td class="px-5 py-4">
-                            <div class="font-bold">${booking.customerName}</div>
-                            <div class="text-xs text-gray-500">${booking.customerEmail}</div>
+        <div class="max-w-7xl mx-auto px-6 py-10">
+            <!-- Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <div class="bg-white rounded-2xl border border-stone-200 p-6">
+                    <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Total Bookings</p>
+                    <p id="statTotal" class="text-3xl font-serif text-[#1B3022]">—</p>
+                </div>
+                <div class="bg-white rounded-2xl border border-stone-200 p-6">
+                    <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Pending</p>
+                    <p id="statPending" class="text-3xl font-serif text-yellow-600">—</p>
+                </div>
+                <div class="bg-white rounded-2xl border border-stone-200 p-6">
+                    <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Confirmed</p>
+                    <p id="statConfirmed" class="text-3xl font-serif text-green-600">—</p>
+                </div>
+            </div>
+
+            <!-- Bookings Table -->
+            <div class="bg-white rounded-2xl border border-stone-200 overflow-hidden">
+                <div class="px-6 py-4 border-b border-stone-100 flex justify-between items-center">
+                    <h2 class="font-serif text-xl text-[#1B3022]">Customer Bookings</h2>
+                    <button onclick="loadBookings()" class="text-xs font-bold uppercase tracking-widest text-[#C5A059] hover:text-[#1B3022] transition">
+                        <i class="fas fa-sync-alt mr-1"></i> Refresh
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full">
+                        <thead>
+                            <tr class="bg-stone-50 text-left text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                                <th class="px-6 py-3">Customer</th>
+                                <th class="px-6 py-3">Package</th>
+                                <th class="px-6 py-3">Travelers</th>
+                                <th class="px-6 py-3">Travel Date</th>
+                                <th class="px-6 py-3">Booked On</th>
+                                <th class="px-6 py-3">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookingTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCtNaU2YaNiG1Uo9YI2sfQAebedyPYDU_w",
+            authDomain: "rohatours-7bbef.firebaseapp.com",
+            projectId: "rohatours-7bbef",
+            storageBucket: "rohatours-7bbef.firebasestorage.app",
+            messagingSenderId: "67942609321",
+            appId: "1:67942609321:web:8aa7e60d18d66c154914b8"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Auth state listener
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('dashboardScreen').classList.remove('hidden');
+                document.getElementById('staffEmail').textContent = user.email;
+                loadBookings();
+            } else {
+                document.getElementById('loginScreen').classList.remove('hidden');
+                document.getElementById('dashboardScreen').classList.add('hidden');
+            }
+        });
+
+        window.handleLogin = async () => {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const btn = document.getElementById('loginBtn');
+            const btnText = document.getElementById('loginBtnText');
+            const spinner = document.getElementById('loginSpinner');
+            const errorBox = document.getElementById('loginError');
+
+            if (!email || !password) {
+                errorBox.textContent = 'Please enter your email and password.';
+                errorBox.classList.remove('hidden');
+                return;
+            }
+
+            btn.disabled = true;
+            btnText.textContent = 'Signing in...';
+            spinner.classList.remove('hidden');
+            errorBox.classList.add('hidden');
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+            } catch (err) {
+                const messages = {
+                    'auth/invalid-credential': 'Invalid email or password.',
+                    'auth/user-not-found': 'No account found with this email.',
+                    'auth/wrong-password': 'Incorrect password.',
+                    'auth/too-many-requests': 'Too many attempts. Try again later.'
+                };
+                errorBox.textContent = messages[err.code] || 'Login failed. Please try again.';
+                errorBox.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                btnText.textContent = 'Sign In';
+                spinner.classList.add('hidden');
+            }
+        };
+
+        window.handleLogout = async () => {
+            await signOut(auth);
+        };
+
+        window.loadBookings = async () => {
+            const tbody = document.getElementById('bookingTableBody');
+            tbody.innerHTML = `<tr><td colspan="6" class="px-6 py-8 text-center text-slate-400 text-sm">Loading...</td></tr>`;
+
+            try {
+                const q = query(collection(db, 'bookings'), orderBy('createdAt', 'desc'));
+                const snapshot = await getDocs(q);
+                const bookings = [];
+                snapshot.forEach(doc => bookings.push({ id: doc.id, ...doc.data() }));
+
+                // Update stats
+                document.getElementById('statTotal').textContent = bookings.length;
+                document.getElementById('statPending').textContent = bookings.filter(b => b.status === 'pending').length;
+                document.getElementById('statConfirmed').textContent = bookings.filter(b => b.status === 'confirmed').length;
+
+                if (bookings.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="6" class="px-6 py-8 text-center text-slate-400 text-sm">No bookings yet.</td></tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = bookings.map(b => `
+                    <tr class="border-t border-stone-100 hover:bg-stone-50 transition">
+                        <td class="px-6 py-4">
+                            <div class="font-semibold text-sm text-[#1B3022]">${b.customerName || '—'}</div>
+                            <div class="text-xs text-slate-400">${b.customerEmail || ''}</div>
+                            ${b.customerPhone ? `<div class="text-xs text-slate-400">${b.customerPhone}</div>` : ''}
                         </td>
-                        <td class="px-5 py-4">${booking.package}</td>
-                        <td class="px-5 py-4">${booking.travelerCount}</td>
-                        <td class="px-5 py-4 text-sm">
-                            ${new Date(booking.createdAt).toLocaleDateString()}
-                        </td>
-                        <td class="px-5 py-4">
-                            <span class="px-2 py-1 text-xs font-bold rounded bg-yellow-100 text-yellow-800">
-                                ${booking.status}
+                        <td class="px-6 py-4 text-sm">${b.package || '—'}</td>
+                        <td class="px-6 py-4 text-sm">${b.travelerCount || '—'}</td>
+                        <td class="px-6 py-4 text-sm">${b.travelDate || '—'}</td>
+                        <td class="px-6 py-4 text-xs text-slate-400">${b.createdAt?.toDate ? b.createdAt.toDate().toLocaleDateString() : '—'}</td>
+                        <td class="px-6 py-4">
+                            <span class="px-3 py-1 text-[10px] font-bold uppercase rounded-full ${b.status === 'confirmed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">
+                                ${b.status || 'pending'}
                             </span>
                         </td>
                     </tr>
                 `).join('');
             } catch (err) {
-                tbody.innerHTML = '<tr><td colspan="5" class="p-5 text-red-500">Error loading data</td></tr>';
+                tbody.innerHTML = `<tr><td colspan="6" class="px-6 py-8 text-center text-red-500 text-sm">Error loading bookings: ${err.message}</td></tr>`;
             }
-        }
-        loadBookings();
+        };
+
+        // Allow Enter key on login form
+        document.getElementById('loginPassword').addEventListener('keydown', e => {
+            if (e.key === 'Enter') window.handleLogin();
+        });
     </script>
 </body>
 </html>
