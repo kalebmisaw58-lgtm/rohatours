@@ -20,115 +20,76 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
-    <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    <script>
+        // Save booking to MongoDB via API
+        window.saveBookingToCloud = async (bookingData) => {
+            const res = await fetch('/api/bookings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(bookingData)
+            });
+            if (!res.ok) throw new Error('Booking failed');
+            const data = await res.json();
+            // Store email in sessionStorage so My Trips can filter
+            sessionStorage.setItem('bookedEmail', bookingData.customerEmail);
+            return data.id;
+        };
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCtNaU2YaNiG1Uo9YI2sfQAebedyPYDU_w",
-  authDomain: "rohatours-7bbef.firebaseapp.com",
-  projectId: "rohatours-7bbef",
-  storageBucket: "rohatours-7bbef.firebasestorage.app",
-  messagingSenderId: "67942609321",
-  appId: "1:67942609321:web:8aa7e60d18d66c154914b8"
-};
+        // Load trips for this user by email
+        window.loadMyTrips = async () => {
+            const container = document.getElementById('trips-container');
+            const loading = document.getElementById('trips-loading');
+            if (loading) loading.remove();
+            container.innerHTML = '';
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
-
-let unsubscribeTrips = null;
-
-async function initAuth() {
-    try {
-        await signInAnonymously(auth);
-    } catch (error) {
-        console.error("Auth failed", error);
-    }
-}
-
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        setupTripsListener(user.uid);
-    }
-});
-
-function setupTripsListener(uid) {
-    const tripsCol = collection(db, 'bookings');
-
-    unsubscribeTrips = onSnapshot(tripsCol, (snapshot) => {
-        const trips = [];
-        snapshot.forEach((doc) => {
-            const data = doc.data();
-            if (data.userId === uid) {
-                trips.push({ id: doc.id, ...data });
+            const email = sessionStorage.getItem('bookedEmail');
+            if (!email) {
+                container.innerHTML = `
+                    <div class="text-center py-16">
+                        <i class="fas fa-suitcase-rolling text-4xl text-stone-300 mb-4 block"></i>
+                        <p class="text-slate-500 text-sm">Book a trip to see it here.</p>
+                        <a href="#booking" class="inline-block mt-4 btn-gold px-8 py-3 rounded-full text-sm font-bold uppercase tracking-widest">Book a Destination</a>
+                    </div>`;
+                return;
             }
-        });
-        renderDashboard(trips);
-    });
-}
 
-window.saveBookingToCloud = async (bookingData) => {
-    if (!auth.currentUser) await initAuth();
+            try {
+                const res = await fetch('/api/bookings');
+                const all = await res.json();
+                const trips = all.filter(b => b.customerEmail === email);
 
-    const bookingsCol = collection(db, 'bookings');
+                if (trips.length === 0) {
+                    container.innerHTML = `
+                        <div class="text-center py-16">
+                            <i class="fas fa-suitcase-rolling text-4xl text-stone-300 mb-4 block"></i>
+                            <p class="text-slate-500 text-sm">No trips found for ${email}.</p>
+                            <a href="#booking" class="inline-block mt-4 btn-gold px-8 py-3 rounded-full text-sm font-bold uppercase tracking-widest">Book a Destination</a>
+                        </div>`;
+                    return;
+                }
 
-    const docRef = await addDoc(bookingsCol, {
-        ...bookingData,
-        userId: auth.currentUser.uid,
-        createdAt: serverTimestamp()
-    });
-
-    return docRef.id;
-};
-
-initAuth();
-function renderDashboard(trips) {
-    const container = document.getElementById('trips-container');
-    if (!container) return;
-
-    // Remove loading skeleton
-    const loading = document.getElementById('trips-loading');
-    if (loading) loading.remove();
-
-    // Clear previous content
-    container.innerHTML = '';
-
-    if (trips.length === 0) {
-        container.innerHTML = `
-            <div class="text-center py-16">
-                <i class="fas fa-suitcase-rolling text-4xl text-stone-300 mb-4 block"></i>
-                <p class="text-slate-500 text-sm">You have no trips booked yet.</p>
-                <a href="#booking" class="inline-block mt-4 btn-gold px-8 py-3 rounded-full text-sm font-bold uppercase tracking-widest">Book a Destination</a>
-            </div>`;
-        return;
-    }
-
-    // Add trips dynamically
-    trips.forEach(trip => {
-        const div = document.createElement('div');
-        div.className = 'bg-white p-6 rounded-2xl shadow flex flex-col md:flex-row justify-between items-start md:items-center gap-4';
-
-        div.innerHTML = `
-            <div>
-                <h3 class="font-serif text-xl text-[#1B3022] mb-1">${trip.package}</h3>
-                <p class="text-sm text-slate-500 mb-2">Name: ${trip.customerName}</p>
-                <p class="text-sm text-slate-500 mb-2">Email: ${trip.customerEmail}</p>
-                ${trip.customerPhone ? `<p class="text-sm text-slate-500 mb-2">Phone: ${trip.customerPhone}</p>` : ''}
-                ${trip.travelDate ? `<p class="text-sm text-slate-500 mb-2">Travel Date: ${trip.travelDate}</p>` : ''}
-                <p class="text-sm text-slate-500">Travelers: ${trip.travelerCount}</p>
-            </div>
-            <span class="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full 
-                         ${trip.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'}">
-                ${trip.status}
-            </span>
-        `;
-
-        container.appendChild(div);
-    });
-}
-</script>
+                trips.forEach(trip => {
+                    const div = document.createElement('div');
+                    div.className = 'bg-white p-6 rounded-2xl shadow flex flex-col md:flex-row justify-between items-start md:items-center gap-4';
+                    div.innerHTML = `
+                        <div>
+                            <h3 class="font-serif text-xl text-[#1B3022] mb-1">${trip.package}</h3>
+                            <p class="text-sm text-slate-500 mb-2">Name: ${trip.customerName}</p>
+                            <p class="text-sm text-slate-500 mb-2">Email: ${trip.customerEmail}</p>
+                            ${trip.customerPhone ? `<p class="text-sm text-slate-500 mb-2">Phone: ${trip.customerPhone}</p>` : ''}
+                            ${trip.travelDate ? `<p class="text-sm text-slate-500 mb-2">Travel Date: ${trip.travelDate}</p>` : ''}
+                            <p class="text-sm text-slate-500">Travelers: ${trip.travelerCount}</p>
+                        </div>
+                        <span class="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full ${trip.status === 'confirmed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">
+                            ${trip.status}
+                        </span>`;
+                    container.appendChild(div);
+                });
+            } catch (err) {
+                container.innerHTML = `<p class="text-red-500 text-sm">Error loading trips. Please try again.</p>`;
+            }
+        };
+    </script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap');
@@ -505,6 +466,11 @@ function renderDashboard(trips) {
             if (hash === 'booking') {
                 document.getElementById('bookingSuccess').classList.add('hidden');
                 document.getElementById('bookingForm').classList.remove('hidden');
+            }
+
+            // Load trips when navigating to dashboard
+            if (hash === 'dashboard') {
+                window.loadMyTrips();
             }
         }
         window.addEventListener('hashchange', handleRouting);

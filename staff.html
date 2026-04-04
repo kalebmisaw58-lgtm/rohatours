@@ -99,76 +99,44 @@
         </div>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    <script>
+        const STAFF_PASSWORD = 'rohatours2026';
+        const SESSION_KEY = 'staff_auth';
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCtNaU2YaNiG1Uo9YI2sfQAebedyPYDU_w",
-            authDomain: "rohatours-7bbef.firebaseapp.com",
-            projectId: "rohatours-7bbef",
-            storageBucket: "rohatours-7bbef.firebasestorage.app",
-            messagingSenderId: "67942609321",
-            appId: "1:67942609321:web:8aa7e60d18d66c154914b8"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        // Auth state listener
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                document.getElementById('loginScreen').classList.add('hidden');
-                document.getElementById('dashboardScreen').classList.remove('hidden');
-                document.getElementById('staffEmail').textContent = user.email;
-                loadBookings();
-            } else {
-                document.getElementById('loginScreen').classList.remove('hidden');
-                document.getElementById('dashboardScreen').classList.add('hidden');
+        function checkAuth() {
+            if (sessionStorage.getItem(SESSION_KEY) === 'true') {
+                showDashboard();
             }
-        });
+        }
 
-        window.handleLogin = async () => {
+        function showDashboard() {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('dashboardScreen').classList.remove('hidden');
+            loadBookings();
+        }
+
+        window.handleLogin = () => {
             const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPassword').value;
-            const btn = document.getElementById('loginBtn');
-            const btnText = document.getElementById('loginBtnText');
-            const spinner = document.getElementById('loginSpinner');
             const errorBox = document.getElementById('loginError');
 
-            if (!email || !password) {
-                errorBox.textContent = 'Please enter your email and password.';
+            if (email !== 'kalebmisaw58@gmail.com' || password !== STAFF_PASSWORD) {
+                errorBox.textContent = 'Invalid email or password.';
                 errorBox.classList.remove('hidden');
                 return;
             }
 
-            btn.disabled = true;
-            btnText.textContent = 'Signing in...';
-            spinner.classList.remove('hidden');
+            sessionStorage.setItem(SESSION_KEY, 'true');
+            document.getElementById('staffEmail').textContent = email;
             errorBox.classList.add('hidden');
-
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-            } catch (err) {
-                const messages = {
-                    'auth/invalid-credential': 'Invalid email or password.',
-                    'auth/user-not-found': 'No account found with this email.',
-                    'auth/wrong-password': 'Incorrect password.',
-                    'auth/too-many-requests': 'Too many attempts. Try again later.'
-                };
-                errorBox.textContent = messages[err.code] || 'Login failed. Please try again.';
-                errorBox.classList.remove('hidden');
-            } finally {
-                btn.disabled = false;
-                btnText.textContent = 'Sign In';
-                spinner.classList.add('hidden');
-            }
+            showDashboard();
         };
 
-        window.handleLogout = async () => {
-            await signOut(auth);
+        window.handleLogout = () => {
+            sessionStorage.removeItem(SESSION_KEY);
+            document.getElementById('loginScreen').classList.remove('hidden');
+            document.getElementById('dashboardScreen').classList.add('hidden');
+            document.getElementById('loginPassword').value = '';
         };
 
         window.loadBookings = async () => {
@@ -176,12 +144,9 @@
             tbody.innerHTML = `<tr><td colspan="6" class="px-6 py-8 text-center text-slate-400 text-sm">Loading...</td></tr>`;
 
             try {
-                const q = query(collection(db, 'bookings'), orderBy('createdAt', 'desc'));
-                const snapshot = await getDocs(q);
-                const bookings = [];
-                snapshot.forEach(doc => bookings.push({ id: doc.id, ...doc.data() }));
+                const res = await fetch('/api/bookings');
+                const bookings = await res.json();
 
-                // Update stats
                 document.getElementById('statTotal').textContent = bookings.length;
                 document.getElementById('statPending').textContent = bookings.filter(b => b.status === 'pending').length;
                 document.getElementById('statConfirmed').textContent = bookings.filter(b => b.status === 'confirmed').length;
@@ -201,7 +166,7 @@
                         <td class="px-6 py-4 text-sm">${b.package || '—'}</td>
                         <td class="px-6 py-4 text-sm">${b.travelerCount || '—'}</td>
                         <td class="px-6 py-4 text-sm">${b.travelDate || '—'}</td>
-                        <td class="px-6 py-4 text-xs text-slate-400">${b.createdAt?.toDate ? b.createdAt.toDate().toLocaleDateString() : '—'}</td>
+                        <td class="px-6 py-4 text-xs text-slate-400">${b.createdAt ? new Date(b.createdAt).toLocaleDateString() : '—'}</td>
                         <td class="px-6 py-4">
                             <span class="px-3 py-1 text-[10px] font-bold uppercase rounded-full ${b.status === 'confirmed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">
                                 ${b.status || 'pending'}
@@ -210,14 +175,15 @@
                     </tr>
                 `).join('');
             } catch (err) {
-                tbody.innerHTML = `<tr><td colspan="6" class="px-6 py-8 text-center text-red-500 text-sm">Error loading bookings: ${err.message}</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" class="px-6 py-8 text-center text-red-500 text-sm">Error: ${err.message}</td></tr>`;
             }
         };
 
-        // Allow Enter key on login form
         document.getElementById('loginPassword').addEventListener('keydown', e => {
             if (e.key === 'Enter') window.handleLogin();
         });
+
+        checkAuth();
     </script>
 </body>
 </html>
