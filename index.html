@@ -23,16 +23,20 @@
     <script>
         // Save booking to MongoDB via API
         window.saveBookingToCloud = async (bookingData) => {
-            const res = await fetch('/api/bookings', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(bookingData)
-            });
-            if (!res.ok) throw new Error('Booking failed');
-            const data = await res.json();
-            // Store email in sessionStorage so My Trips can filter
-            sessionStorage.setItem('bookedEmail', bookingData.customerEmail);
-            return data.id;
+            try {
+                const res = await fetch('/api/bookings', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(bookingData)
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || data.message || 'Unknown error');
+                // Store email in sessionStorage so My Trips can filter
+                sessionStorage.setItem('bookedEmail', bookingData.customerEmail);
+                return data.id;
+            } catch(e) {
+                throw e;
+            }
         };
 
         // Load trips for this user by email
@@ -524,7 +528,7 @@
                 document.getElementById('formPhone').value = "";
                 document.getElementById('formDate').value = "";
             } catch (err) {
-                alert("Error submitting request. Please try again.");
+                alert("Error: " + err.message);
             } finally {
                 btn.disabled = false;
                 btnText.innerText = "Request Destination";

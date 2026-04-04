@@ -57,6 +57,12 @@ export default async function handler(req, res) {
 
     } catch (error) {
         console.error('API Error:', error);
-        return res.status(500).json({ success: false, message: 'Internal Server Error', error: error.message });
+        return res.status(500).json({ 
+            success: false, 
+            message: error.message.includes('MONGODB_URI') 
+                ? 'Database not configured. MONGODB_URI missing.' 
+                : 'Internal Server Error', 
+            error: error.message 
+        });
     }
 }
