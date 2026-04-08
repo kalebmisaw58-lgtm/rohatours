@@ -211,35 +211,85 @@
         /* Dark mode */
         body.dark {
             --cream: #0f1a13;
-            --stone: #1a2b1f;
-            --stone-dark: #243528;
-            background-color: var(--cream) !important;
-            color: #e8e0d0;
+            --stone: #162318;
+            --stone-dark: #1e3025;
+            background-color: #0f1a13 !important;
+            color: #e8e0d0 !important;
         }
-        body.dark .glass-nav { background: rgba(15,26,19,0.97); border-color: #243528; }
-        body.dark .destination-card { background: #1a2b1f !important; border-color: #2d4a35; color: #e8e0d0; }
-        body.dark .destination-card:hover { border-color: var(--gold); }
-        body.dark .inclusion-item { color: #a0b8a8; }
-        body.dark .form-input { background: #1a2b1f; border-color: #2d4a35; color: #e8e0d0; }
-        body.dark .form-input::placeholder { color: #6b8a74; }
-        body.dark .bg-white { background-color: #1a2b1f !important; }
+
+        /* Nav */
+        body.dark .glass-nav {
+            background: rgba(10, 18, 12, 0.97) !important;
+            border-color: #1e3025 !important;
+        }
+        body.dark .glass-nav .nav-link { color: #c8d8cc !important; }
+        body.dark .glass-nav .nav-link:hover { color: var(--gold) !important; }
+        body.dark .glass-nav span { color: #e8e0d0 !important; }
+
+        /* Mobile menu */
+        body.dark #mobile-menu {
+            background-color: #0f1a13 !important;
+            color: #e8e0d0 !important;
+        }
+        body.dark #mobile-menu a { color: #e8e0d0 !important; }
+
+        /* All page backgrounds */
+        body.dark .page-view,
+        body.dark [id$="-page"] { background-color: #0f1a13 !important; }
+        body.dark [style*="background-color: var(--stone)"] { background-color: #162318 !important; }
+        body.dark [style*="background-color: var(--cream)"] { background-color: #0f1a13 !important; }
+        body.dark [style*="background: linear-gradient(180deg, white"] { background: linear-gradient(180deg, #162318 0%, #0f1a13 100%) !important; }
+        body.dark [style*="background: linear-gradient(135deg, var(--green"] { background: linear-gradient(135deg, #0a1209 0%, #162318 100%) !important; }
+
+        /* Cards & white backgrounds */
+        body.dark .bg-white,
+        body.dark .destination-card,
+        body.dark .destination-card .bg-stone-50 { background-color: #1a2b1f !important; }
+        body.dark .destination-card { border-color: #2d4a35 !important; color: #e8e0d0 !important; }
+        body.dark .destination-card:hover { border-color: var(--gold) !important; box-shadow: 0 20px 40px rgba(0,0,0,0.4) !important; }
+        body.dark .rounded-\[40px\] { background-color: #1a2b1f !important; }
+
+        /* Text */
+        body.dark h1, body.dark h2, body.dark h3, body.dark h4 { color: #f0e8d8 !important; }
+        body.dark p, body.dark span:not(.text-\[#C5A059\]):not(.btn-gold) { color: #c8d8cc; }
+        body.dark .text-slate-400 { color: #7a9a84 !important; }
         body.dark .text-slate-500 { color: #8aaa94 !important; }
         body.dark .text-slate-600 { color: #9ab8a4 !important; }
         body.dark .text-slate-800 { color: #e8e0d0 !important; }
+        body.dark .text-\[#1B3022\] { color: #a8d4b4 !important; }
+
+        /* Borders */
         body.dark .border-stone-200 { border-color: #2d4a35 !important; }
-        body.dark footer { background-color: #0a1209 !important; }
-        body.dark #mobile-menu { background-color: #0f1a13; }
-        body.dark [style*="background-color: var(--stone)"] { background-color: #1a2b1f !important; }
-        body.dark [style*="background: linear-gradient(180deg, white"] { background: linear-gradient(180deg, #1a2b1f 0%, #0f1a13 100%) !important; }
+        body.dark .border-stone-100 { border-color: #1e3025 !important; }
+
+        /* Inclusion items */
+        body.dark .inclusion-item { color: #8aaa94 !important; }
+
+        /* Form inputs */
+        body.dark .form-input { background: #1a2b1f !important; border-color: #2d4a35 !important; color: #e8e0d0 !important; }
+        body.dark .form-input::placeholder { color: #5a7a64 !important; }
+        body.dark select.form-input option { background: #1a2b1f; color: #e8e0d0; }
+
+        /* About page quote box */
+        body.dark .bg-\[#1B3022\] { background-color: #0a1209 !important; }
+
+        /* Dashboard trips */
+        body.dark #trips-container .bg-white { background-color: #1a2b1f !important; }
+
+        /* Success box */
+        body.dark .bg-green-50 { background-color: #0d2010 !important; }
+
+        /* Footer */
+        body.dark footer { background-color: #060e08 !important; }
 
         /* Toggle */
         .theme-toggle { width: 44px; height: 24px; background: var(--stone-dark); border-radius: 12px; position: relative; cursor: pointer; transition: background 0.3s; border: 1px solid var(--gold); flex-shrink: 0; }
-        .theme-toggle::after { content: ''; position: absolute; width: 18px; height: 18px; background: var(--gold); border-radius: 50%; top: 2px; left: 2px; transition: transform 0.3s; }
-        body.dark .theme-toggle { background: var(--green-mid); }
-        body.dark .theme-toggle::after { transform: translateX(20px); }
+        .theme-toggle::after { content: '☀️'; display: flex; align-items: center; justify-content: center; font-size: 10px; position: absolute; width: 18px; height: 18px; background: var(--gold); border-radius: 50%; top: 2px; left: 2px; transition: transform 0.3s; }
+        body.dark .theme-toggle { background: #1a2b1f; }
+        body.dark .theme-toggle::after { content: '🌙'; transform: translateX(20px); }
     </style>
 </head>
-<body class="text-slate-800" style="background-color: var(--cream)">
+<body class="text-slate-800">
 
     <nav class="fixed w-full z-50 glass-nav border-b border-stone-200">
         <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
@@ -282,8 +332,7 @@
             <!-- Video background -->
             <div class="hero-video-wrap">
                 <video autoplay muted loop playsinline>
-                    <source src="https://cdn.coverr.co/videos/coverr-aerial-view-of-ethiopian-highlands-1080p-5678/mp4" type="video/mp4">
-                    <!-- Fallback to image if video fails -->
+                    <source src="https://videos.pexels.com/video-files/13240700/13240700-uhd_2560_1440_24fps.mp4" type="video/mp4">
                 </video>
             </div>
             <!-- Fallback bg in case video doesn't load -->
@@ -342,7 +391,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-24">
                 <div class="relative">
                     <div class="aspect-[4/5] rounded-[40px] overflow-hidden shadow-2xl">
-                        <img src="IMG-20230128-WA0030.jpg" loading="lazy" alt="Lead Tour Guide" class="w-full h-full object-cover">
+                        <img src="C:\Users\kaleb\OneDrive\Desktop\rohatours\Public\IMG-20230128-WA0030.jpg" loading="lazy" alt="Lead Tour Guide" class="w-full h-full object-cover">
                     </div>
                     <div class="absolute -bottom-6 -right-6 bg-[#1B3022] p-8 rounded-3xl text-white shadow-xl hidden lg:block max-w-xs">
                         <p class="font-serif italic text-lg mb-2">"Ethiopia is not a destination you visit; it is a story you enter."</p>
@@ -493,7 +542,7 @@
 
                 <!-- Simien Mountains -->
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://www.istockphoto.com/photo/cold-gm165418564-22596793?utm_source=unsplash&utm_medium=affiliate&utm_campaign=srp_photos_zsr&utm_content=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fsemein-mountains&utm_term=semein+mountains%3A%3A%3A%3A46bc394d-8579-431c-8b06-158c5102ff0e')"></div>
                     <div class="p-8 flex-grow">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">4 Days • Highland Trek</span>
                         <h3 class="text-2xl font-serif mb-2">Simien Mountains</h3>
