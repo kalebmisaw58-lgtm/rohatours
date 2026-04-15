@@ -120,8 +120,6 @@
     </div>
 
     <script>
-        const STAFF_EMAIL = 'kalebmisaw58@gmail.com';
-        const STAFF_PASSWORD = 'rohatours2026';
         const SESSION_KEY = 'staff_auth';
         let allBookings = [];
         let currentFilter = 'all';
@@ -131,29 +129,50 @@
         }
 
         function showDashboard() {
+            const email = sessionStorage.getItem('staff_email') || '';
             document.getElementById('loginScreen').classList.add('hidden');
             document.getElementById('dashboardScreen').classList.remove('hidden');
-            document.getElementById('staffEmail').textContent = STAFF_EMAIL;
+            document.getElementById('staffEmail').textContent = email;
             loadBookings();
         }
 
-        window.handleLogin = () => {
+        window.handleLogin = async () => {
             const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPassword').value;
             const errorBox = document.getElementById('loginError');
+            const btn = document.getElementById('loginBtn');
+            const btnText = document.getElementById('loginBtnText');
+            const spinner = document.getElementById('loginSpinner');
 
-            if (email !== STAFF_EMAIL || password !== STAFF_PASSWORD) {
-                errorBox.textContent = 'Invalid email or password.';
-                errorBox.classList.remove('hidden');
-                return;
-            }
-            sessionStorage.setItem(SESSION_KEY, 'true');
+            btn.disabled = true;
+            btnText.textContent = 'Signing in...';
+            spinner.classList.remove('hidden');
             errorBox.classList.add('hidden');
-            showDashboard();
+
+            try {
+                const res = await fetch('/api/staff-login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.message || 'Invalid credentials.');
+                sessionStorage.setItem(SESSION_KEY, 'true');
+                sessionStorage.setItem('staff_email', email);
+                showDashboard();
+            } catch (err) {
+                errorBox.textContent = err.message;
+                errorBox.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                btnText.textContent = 'Sign In';
+                spinner.classList.add('hidden');
+            }
         };
 
         window.handleLogout = () => {
             sessionStorage.removeItem(SESSION_KEY);
+            sessionStorage.removeItem('staff_email');
             document.getElementById('loginScreen').classList.remove('hidden');
             document.getElementById('dashboardScreen').classList.add('hidden');
             document.getElementById('loginPassword').value = '';
