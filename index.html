@@ -282,6 +282,10 @@
         /* Footer */
         body.dark footer { background-color: #060e08 !important; }
 
+        /* Trust strip & testimonials dark mode */
+        body.dark .rounded-\[28px\] { background-color: #1a2b1f !important; border-color: #2d4a35 !important; }
+        body.dark .rounded-\[28px\]:hover { border-color: var(--gold) !important; }
+
         /* Lightbox */
         #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 100; align-items: center; justify-content: center; }
         #lightbox.open { display: flex; }
@@ -457,6 +461,177 @@
                 </div>
             </div>
         </section>
+
+        <!-- ===== WHY ROHATOURS TRUST STRIP ===== -->
+        <section class="py-20 border-b" style="background-color: var(--cream)">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-14">
+                    <span class="text-[#C5A059] font-bold uppercase tracking-[0.3em] text-sm mb-3 block">Why Travel With Us</span>
+                    <h2 class="text-4xl font-serif" style="color: var(--green-deep)">The RohaTours Difference</h2>
+                    <div class="gold-divider"></div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="text-center p-8 rounded-[28px] border border-stone-200 bg-white hover:border-[#C5A059] hover:shadow-lg transition-all duration-300">
+                        <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5" style="background-color: rgba(197,160,89,0.12)">
+                            <i class="fas fa-user-tie text-2xl" style="color: var(--gold)"></i>
+                        </div>
+                        <h3 class="font-serif text-xl mb-3" style="color: var(--green-deep)">Private & Exclusive</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">Every expedition is tailored to you — no group tours, no compromises. Your pace, your interests.</p>
+                    </div>
+                    <div class="text-center p-8 rounded-[28px] border border-stone-200 bg-white hover:border-[#C5A059] hover:shadow-lg transition-all duration-300">
+                        <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5" style="background-color: rgba(197,160,89,0.12)">
+                            <i class="fas fa-map-marked-alt text-2xl" style="color: var(--gold)"></i>
+                        </div>
+                        <h3 class="font-serif text-xl mb-3" style="color: var(--green-deep)">Local Expertise</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">Born and raised in Ethiopia, our guides carry ancestral knowledge no guidebook can replicate.</p>
+                    </div>
+                    <div class="text-center p-8 rounded-[28px] border border-stone-200 bg-white hover:border-[#C5A059] hover:shadow-lg transition-all duration-300">
+                        <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5" style="background-color: rgba(197,160,89,0.12)">
+                            <i class="fas fa-leaf text-2xl" style="color: var(--gold)"></i>
+                        </div>
+                        <h3 class="font-serif text-xl mb-3" style="color: var(--green-deep)">Sustainable Travel</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">We travel responsibly — supporting local communities and preserving the environments we explore.</p>
+                    </div>
+                    <div class="text-center p-8 rounded-[28px] border border-stone-200 bg-white hover:border-[#C5A059] hover:shadow-lg transition-all duration-300">
+                        <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5" style="background-color: rgba(197,160,89,0.12)">
+                            <i class="fas fa-headset text-2xl" style="color: var(--gold)"></i>
+                        </div>
+                        <h3 class="font-serif text-xl mb-3" style="color: var(--green-deep)">24/7 Support</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">From first inquiry to final farewell, we're with you every step of the journey.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== DESTINATION PREVIEW STRIP ===== -->
+        <section class="py-20 border-b" style="background-color: var(--stone)">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-14">
+                    <span class="text-[#C5A059] font-bold uppercase tracking-[0.3em] text-sm mb-3 block">Top Destinations</span>
+                    <h2 class="text-4xl font-serif" style="color: var(--green-deep)">Where Will You Go?</h2>
+                    <div class="gold-divider"></div>
+                    <p class="text-slate-500 mt-4">Handpicked for their unique charm, cultural significance, and breathtaking beauty.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="#destinations" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm block">
+                        <img src="https://images.unsplash.com/flagged/photo-1572644973628-e9be84915d59?w=600&auto=format&fit=crop&q=70" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lalibela">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6">
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">3 Days • Spiritual Marvel</span>
+                            <h3 class="text-white font-serif text-2xl">Lalibela</h3>
+                        </div>
+                    </a>
+                    <a href="#destinations" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm block">
+                        <img src="https://images.unsplash.com/photo-1564101151838-630e722d7b1f?w=600&auto=format&fit=crop&q=70" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Danakil">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6">
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">4 Days • Geological Wonder</span>
+                            <h3 class="text-white font-serif text-2xl">Danakil</h3>
+                        </div>
+                    </a>
+                    <a href="#destinations" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm block">
+                        <img src="https://images.unsplash.com/photo-1524734627574-bbb084c4ee66?w=600&auto=format&fit=crop&q=70" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Omo Valley">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6">
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">5 Days • Cultural Immersion</span>
+                            <h3 class="text-white font-serif text-2xl">Omo Valley</h3>
+                        </div>
+                    </a>
+                    <a href="#destinations" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm block">
+                        <img src="https://images.unsplash.com/photo-1608634193723-1865aa4416ce?w=600&auto=format&fit=crop&q=70" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Gondar">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6">
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">2 Days • Royal History</span>
+                            <h3 class="text-white font-serif text-2xl">Gondar</h3>
+                        </div>
+                    </a>
+                    <a href="#destinations" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm block">
+                        <img src="https://media.istockphoto.com/id/186914973/photo/obelisk-in-the-aksum-kingdom-ethiopia.webp?a=1&b=1&s=612x612&w=0&k=20&c=cNH4mhbn4sIrWgV0SIf-NVjfQGCF1wn0HI0YuchvuyE=" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Axum">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6">
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">2 Days • Ancient Civilization</span>
+                            <h3 class="text-white font-serif text-2xl">Axum</h3>
+                        </div>
+                    </a>
+                    <a href="#destinations" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm block">
+                        <img src="https://images.unsplash.com/photo-1518079562269-53db1e4433b8?w=600&auto=format&fit=crop&q=70" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Simien Mountains">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6">
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">4 Days • Highland Trek</span>
+                            <h3 class="text-white font-serif text-2xl">Simien Mountains</h3>
+                        </div>
+                    </a>
+                </div>
+                <div class="text-center mt-12">
+                    <a href="#destinations" class="inline-block border-2 border-[#C5A059] text-[#C5A059] px-10 py-4 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-white transition-all duration-300">View All Destinations</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== TESTIMONIALS ===== -->
+        <section class="py-20" style="background-color: var(--cream)">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-14">
+                    <span class="text-[#C5A059] font-bold uppercase tracking-[0.3em] text-sm mb-3 block">Real Voices</span>
+                    <h2 class="text-4xl font-serif" style="color: var(--green-deep)">What Our Travelers Say</h2>
+                    <div class="gold-divider"></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-[28px] border border-stone-200 shadow-sm flex flex-col">
+                        <div class="flex gap-1 mb-4">
+                            <i class="fas fa-star text-[#C5A059] text-sm"></i>
+                            <i class="fas fa-star text-[#C5A059] text-sm"></i>
+                            <i class="fas fa-star text-[#C5A059] text-sm"></i>
+                            <i class="fas fa-star text-[#C5A059] text-sm"></i>
+                            <i class="fas fa-star text-[#C5A059] text-sm"></i>
+                        </div>
+                        <p class="text-slate-600 leading-relaxed italic flex-grow">"Mekuanent's knowledge of Lalibela is unmatched. He took us through passages and stories that no guidebook mentions. Truly a once-in-a-lifetime experience."</p>
+                        <div class="flex items-center gap-3 mt-6 pt-6 border-t border-stone-100">
+                            <div class="w-10 h-10 rounded-full bg-[#1B3022] flex items-center justify-center text-white font-bold text-sm">S</div>
+                            <div>
+                                <span class="block text-sm font-bold text-[#1B3022]">Sarah M.</span>
+                                <span class="text-xs text-slate-400">United Kingdom • Lalibela Tour</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-8 rounded-[28px] border border-stone-200 shadow-sm flex flex-col">
+                        <div class="flex gap-1 mb-4">
+                            <i class="fas fa-star text-[#C5A059] text-sm"></i>
+                            <i class="fas fa-star text-[#C5A059] text-sm"></i>
+                            <i class="fas fa-star text-[#C5A059] text-sm"></i>
+                            <i class="fas fa-star text-[#C5A059] text-sm"></i>
+                            <i class="fas fa-star text-[#C5A059] text-sm"></i>
+                        </div>
+                        <p class="text-slate-600 leading-relaxed italic flex-grow">"The Danakil expedition was the most surreal thing I've ever done. Everything was perfectly organized — logistics, safety, food. I felt completely taken care of in the most extreme landscape on Earth."</p>
+                        <div class="flex items-center gap-3 mt-6 pt-6 border-t border-stone-100">
+                            <div class="w-10 h-10 rounded-full bg-[#1B3022] flex items-center justify-center text-white font-bold text-sm">J</div>
+                            <div>
+                                <span class="block text-sm font-bold text-[#1B3022]">James R.</span>
+                                <span class="text-xs text-slate-400">United States • Danakil Adventure</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-8 rounded-[28px] border border-stone-200 shadow-sm flex flex-col">
+                        <div class="flex gap-1 mb-4">
+                            <i class="fas fa-star text-[#C5A059] text-sm"></i>
+                            <i class="fas fa-star text-[#C5A059] text-sm"></i>
+                            <i class="fas fa-star text-[#C5A059] text-sm"></i>
+                            <i class="fas fa-star text-[#C5A059] text-sm"></i>
+                            <i class="fas fa-star text-[#C5A059] text-sm"></i>
+                        </div>
+                        <p class="text-slate-600 leading-relaxed italic flex-grow">"We did the Omo Valley tribes tour and it changed our perspective on the world. RohaTours handled everything with such care and respect for the local communities. We'll be back."</p>
+                        <div class="flex items-center gap-3 mt-6 pt-6 border-t border-stone-100">
+                            <div class="w-10 h-10 rounded-full bg-[#1B3022] flex items-center justify-center text-white font-bold text-sm">A</div>
+                            <div>
+                                <span class="block text-sm font-bold text-[#1B3022]">Amelia K.</span>
+                                <span class="text-xs text-slate-400">Germany • Omo Valley Tribes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
 
     <div id="about-page" class="page-view pt-32 pb-24" style="background: linear-gradient(180deg, white 0%, var(--stone) 100%)">
