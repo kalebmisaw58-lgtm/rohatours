@@ -241,25 +241,42 @@
         body.dark [style*="background: linear-gradient(135deg, var(--green"] { background: linear-gradient(135deg, #0a1209 0%, #162318 100%) !important; }
 
         /* Cards & white backgrounds */
-        body.dark .bg-white,
+        body.dark .bg-white { background-color: #1a2b1f !important; }
         body.dark .destination-card,
         body.dark .destination-card .bg-stone-50 { background-color: #1a2b1f !important; }
         body.dark .destination-card { border-color: #2d4a35 !important; color: #e8e0d0 !important; }
         body.dark .destination-card:hover { border-color: var(--gold) !important; box-shadow: 0 20px 40px rgba(0,0,0,0.4) !important; }
         body.dark .rounded-\[40px\] { background-color: #1a2b1f !important; }
+        body.dark .rounded-\[32px\] { background-color: #1a2b1f !important; }
+        body.dark .bg-stone-50 { background-color: #162318 !important; }
+        body.dark .bg-stone-100 { background-color: #1a2b1f !important; }
 
-        /* Text */
+        /* Text — comprehensive coverage */
         body.dark h1, body.dark h2, body.dark h3, body.dark h4 { color: #f0e8d8 !important; }
-        body.dark p, body.dark span:not(.text-\[#C5A059\]):not(.btn-gold) { color: #c8d8cc; }
+        body.dark p { color: #c8d8cc !important; }
+        body.dark label { color: #c8d8cc !important; }
+        body.dark li { color: #c8d8cc !important; }
+        body.dark a:not(.btn-gold):not(.nav-link) { color: #c8d8cc !important; }
+        body.dark span:not([class*="text-\[#C5A059\]"]):not(.btn-gold):not([class*="bg-"]):not([class*="text-green"]):not([class*="text-yellow"]):not([class*="text-red"]) { color: #c8d8cc !important; }
         body.dark .text-slate-400 { color: #7a9a84 !important; }
         body.dark .text-slate-500 { color: #8aaa94 !important; }
         body.dark .text-slate-600 { color: #9ab8a4 !important; }
+        body.dark .text-slate-700 { color: #b0c8b8 !important; }
         body.dark .text-slate-800 { color: #e8e0d0 !important; }
         body.dark .text-\[#1B3022\] { color: #a8d4b4 !important; }
+        body.dark .text-white { color: #f0e8d8 !important; }
+        /* Section labels */
+        body.dark .section-label { color: var(--gold) !important; }
+        /* Italic quotes */
+        body.dark .italic { color: #c8d8cc !important; }
+        /* Strong / bold inline text */
+        body.dark strong, body.dark b { color: #f0e8d8 !important; }
 
         /* Borders */
         body.dark .border-stone-200 { border-color: #2d4a35 !important; }
         body.dark .border-stone-100 { border-color: #1e3025 !important; }
+        body.dark .border-t { border-color: #2d4a35 !important; }
+        body.dark .border-b { border-color: #2d4a35 !important; }
 
         /* Inclusion items */
         body.dark .inclusion-item { color: #8aaa94 !important; }
@@ -268,28 +285,80 @@
         body.dark .form-input { background: #1a2b1f !important; border-color: #2d4a35 !important; color: #e8e0d0 !important; }
         body.dark .form-input::placeholder { color: #5a7a64 !important; }
         body.dark select.form-input option { background: #1a2b1f; color: #e8e0d0; }
+        body.dark input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); }
 
         /* About page quote box */
         body.dark .bg-\[#1B3022\] { background-color: #0a1209 !important; }
 
+        /* Contact info links */
+        body.dark .hover\:text-\[#C5A059\]:not(.btn-gold) { color: #c8d8cc !important; }
+
         /* Dashboard trips */
         body.dark #trips-container .bg-white { background-color: #1a2b1f !important; }
+        body.dark #trips-container p { color: #c8d8cc !important; }
+        body.dark #trips-container h3 { color: #f0e8d8 !important; }
 
-        /* Success box */
+        /* Success / error boxes */
         body.dark .bg-green-50 { background-color: #0d2010 !important; }
+        body.dark .bg-green-50 p, body.dark .bg-green-50 h3 { color: #a8d4b4 !important; }
+        body.dark .bg-red-50 { background-color: #200d0d !important; }
+
+        /* Stats cards in staff (not used in index but safe) */
+        body.dark .text-\[#1B3022\] { color: #a8d4b4 !important; }
 
         /* Footer */
         body.dark footer { background-color: #060e08 !important; }
+        body.dark footer p, body.dark footer span, body.dark footer li { color: #7a9a84 !important; }
+        body.dark footer a { color: #7a9a84 !important; }
+        body.dark footer h4 { color: #f0e8d8 !important; }
+        body.dark footer .text-slate-400 { color: #7a9a84 !important; }
 
-        /* Trust strip & testimonials dark mode */
+        /* Trust strip & testimonials */
         body.dark .rounded-\[28px\] { background-color: #1a2b1f !important; border-color: #2d4a35 !important; }
         body.dark .rounded-\[28px\]:hover { border-color: var(--gold) !important; }
 
-        /* Package picker dark mode */
+        /* Package picker */
         body.dark .pkg-btn { background-color: #1a2b1f !important; border-color: #2d4a35 !important; }
         body.dark .pkg-btn:hover { border-color: var(--gold) !important; background-color: rgba(197,160,89,0.08) !important; }
         body.dark .pkg-btn.selected-pkg { border-color: var(--gold) !important; background-color: rgba(197,160,89,0.12) !important; }
-        body.dark .pkg-btn span.text-\[#1B3022\] { color: #e8e0d0 !important; }
+        body.dark .pkg-btn span { color: #e8e0d0 !important; }
+        body.dark .pkg-btn .text-slate-400 { color: #7a9a84 !important; }
+
+        /* Privacy & Terms pages */
+        body.dark #privacy-page, body.dark #terms-page { background-color: #0f1a13 !important; }
+        body.dark #privacy-page p, body.dark #terms-page p { color: #c8d8cc !important; }
+        body.dark #privacy-page a, body.dark #terms-page a { color: var(--gold) !important; }
+
+        /* Booking page form card */
+        body.dark #booking-page .bg-white { background-color: #1a2b1f !important; }
+        body.dark #booking-page label { color: #a8d4b4 !important; }
+        body.dark #booking-page h2 { color: #f0e8d8 !important; }
+        body.dark #booking-page .section-label { color: var(--gold) !important; }
+
+        /* About page text */
+        body.dark #about-page .text-slate-600 { color: #9ab8a4 !important; }
+        body.dark #about-page .text-slate-500 { color: #8aaa94 !important; }
+        body.dark #about-page li a { color: #c8d8cc !important; }
+        body.dark #about-page li span { color: #c8d8cc !important; }
+
+        /* Destination cards inner text */
+        body.dark .destination-card h3 { color: #f0e8d8 !important; }
+        body.dark .destination-card p { color: #8aaa94 !important; }
+        body.dark .destination-card .bg-stone-50 { background-color: #162318 !important; }
+        body.dark .destination-card button { color: #c8d8cc !important; border-color: #2d4a35 !important; }
+        body.dark .destination-card button:hover { background-color: #2d4a35 !important; color: #f0e8d8 !important; }
+
+        /* Why section cards */
+        body.dark .rounded-\[28px\] p { color: #8aaa94 !important; }
+        body.dark .rounded-\[28px\] h3 { color: #f0e8d8 !important; }
+
+        /* Testimonial cards */
+        body.dark .rounded-\[28px\] .italic { color: #9ab8a4 !important; }
+        body.dark .rounded-\[28px\] .border-t { border-color: #2d4a35 !important; }
+
+        /* Gallery section labels */
+        body.dark #gallery-section h2 { color: #f0e8d8 !important; }
+        body.dark #gallery-section p { color: #8aaa94 !important; }
 
         /* Lightbox */
         #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 100; align-items: center; justify-content: center; }
