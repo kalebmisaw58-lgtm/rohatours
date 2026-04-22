@@ -1,6 +1,7 @@
 import { MongoClient, ObjectId } from 'mongodb';
 
 const uri = process.env.MONGODB_URI;
+const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'https://rohatours.vercel.app';
 let cachedClient = null;
 let cachedDb = null;
 
@@ -15,16 +16,28 @@ async function connectToDatabase() {
     return { client, db };
 }
 
+const VALID_STATUSES = ['pending', 'confirmed', 'cancelled'];
+
 export default async function handler(req, res) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
     res.setHeader('Access-Control-Allow-Methods', 'PATCH, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Staff-Token');
     if (req.method === 'OPTIONS') return res.status(200).end();
     if (req.method !== 'PATCH') return res.status(405).end('Method Not Allowed');
+
+    // Require staff token
+    const token = req.headers['x-staff-token'];
+    const staffToken = process.env.STAFF_PASSWORD;
+    if (!token || !staffToken || token !== staffToken) {
+        return res.status(401).json({ success: false, message: 'Unauthorized.' });
+    }
 
     try {
         const { id, status } = req.body;
         if (!id || !status) return res.status(400).json({ success: false, message: 'id and status required' });
+        if (!VALID_STATUSES.includes(status)) {
+            return res.status(400).json({ success: false, message: `status must be one of: ${VALID_STATUSES.join(', ')}` });
+        }
 
         const { db } = await connectToDatabase();
         const result = await db.collection('bookings').updateOne(

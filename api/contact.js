@@ -1,6 +1,7 @@
 import { MongoClient } from 'mongodb';
 
 const uri = process.env.MONGODB_URI;
+const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'https://rohatours.vercel.app';
 let cachedClient = null;
 let cachedDb = null;
 
@@ -16,7 +17,7 @@ async function connectToDatabase() {
 }
 
 export default async function handler(req, res) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     if (req.method === 'OPTIONS') return res.status(200).end();
@@ -24,16 +25,23 @@ export default async function handler(req, res) {
 
     try {
         const { name, email, phone, subject, message } = req.body;
-        if (!name || !email || !message) {
-            return res.status(400).json({ success: false, message: 'Name, email and message are required.' });
+        if (!name || !name.trim()) {
+            return res.status(400).json({ success: false, message: 'Name is required.' });
+        }
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            return res.status(400).json({ success: false, message: 'A valid email is required.' });
+        }
+        if (!message || !message.trim()) {
+            return res.status(400).json({ success: false, message: 'Message is required.' });
         }
 
         const { db } = await connectToDatabase();
         await db.collection('messages').insertOne({
-            name, email,
+            name: name.trim(),
+            email: email.toLowerCase().trim(),
             phone: phone || '',
             subject: subject || 'General Inquiry',
-            message,
+            message: message.trim(),
             read: false,
             createdAt: new Date()
         });

@@ -58,11 +58,10 @@
             }
 
             try {
-                const res = await fetch('/api/bookings');
-                const all = await res.json();
-                const trips = all.filter(b => b.customerEmail === email);
+                const res = await fetch(`/api/bookings?email=${encodeURIComponent(email)}`);
+                const trips = await res.json();
 
-                if (trips.length === 0) {
+                if (!Array.isArray(trips) || trips.length === 0) {
                     container.innerHTML = `
                         <div class="text-center py-16">
                             <i class="fas fa-suitcase-rolling text-4xl text-stone-300 mb-4 block"></i>
@@ -365,29 +364,29 @@
                     <p class="text-slate-500 mt-4">A glimpse into the soul of the Land of Origins.</p>
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="aspect-square rounded-3xl gallery-item shadow-sm group">
+                    <div class="aspect-square rounded-3xl gallery-item shadow-sm group overflow-hidden cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
                         <img src="https://images.unsplash.com/flagged/photo-1572644973628-e9be84915d59?w=500&auto=format&fit=crop&q=60" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lalibela">
                     </div>
-                    <div class="aspect-square rounded-3xl gallery-item shadow-sm group">
+                    <div class="aspect-square rounded-3xl gallery-item shadow-sm group overflow-hidden cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
                         <img src="https://images.unsplash.com/photo-1608634193723-1865aa4416ce?w=500&auto=format&fit=crop&q=60" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Gondar">
                     </div>
-                    <div class="aspect-square rounded-3xl gallery-item shadow-sm group">
+                    <div class="aspect-square rounded-3xl gallery-item shadow-sm group overflow-hidden cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
                         <img src="https://images.unsplash.com/photo-1516533075015-a3838414c3ca?q=80&w=870&auto=format&fit=crop" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Danakil">
                     </div>
-                    <div class="aspect-square rounded-3xl gallery-item shadow-sm group">
+                    <div class="aspect-square rounded-3xl gallery-item shadow-sm group overflow-hidden cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
                         <img src="https://images.unsplash.com/photo-1524734627574-bbb084c4ee66?w=500&auto=format&fit=crop&q=60" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Omo Valley">
                     </div>
-                    <div class="aspect-square rounded-3xl gallery-item shadow-sm group">
-                        <img src="https://plus.unsplash.com/premium_photo-1695297516798-d275bdf26575?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZXRoaW9waWFuJTIwZm9vZHxlbnwwfHwwfHx8MA%3D%3D" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lalibela">
+                    <div class="aspect-square rounded-3xl gallery-item shadow-sm group overflow-hidden cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
+                        <img src="https://plus.unsplash.com/premium_photo-1695297516798-d275bdf26575?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZXRoaW9waWFuJTIwZm9vZHxlbnwwfHwwfHx8MA%3D%3D" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Ethiopian Food">
                     </div>
-                    <div class="aspect-square rounded-3xl gallery-item shadow-sm group">
-                        <img src="https://media.istockphoto.com/id/1168053027/photo/church-of-our-lady-of-zion-in-axum-ethiopia.webp?a=1&b=1&s=612x612&w=0&k=20&c=PY7SNICdmAdB2Oxn5te5xt24Buu53p5QyaeSk-uZrx0=" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Gondar">
+                    <div class="aspect-square rounded-3xl gallery-item shadow-sm group overflow-hidden cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
+                        <img src="https://media.istockphoto.com/id/1168053027/photo/church-of-our-lady-of-zion-in-axum-ethiopia.webp?a=1&b=1&s=612x612&w=0&k=20&c=PY7SNICdmAdB2Oxn5te5xt24Buu53p5QyaeSk-uZrx0=" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Axum">
                     </div>
-                    <div class="aspect-square rounded-3xl gallery-item shadow-sm group">
-                        <img src="https://images.unsplash.com/photo-1518079562269-53db1e4433b8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGFsaWJlbGF8ZW58MHx8MHx8fDA%3D" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Danakil">
+                    <div class="aspect-square rounded-3xl gallery-item shadow-sm group overflow-hidden cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
+                        <img src="https://images.unsplash.com/photo-1518079562269-53db1e4433b8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGFsaWJlbGF8ZW58MHx8MHx8fDA%3D" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lalibela">
                     </div>
-                    <div class="aspect-square rounded-3xl gallery-item shadow-sm group">
-                        <img src="https://images.unsplash.com/photo-1646647689051-ed33eecf1c21?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bGFsaWJlbGF8ZW58MHx8MHx8fDA%3D" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Omo Valley">
+                    <div class="aspect-square rounded-3xl gallery-item shadow-sm group overflow-hidden cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
+                        <img src="https://images.unsplash.com/photo-1646647689051-ed33eecf1c21?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bGFsaWJlbGF8ZW58MHx8MHx8fDA%3D" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lalibela Interior">
                     </div>
                 </div>
             </div>
@@ -852,7 +851,7 @@
 
                 <!-- Simien Mountains -->
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://unsplash.com/photos/mother-gelada-baboon-and-her-small-clinging-to-her-back-kgycoW_Uj2I')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1518079562269-53db1e4433b8?w=500&auto=format&fit=crop&q=60')"></div>
                     <div class="p-8 flex-grow">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">4 Days • Highland Trek</span>
                         <h3 class="text-2xl font-serif mb-2">Simien Mountains</h3>
@@ -1016,7 +1015,9 @@
             const btnText = document.getElementById('contactBtnText');
             const spinner = document.getElementById('contactSpinner');
 
-            if (!name || !email || !message) { alert('Please fill in name, email and message.'); return; }
+            if (!name) { alert('Please enter your name.'); return; }
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Please enter a valid email address.'); return; }
+            if (!message) { alert('Please enter a message.'); return; }
 
             btn.disabled = true;
             btnText.textContent = 'Sending...';
@@ -1051,9 +1052,9 @@
         }
 
         async function submitBooking() {
-            const name = document.getElementById('formName').value;
-            const email = document.getElementById('formEmail').value;
-            const phone = document.getElementById('formPhone').value;
+            const name = document.getElementById('formName').value.trim();
+            const email = document.getElementById('formEmail').value.trim();
+            const phone = document.getElementById('formPhone').value.trim();
             const date = document.getElementById('formDate').value;
             const pkg = document.getElementById('formPackage').value;
             const count = document.getElementById('formCount').value;
@@ -1061,7 +1062,9 @@
             const btnText = document.getElementById('btnText');
             const spinner = document.getElementById('btnSpinner');
 
-            if (!name || !email) { alert("Please enter your name and email."); return; }
+            if (!name) { alert('Please enter your full name.'); return; }
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Please enter a valid email address.'); return; }
+            if (parseInt(count) < 1 || isNaN(parseInt(count))) { alert('Traveler count must be at least 1.'); return; }
 
             btn.disabled = true;
             btnText.innerText = "Requesting...";
@@ -1095,6 +1098,39 @@
             }
         }
     </script>
+    <!-- Privacy Policy Page -->
+    <div id="privacy-page" class="page-view pt-32 pb-24" style="background-color: var(--cream)">
+        <div class="max-w-3xl mx-auto px-4">
+            <span class="text-[#C5A059] font-bold uppercase tracking-widest text-sm mb-4 block">Legal</span>
+            <h2 class="text-4xl font-serif mb-3" style="color: var(--green-deep)">Privacy Policy</h2>
+            <div class="gold-divider" style="margin: 0 0 2rem 0"></div>
+            <div class="prose text-slate-600 space-y-6 text-sm leading-relaxed">
+                <p><strong>Last updated:</strong> April 2026</p>
+                <p>RohaTours ("we", "us", or "our") collects personal information you provide when making a booking or sending a message — including your name, email address, phone number, and travel preferences. This information is used solely to process your booking and communicate with you about your trip.</p>
+                <p>We do not sell, trade, or share your personal data with third parties except as necessary to deliver our services (e.g., local guides, accommodation partners). All data is stored securely in our database and is accessible only to authorized RohaTours staff.</p>
+                <p>You may request deletion of your data at any time by contacting us at <a href="mailto:expeditions@rohatours.com" class="text-[#C5A059] hover:underline">expeditions@rohatours.com</a>.</p>
+                <p>By using this website, you consent to this privacy policy.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms & Conditions Page -->
+    <div id="terms-page" class="page-view pt-32 pb-24" style="background-color: var(--cream)">
+        <div class="max-w-3xl mx-auto px-4">
+            <span class="text-[#C5A059] font-bold uppercase tracking-widest text-sm mb-4 block">Legal</span>
+            <h2 class="text-4xl font-serif mb-3" style="color: var(--green-deep)">Terms & Conditions</h2>
+            <div class="gold-divider" style="margin: 0 0 2rem 0"></div>
+            <div class="text-slate-600 space-y-6 text-sm leading-relaxed">
+                <p><strong>Last updated:</strong> April 2026</p>
+                <p>By submitting a booking request through this website, you agree to be contacted by RohaTours regarding your inquiry. A booking is not confirmed until you receive written confirmation from our team.</p>
+                <p>All itineraries are subject to change due to weather, safety conditions, or circumstances beyond our control. RohaTours will make every effort to provide alternative arrangements of equal value.</p>
+                <p>Cancellations must be communicated in writing to <a href="mailto:expeditions@rohatours.com" class="text-[#C5A059] hover:underline">expeditions@rohatours.com</a>. Cancellation terms will be outlined in your booking confirmation.</p>
+                <p>RohaTours is not liable for any loss, injury, or damage sustained during a tour. Travelers are advised to obtain comprehensive travel insurance prior to departure.</p>
+                <p>These terms are governed by the laws of the Federal Democratic Republic of Ethiopia.</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer Section -->
 
 <footer class="bg-[#1B3022] text-white pt-12 pb-8 border-t border-white/5">
@@ -1146,17 +1182,20 @@ Pioneering luxury private destinations through the heart of Ethiopia. From the r
     <div class="pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
         <p class="text-[9px] text-slate-500 uppercase tracking-[0.2em]">© 2026 RohaTours Private Ltd.</p>
         <div class="flex gap-4 text-[9px] uppercase tracking-widest text-slate-500">
-            <a href="#" class="hover:text-white transition">Privacy</a>
-            <a href="#" class="hover:text-white transition">Terms</a>
+            <a href="#privacy" class="hover:text-white transition">Privacy</a>
+            <a href="#terms" class="hover:text-white transition">Terms</a>
             <a href="staff.html" class="hover:text-white transition">Staff</a>
         </div>
     </div>
+
+</div>
+</footer>
+
 <!-- Lightbox -->
 <div id="lightbox" onclick="closeLightbox()">
     <span id="lightbox-close">&times;</span>
     <img id="lightbox-img" src="" alt="Traveler photo">
 </div>
 
-</footer>
 </body>
 </html>
