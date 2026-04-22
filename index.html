@@ -285,6 +285,12 @@
         body.dark .rounded-\[28px\] { background-color: #1a2b1f !important; border-color: #2d4a35 !important; }
         body.dark .rounded-\[28px\]:hover { border-color: var(--gold) !important; }
 
+        /* Package picker dark mode */
+        body.dark .pkg-btn { background-color: #1a2b1f !important; border-color: #2d4a35 !important; }
+        body.dark .pkg-btn:hover { border-color: var(--gold) !important; background-color: rgba(197,160,89,0.08) !important; }
+        body.dark .pkg-btn.selected-pkg { border-color: var(--gold) !important; background-color: rgba(197,160,89,0.12) !important; }
+        body.dark .pkg-btn span.text-\[#1B3022\] { color: #e8e0d0 !important; }
+
         /* Lightbox */
         #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 100; align-items: center; justify-content: center; }
         #lightbox.open { display: flex; }
@@ -1018,22 +1024,76 @@
                     </div>
                 </div>
                 <div class="mb-6">
-                    <select id="formPackage" class="form-input w-full rounded-xl p-4">
-                        <option value="Lalibela Churches">Lalibela Churches</option>
-                        <option value="Gondar Castles">Gondar Castles</option>
-                        <option value="Danakil Adventure">Danakil Adventure</option>
-                        <option value="Axum Monuments">Axum Monuments</option>
-                        <option value="Omo Valley Tribes">Omo Valley Tribes</option>
-                        <option value="Simien Mountains">Simien Mountains</option>
-                        <option value="Lake Langano">Lake Langano</option>
-                        <option value="Hawassa">Hawassa</option>
-                        <option value="Bale Mountains">Bale Mountains</option>
-                        <option value="Entoto Park">Entoto Park</option>
-                        <option value="Addis Ababa City Tour">Addis Ababa City Tour</option>
-                    </select>
-                        <option value="Omo Valley Tribes">Omo Valley Tribes</option>
-                        <option value="Simien Mountains">Simien Mountains</option>
-                    </select>
+                    <label class="text-xs font-bold uppercase tracking-widest block mb-3" style="color: var(--green-deep)">Choose Your Destination</label>
+                    <input type="hidden" id="formPackage" value="Lalibela Churches">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="packagePicker">
+                        <button type="button" onclick="selectPackage(this, 'Lalibela Churches')"
+                            class="pkg-btn selected-pkg flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-[#C5A059] bg-[#C5A059]/10 transition text-center">
+                            <span class="text-xl">⛪</span>
+                            <span class="text-xs font-bold text-[#1B3022] leading-tight">Lalibela Churches</span>
+                            <span class="text-[10px] text-slate-400">3 Days</span>
+                        </button>
+                        <button type="button" onclick="selectPackage(this, 'Gondar Castles')"
+                            class="pkg-btn flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-stone-200 hover:border-[#C5A059] hover:bg-[#C5A059]/5 transition text-center">
+                            <span class="text-xl">🏰</span>
+                            <span class="text-xs font-bold text-[#1B3022] leading-tight">Gondar Castles</span>
+                            <span class="text-[10px] text-slate-400">2 Days</span>
+                        </button>
+                        <button type="button" onclick="selectPackage(this, 'Danakil Adventure')"
+                            class="pkg-btn flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-stone-200 hover:border-[#C5A059] hover:bg-[#C5A059]/5 transition text-center">
+                            <span class="text-xl">🌋</span>
+                            <span class="text-xs font-bold text-[#1B3022] leading-tight">Danakil Adventure</span>
+                            <span class="text-[10px] text-slate-400">4 Days</span>
+                        </button>
+                        <button type="button" onclick="selectPackage(this, 'Axum Monuments')"
+                            class="pkg-btn flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-stone-200 hover:border-[#C5A059] hover:bg-[#C5A059]/5 transition text-center">
+                            <span class="text-xl">🗿</span>
+                            <span class="text-xs font-bold text-[#1B3022] leading-tight">Axum Monuments</span>
+                            <span class="text-[10px] text-slate-400">2 Days</span>
+                        </button>
+                        <button type="button" onclick="selectPackage(this, 'Omo Valley Tribes')"
+                            class="pkg-btn flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-stone-200 hover:border-[#C5A059] hover:bg-[#C5A059]/5 transition text-center">
+                            <span class="text-xl">🪘</span>
+                            <span class="text-xs font-bold text-[#1B3022] leading-tight">Omo Valley Tribes</span>
+                            <span class="text-[10px] text-slate-400">5 Days</span>
+                        </button>
+                        <button type="button" onclick="selectPackage(this, 'Simien Mountains')"
+                            class="pkg-btn flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-stone-200 hover:border-[#C5A059] hover:bg-[#C5A059]/5 transition text-center">
+                            <span class="text-xl">🏔️</span>
+                            <span class="text-xs font-bold text-[#1B3022] leading-tight">Simien Mountains</span>
+                            <span class="text-[10px] text-slate-400">4 Days</span>
+                        </button>
+                        <button type="button" onclick="selectPackage(this, 'Lake Langano')"
+                            class="pkg-btn flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-stone-200 hover:border-[#C5A059] hover:bg-[#C5A059]/5 transition text-center">
+                            <span class="text-xl">🏖️</span>
+                            <span class="text-xs font-bold text-[#1B3022] leading-tight">Lake Langano</span>
+                            <span class="text-[10px] text-slate-400">2 Days</span>
+                        </button>
+                        <button type="button" onclick="selectPackage(this, 'Hawassa')"
+                            class="pkg-btn flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-stone-200 hover:border-[#C5A059] hover:bg-[#C5A059]/5 transition text-center">
+                            <span class="text-xl">🐟</span>
+                            <span class="text-xs font-bold text-[#1B3022] leading-tight">Hawassa</span>
+                            <span class="text-[10px] text-slate-400">2 Days</span>
+                        </button>
+                        <button type="button" onclick="selectPackage(this, 'Bale Mountains')"
+                            class="pkg-btn flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-stone-200 hover:border-[#C5A059] hover:bg-[#C5A059]/5 transition text-center">
+                            <span class="text-xl">🐺</span>
+                            <span class="text-xs font-bold text-[#1B3022] leading-tight">Bale Mountains</span>
+                            <span class="text-[10px] text-slate-400">3 Days</span>
+                        </button>
+                        <button type="button" onclick="selectPackage(this, 'Entoto Park')"
+                            class="pkg-btn flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-stone-200 hover:border-[#C5A059] hover:bg-[#C5A059]/5 transition text-center">
+                            <span class="text-xl">🌲</span>
+                            <span class="text-xs font-bold text-[#1B3022] leading-tight">Entoto Park</span>
+                            <span class="text-[10px] text-slate-400">Half Day</span>
+                        </button>
+                        <button type="button" onclick="selectPackage(this, 'Addis Ababa City Tour')"
+                            class="pkg-btn flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-stone-200 hover:border-[#C5A059] hover:bg-[#C5A059]/5 transition text-center">
+                            <span class="text-xl">🏙️</span>
+                            <span class="text-xs font-bold text-[#1B3022] leading-tight">Addis Ababa City Tour</span>
+                            <span class="text-[10px] text-slate-400">1 Day</span>
+                        </button>
+                    </div>
                 </div>
                 <div class="mb-8">
                     <label class="text-xs font-bold uppercase tracking-widest block mb-2" style="color: var(--green-deep)">Traveler Count</label>
@@ -1159,9 +1219,29 @@
             document.body.classList.add('dark');
         }
 
+        function selectPackage(btn, pkgName) {
+            // Remove selected state from all buttons
+            document.querySelectorAll('.pkg-btn').forEach(b => {
+                b.classList.remove('selected-pkg', 'border-[#C5A059]', 'bg-[#C5A059]/10');
+                b.classList.add('border-stone-200');
+            });
+            // Add selected state to clicked button
+            btn.classList.add('selected-pkg', 'border-[#C5A059]', 'bg-[#C5A059]/10');
+            btn.classList.remove('border-stone-200');
+            // Update hidden input
+            document.getElementById('formPackage').value = pkgName;
+        }
+
         function preSelectPackage(pkgName) {
             document.getElementById('formPackage').value = pkgName;
             window.location.hash = 'booking';
+            // Wait for page to load, then select the button
+            setTimeout(() => {
+                const btn = Array.from(document.querySelectorAll('.pkg-btn')).find(b => 
+                    b.getAttribute('onclick').includes(`'${pkgName}'`)
+                );
+                if (btn) selectPackage(btn, pkgName);
+            }, 100);
         }
 
         async function submitBooking() {
