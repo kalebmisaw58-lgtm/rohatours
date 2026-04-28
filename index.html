@@ -360,6 +360,13 @@
         body.dark #gallery-section h2 { color: #f0e8d8 !important; }
         body.dark #gallery-section p { color: #8aaa94 !important; }
 
+        /* Destination modal dark mode */
+        body.dark #destinationModal > div { background-color: #1a2b1f !important; }
+        body.dark #destinationModal h2 { color: #f0e8d8 !important; }
+        body.dark #destinationModal #modalDescription p { color: #c8d8cc !important; }
+        body.dark #destinationModal .bg-stone-50 { background-color: #162318 !important; }
+        body.dark #destinationModal button { color: #f0e8d8 !important; }
+
         /* Lightbox */
         #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 100; align-items: center; justify-content: center; }
         #lightbox.open { display: flex; }
@@ -587,54 +594,54 @@
                     <p class="text-slate-500 mt-4">Handpicked for their unique charm, cultural significance, and breathtaking beauty.</p>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <a href="#destinations" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm block">
+                    <div onclick="openDestinationModal('Lalibela Churches')" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm cursor-pointer">
                         <img src="https://images.unsplash.com/flagged/photo-1572644973628-e9be84915d59?w=600&auto=format&fit=crop&q=70" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lalibela">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">3 Days • Spiritual Marvel</span>
                             <h3 class="text-white font-serif text-2xl">Lalibela</h3>
                         </div>
-                    </a>
-                    <a href="#destinations" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm block">
+                    </div>
+                    <div onclick="openDestinationModal('Danakil Adventure')" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm cursor-pointer">
                         <img src="https://images.unsplash.com/photo-1564101151838-630e722d7b1f?w=600&auto=format&fit=crop&q=70" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Danakil">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">4 Days • Geological Wonder</span>
                             <h3 class="text-white font-serif text-2xl">Danakil</h3>
                         </div>
-                    </a>
-                    <a href="#destinations" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm block">
+                    </div>
+                    <div onclick="openDestinationModal('Omo Valley Tribes')" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm cursor-pointer">
                         <img src="https://images.unsplash.com/photo-1524734627574-bbb084c4ee66?w=600&auto=format&fit=crop&q=70" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Omo Valley">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">5 Days • Cultural Immersion</span>
                             <h3 class="text-white font-serif text-2xl">Omo Valley</h3>
                         </div>
-                    </a>
-                    <a href="#destinations" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm block">
+                    </div>
+                    <div onclick="openDestinationModal('Gondar Castles')" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm cursor-pointer">
                         <img src="https://images.unsplash.com/photo-1608634193723-1865aa4416ce?w=600&auto=format&fit=crop&q=70" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Gondar">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">2 Days • Royal History</span>
                             <h3 class="text-white font-serif text-2xl">Gondar</h3>
                         </div>
-                    </a>
-                    <a href="#destinations" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm block">
+                    </div>
+                    <div onclick="openDestinationModal('Axum Monuments')" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm cursor-pointer">
                         <img src="https://media.istockphoto.com/id/186914973/photo/obelisk-in-the-aksum-kingdom-ethiopia.webp?a=1&b=1&s=612x612&w=0&k=20&c=cNH4mhbn4sIrWgV0SIf-NVjfQGCF1wn0HI0YuchvuyE=" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Axum">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">2 Days • Ancient Civilization</span>
                             <h3 class="text-white font-serif text-2xl">Axum</h3>
                         </div>
-                    </a>
-                    <a href="#destinations" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm block">
+                    </div>
+                    <div onclick="openDestinationModal('Simien Mountains')" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm cursor-pointer">
                         <img src="https://images.unsplash.com/photo-1518079562269-53db1e4433b8?w=600&auto=format&fit=crop&q=70" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Simien Mountains">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">4 Days • Highland Trek</span>
                             <h3 class="text-white font-serif text-2xl">Simien Mountains</h3>
                         </div>
-                    </a>
+                    </div>
                 </div>
                 <div class="text-center mt-12">
                     <a href="#destinations" class="inline-block border-2 border-[#C5A059] text-[#C5A059] px-10 py-4 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-white transition-all duration-300">View All Destinations</a>
@@ -1178,6 +1185,205 @@
     </div>
 
     <script>
+        // Destination data
+        const destinationData = {
+            'Lalibela Churches': {
+                image: 'https://images.unsplash.com/flagged/photo-1572644973628-e9be84915d59?w=800&auto=format&fit=crop&q=80',
+                duration: '3 Days • Spiritual Marvel',
+                description: [
+                    'Lalibela, often called the "New Jerusalem," is home to 11 monolithic rock-hewn churches carved from solid volcanic rock in the 12th century. These architectural marvels were commissioned by King Lalibela and remain active places of worship today.',
+                    'Walk through underground tunnels connecting the churches, witness ancient religious ceremonies, and explore intricate carvings that have survived centuries. The churches are divided into two groups, separated by the River Jordan.',
+                    'This UNESCO World Heritage site attracts pilgrims and travelers from around the world, especially during Ethiopian Christmas and Timkat (Epiphany) celebrations.'
+                ],
+                inclusions: [
+                    { icon: 'user-shield', text: 'Expert Guide' },
+                    { icon: 'car-side', text: 'Luxury 4x4' },
+                    { icon: 'ticket-alt', text: 'Entry Fees' },
+                    { icon: 'utensils', text: 'Full Board' }
+                ]
+            },
+            'Danakil Adventure': {
+                image: 'https://images.unsplash.com/photo-1564101151838-630e722d7b1f?w=800&auto=format&fit=crop&q=80',
+                duration: '4 Days • Geological Wonder',
+                description: [
+                    'The Danakil Depression is one of the hottest, lowest, and most geologically active places on Earth. Witness the Erta Ale volcano with its permanent lava lake, one of only six in the world.',
+                    'Explore the otherworldly Dallol sulfur springs, where neon-yellow and orange mineral deposits create an alien landscape. Visit salt flats where the Afar people have mined salt for centuries using traditional methods.',
+                    'This extreme expedition requires careful planning and experienced guides. Temperatures can exceed 50°C (122°F), making it one of the most challenging yet rewarding adventures in Ethiopia.'
+                ],
+                inclusions: [
+                    { icon: 'shield-alt', text: 'Armed Guard' },
+                    { icon: 'car-side', text: '2x 4x4 Support' },
+                    { icon: 'campground', text: 'Logistics' },
+                    { icon: 'utensils', text: 'Private Chef' }
+                ]
+            },
+            'Omo Valley Tribes': {
+                image: 'https://images.unsplash.com/photo-1524734627574-bbb084c4ee66?w=800&auto=format&fit=crop&q=80',
+                duration: '5 Days • Cultural Immersion',
+                description: [
+                    'The Omo Valley is home to over 50 indigenous tribes, each with distinct languages, customs, and traditions. Meet the Mursi people, known for their lip plates, the Hamar with their bull-jumping ceremonies, and the Karo with their elaborate body painting.',
+                    'Experience authentic cultural exchanges in remote villages, witness traditional ceremonies, and learn about ancient customs that have remained unchanged for millennia. This is one of the most culturally diverse regions in Africa.',
+                    'We travel with deep respect for local communities, ensuring our visits benefit the tribes economically while preserving their way of life. All interactions are conducted with cultural sensitivity and prior community consent.'
+                ],
+                inclusions: [
+                    { icon: 'user-shield', text: 'Expert Guide' },
+                    { icon: 'car-side', text: 'Luxury 4x4' },
+                    { icon: 'campground', text: 'Bush Camp' },
+                    { icon: 'utensils', text: 'Full Board' }
+                ]
+            },
+            'Gondar Castles': {
+                image: 'https://images.unsplash.com/photo-1608634193723-1865aa4416ce?w=800&auto=format&fit=crop&q=80',
+                duration: '2 Days • Royal History',
+                description: [
+                    'Gondar, the "Camelot of Africa," served as Ethiopia\'s capital from 1636 to 1855. The Royal Enclosure contains six castles built by various emperors, showcasing a unique blend of Portuguese, Indian, and local architectural styles.',
+                    'Visit the stunning Debre Berhan Selassie Church, famous for its ceiling painted with 80 cherubic faces. Explore Fasilides\' Bath, still used today for the annual Timkat celebrations where thousands gather for the blessing of the waters.',
+                    'The city\'s medieval castles and churches earned it UNESCO World Heritage status and offer a fascinating glimpse into Ethiopia\'s imperial past.'
+                ],
+                inclusions: [
+                    { icon: 'user-shield', text: 'Expert Guide' },
+                    { icon: 'car-side', text: 'Luxury 4x4' },
+                    { icon: 'ticket-alt', text: 'Entry Fees' },
+                    { icon: 'utensils', text: 'Full Board' }
+                ]
+            },
+            'Axum Monuments': {
+                image: 'https://media.istockphoto.com/id/186914973/photo/obelisk-in-the-aksum-kingdom-ethiopia.webp?w=800&auto=format&fit=crop&q=80',
+                duration: '2 Days • Ancient Civilization',
+                description: [
+                    'Axum was the capital of the ancient Aksumite Empire, one of the four great civilizations of the ancient world alongside Rome, Persia, and China. The city is home to towering granite obelisks, some reaching 33 meters high and weighing over 500 tons.',
+                    'Visit the Church of Our Lady Mary of Zion, believed by Ethiopian Orthodox Christians to house the original Ark of the Covenant. Explore ancient tombs, royal palaces, and inscriptions that tell the story of a powerful trading empire.',
+                    'Axum is also the legendary birthplace of the Queen of Sheba and remains one of Ethiopia\'s holiest cities, drawing pilgrims and history enthusiasts from around the world.'
+                ],
+                inclusions: [
+                    { icon: 'user-shield', text: 'Expert Guide' },
+                    { icon: 'car-side', text: 'Luxury 4x4' },
+                    { icon: 'ticket-alt', text: 'Entry Fees' },
+                    { icon: 'utensils', text: 'Full Board' }
+                ]
+            },
+            'Simien Mountains': {
+                image: 'https://images.unsplash.com/photo-1518079562269-53db1e4433b8?w=800&auto=format&fit=crop&q=80',
+                duration: '4 Days • Highland Trek',
+                description: [
+                    'The Simien Mountains, often called the "Roof of Africa," feature dramatic escarpments, deep valleys, and peaks reaching over 4,500 meters. This UNESCO World Heritage site is home to unique wildlife found nowhere else on Earth.',
+                    'Trek through Afro-alpine landscapes and encounter endemic species including the Gelada baboon (found only here), the Ethiopian wolf (the world\'s rarest canid), and the Walia ibex. The scenery is often compared to the Grand Canyon.',
+                    'Our treks range from moderate day hikes to challenging multi-day expeditions, with comfortable lodge accommodations and experienced mountain guides ensuring your safety and enjoyment.'
+                ],
+                inclusions: [
+                    { icon: 'hiking', text: 'Trek Guide' },
+                    { icon: 'car-side', text: 'Luxury 4x4' },
+                    { icon: 'campground', text: 'Lodge Stay' },
+                    { icon: 'utensils', text: 'Full Board' }
+                ]
+            },
+            'Lake Langano': {
+                image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&auto=format&fit=crop&q=80',
+                duration: '2 Days • Lakeside Retreat',
+                description: [
+                    'Lake Langano is one of Ethiopia\'s most popular weekend getaways, known for its unique brown water caused by high mineral content. Unlike most Ethiopian lakes, it\'s safe for swimming and water sports.',
+                    'Relax on sandy beaches, enjoy birdwatching with over 400 species in the area, or take a boat trip to spot hippos and diverse aquatic life. The lake sits in the Great Rift Valley, surrounded by acacia forests and volcanic hills.',
+                    'Perfect for families and those seeking a peaceful retreat from city life, with comfortable resorts offering water activities, nature walks, and stunning sunset views.'
+                ],
+                inclusions: [
+                    { icon: 'user-shield', text: 'Expert Guide' },
+                    { icon: 'car-side', text: 'Luxury 4x4' },
+                    { icon: 'hotel', text: 'Resort Stay' },
+                    { icon: 'utensils', text: 'Full Board' }
+                ]
+            },
+            'Hawassa': {
+                image: 'https://images.unsplash.com/photo-1580674285054-bed31e145f59?w=800&auto=format&fit=crop&q=80',
+                duration: '2 Days • Lakeside City',
+                description: [
+                    'Hawassa, the capital of the Sidama Region, sits on the shores of Lake Hawassa in the Great Rift Valley. The city is famous for its vibrant fish market where fishermen bring in their daily catch to be sold and prepared fresh.',
+                    'Stroll along the lakeside promenade, visit the bustling central market, and enjoy some of Ethiopia\'s best fish dishes at waterfront restaurants. The lake attracts hundreds of bird species, making it a paradise for birdwatchers.',
+                    'Experience the laid-back atmosphere of this growing city, explore nearby hot springs, and witness the unique relationship between local fishermen and the marabou storks that gather at the market each morning.'
+                ],
+                inclusions: [
+                    { icon: 'user-shield', text: 'Expert Guide' },
+                    { icon: 'car-side', text: 'Luxury 4x4' },
+                    { icon: 'hotel', text: 'Hotel Stay' },
+                    { icon: 'utensils', text: 'Full Board' }
+                ]
+            },
+            'Bale Mountains': {
+                image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop&q=80',
+                duration: '3 Days • Wildlife Safari',
+                description: [
+                    'The Bale Mountains National Park is a biodiversity hotspot and the best place in the world to see the critically endangered Ethiopian wolf. With fewer than 500 individuals remaining, this is a once-in-a-lifetime wildlife experience.',
+                    'Trek through the Sanetti Plateau, the largest expanse of Afro-alpine habitat in Africa, and spot endemic species including the mountain nyala, giant mole rat, and numerous bird species found nowhere else on Earth.',
+                    'The park features diverse ecosystems from bamboo forests to alpine moorlands, pristine rivers, and dramatic volcanic landscapes. It\'s a paradise for wildlife photographers and nature enthusiasts.'
+                ],
+                inclusions: [
+                    { icon: 'binoculars', text: 'Wildlife Guide' },
+                    { icon: 'car-side', text: 'Luxury 4x4' },
+                    { icon: 'campground', text: 'Lodge Stay' },
+                    { icon: 'utensils', text: 'Full Board' }
+                ]
+            },
+            'Entoto Park': {
+                image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&auto=format&fit=crop&q=80',
+                duration: 'Half Day • Nature Escape',
+                description: [
+                    'Entoto Park sits at 3,200 meters above sea level, offering panoramic views of Addis Ababa and fresh mountain air. The area is covered in eucalyptus forests planted by Emperor Menelik II in the late 19th century.',
+                    'Visit the historic Entoto Maryam Church, one of the oldest churches in Addis Ababa, and the small museum showcasing royal artifacts. Enjoy nature walks through the forest, spot endemic bird species, and learn about the area\'s historical significance.',
+                    'This peaceful escape from the city bustle is perfect for a morning or afternoon excursion, offering hiking trails, picnic spots, and stunning views of the capital below.'
+                ],
+                inclusions: [
+                    { icon: 'user-shield', text: 'Expert Guide' },
+                    { icon: 'car-side', text: 'Private Car' },
+                    { icon: 'ticket-alt', text: 'Entry Fees' },
+                    { icon: 'coffee', text: 'Refreshments' }
+                ]
+            },
+            'Addis Ababa City Tour': {
+                image: 'https://images.unsplash.com/photo-1578070181910-f1e514afdd08?w=800&auto=format&fit=crop&q=80',
+                duration: '1 Day • Urban Discovery',
+                description: [
+                    'Explore Ethiopia\'s vibrant capital, a city of contrasts where ancient traditions meet modern development. Visit the National Museum to see "Lucy," the 3.2 million-year-old hominid fossil that changed our understanding of human evolution.',
+                    'Experience the organized chaos of Merkato, Africa\'s largest open-air market, where you can find everything from spices to traditional crafts. Visit the Holy Trinity Cathedral, the final resting place of Emperor Haile Selassie.',
+                    'Enjoy authentic Ethiopian cuisine at a traditional restaurant with a coffee ceremony, explore the Ethnological Museum in Haile Selassie\'s former palace, and learn about Ethiopia\'s rich history and diverse cultures.'
+                ],
+                inclusions: [
+                    { icon: 'user-shield', text: 'Expert Guide' },
+                    { icon: 'car-side', text: 'Private Car' },
+                    { icon: 'ticket-alt', text: 'Entry Fees' },
+                    { icon: 'utensils', text: 'Lunch' }
+                ]
+            }
+        };
+
+        function openDestinationModal(destination) {
+            const data = destinationData[destination];
+            if (!data) return;
+
+            document.getElementById('modalImage').src = data.image;
+            document.getElementById('modalDuration').textContent = data.duration;
+            document.getElementById('modalTitle').textContent = destination;
+            
+            const descDiv = document.getElementById('modalDescription');
+            descDiv.innerHTML = data.description.map(p => `<p>${p}</p>`).join('');
+            
+            const inclDiv = document.getElementById('modalInclusions');
+            inclDiv.innerHTML = data.inclusions.map(inc => 
+                `<div class="inclusion-item"><i class="fas fa-${inc.icon}"></i> ${inc.text}</div>`
+            ).join('');
+
+            document.getElementById('destinationModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeDestinationModal() {
+            document.getElementById('destinationModal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeDestinationModal();
+        });
+
         function handleRouting() {
             const hash = window.location.hash.substring(1) || 'landing';
 
@@ -1452,6 +1658,35 @@ Pioneering luxury private destinations through the heart of Ethiopia. From the r
 
 </div>
 </footer>
+
+<!-- Destination Info Modal -->
+<div id="destinationModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center p-4" onclick="closeDestinationModal()">
+    <div class="bg-white rounded-[32px] max-w-2xl w-full max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+        <div class="relative">
+            <button onclick="closeDestinationModal()" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/50 text-white hover:bg-black/70 transition flex items-center justify-center">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="modalImage" src="" alt="" class="w-full h-64 object-cover rounded-t-[32px]">
+        </div>
+        <div class="p-8">
+            <span id="modalDuration" class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-2"></span>
+            <h2 id="modalTitle" class="text-3xl font-serif mb-4 text-[#1B3022]"></h2>
+            <div id="modalDescription" class="text-slate-600 leading-relaxed mb-6 space-y-3"></div>
+            <div class="bg-stone-50 rounded-2xl p-6 mb-6">
+                <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Package Includes</h4>
+                <div id="modalInclusions" class="grid grid-cols-2 gap-3"></div>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="closeDestinationModal(); window.location.hash='destinations'" class="flex-1 bg-[#1B3022] text-white py-4 rounded-2xl font-bold text-sm uppercase tracking-widest hover:bg-[#2a4a34] transition">
+                    View Full Details
+                </button>
+                <button onclick="closeDestinationModal(); preSelectPackage(document.getElementById('modalTitle').textContent)" class="flex-1 btn-gold py-4 rounded-2xl font-bold text-sm uppercase tracking-widest">
+                    Book Now
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Lightbox -->
 <div id="lightbox" onclick="closeLightbox()">
