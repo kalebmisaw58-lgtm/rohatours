@@ -1057,6 +1057,48 @@
                     </div>
                 </div>
 
+                <!-- Lake Tana & Tis Abay Fall -->
+                <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="p-8 flex-grow">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">2 Days • Sacred Waters</span>
+                        <h3 class="text-2xl font-serif mb-2">Lake Tana & Tis Abay Fall</h3>
+                        <span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-[#1B3022] bg-[#C5A059]/10 px-3 py-1 rounded-full mb-4"><i class="fas fa-tag text-[#C5A059]"></i> Pricing on Request</span>
+                        <p class="text-sm text-slate-500 mb-6 leading-relaxed">Explore Ethiopia's largest lake, source of the Blue Nile, and visit ancient island monasteries. Witness the spectacular Blue Nile Falls.</p>
+                        <div class="bg-stone-50 rounded-2xl p-5 mb-6">
+                            <h4 class="text-[10px] font-bold uppercase text-slate-400 tracking-[0.2em] mb-4">Package Includes</h4>
+                            <div class="grid grid-cols-2 gap-y-3">
+                                <div class="inclusion-item"><i class="fas fa-user-shield"></i> Expert Guide</div>
+                                <div class="inclusion-item"><i class="fas fa-ship"></i> Boat Trip</div>
+                                <div class="inclusion-item"><i class="fas fa-ticket-alt"></i> Entry Fees</div>
+                                <div class="inclusion-item"><i class="fas fa-utensils"></i> Full Board</div>
+                            </div>
+                        </div>
+                        <button onclick="preSelectPackage('Lake Tana & Tis Abay Fall')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Destination</button>
+                    </div>
+                </div>
+
+                <!-- Debre Libanos Monastery -->
+                <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1605640840605-14ac1855827b?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="p-8 flex-grow">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">1 Day • Spiritual Journey</span>
+                        <h3 class="text-2xl font-serif mb-2">Debre Libanos Monastery</h3>
+                        <span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-[#1B3022] bg-[#C5A059]/10 px-3 py-1 rounded-full mb-4"><i class="fas fa-tag text-[#C5A059]"></i> Pricing on Request</span>
+                        <p class="text-sm text-slate-500 mb-6 leading-relaxed">Visit one of Ethiopia's most important monasteries, founded in the 13th century. Explore the Portuguese Bridge and spot endemic Gelada baboons.</p>
+                        <div class="bg-stone-50 rounded-2xl p-5 mb-6">
+                            <h4 class="text-[10px] font-bold uppercase text-slate-400 tracking-[0.2em] mb-4">Package Includes</h4>
+                            <div class="grid grid-cols-2 gap-y-3">
+                                <div class="inclusion-item"><i class="fas fa-user-shield"></i> Expert Guide</div>
+                                <div class="inclusion-item"><i class="fas fa-car-side"></i> Private Car</div>
+                                <div class="inclusion-item"><i class="fas fa-ticket-alt"></i> Entry Fees</div>
+                                <div class="inclusion-item"><i class="fas fa-utensils"></i> Lunch</div>
+                            </div>
+                        </div>
+                        <button onclick="preSelectPackage('Debre Libanos Monastery')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Destination</button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -1167,6 +1209,18 @@
                             class="pkg-btn flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-stone-200 hover:border-[#C5A059] hover:bg-[#C5A059]/5 transition text-center">
                             <span class="text-xl">🏙️</span>
                             <span class="text-xs font-bold text-[#1B3022] leading-tight">Addis Ababa City Tour</span>
+                            <span class="text-[10px] text-slate-400">1 Day</span>
+                        </button>
+                        <button type="button" onclick="selectPackage(this, 'Lake Tana & Tis Abay Fall')"
+                            class="pkg-btn flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-stone-200 hover:border-[#C5A059] hover:bg-[#C5A059]/5 transition text-center">
+                            <span class="text-xl">💧</span>
+                            <span class="text-xs font-bold text-[#1B3022] leading-tight">Lake Tana & Tis Abay Fall</span>
+                            <span class="text-[10px] text-slate-400">2 Days</span>
+                        </button>
+                        <button type="button" onclick="selectPackage(this, 'Debre Libanos Monastery')"
+                            class="pkg-btn flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-stone-200 hover:border-[#C5A059] hover:bg-[#C5A059]/5 transition text-center">
+                            <span class="text-xl">⛪</span>
+                            <span class="text-xs font-bold text-[#1B3022] leading-tight">Debre Libanos Monastery</span>
                             <span class="text-[10px] text-slate-400">1 Day</span>
                         </button>
                     </div>
@@ -1344,6 +1398,36 @@
                     'Explore Ethiopia\'s vibrant capital, a city of contrasts where ancient traditions meet modern development. Visit the National Museum to see "Lucy," the 3.2 million-year-old hominid fossil that changed our understanding of human evolution.',
                     'Experience the organized chaos of Merkato, Africa\'s largest open-air market, where you can find everything from spices to traditional crafts. Visit the Holy Trinity Cathedral, the final resting place of Emperor Haile Selassie.',
                     'Enjoy authentic Ethiopian cuisine at a traditional restaurant with a coffee ceremony, explore the Ethnological Museum in Haile Selassie\'s former palace, and learn about Ethiopia\'s rich history and diverse cultures.'
+                ],
+                inclusions: [
+                    { icon: 'user-shield', text: 'Expert Guide' },
+                    { icon: 'car-side', text: 'Private Car' },
+                    { icon: 'ticket-alt', text: 'Entry Fees' },
+                    { icon: 'utensils', text: 'Lunch' }
+                ]
+            },
+            'Lake Tana & Tis Abay Fall': {
+                image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop&q=80',
+                duration: '2 Days • Sacred Waters',
+                description: [
+                    'Lake Tana, Ethiopia\'s largest lake and the source of the Blue Nile, is dotted with 37 islands, many home to ancient monasteries dating back to the 14th century. Take a traditional tankwa boat to visit these sacred sites adorned with stunning religious murals and manuscripts.',
+                    'The monasteries of Ura Kidane Mehret and Azwa Maryam house priceless religious artifacts, ancient crosses, and beautifully illuminated manuscripts. Learn about the Ethiopian Orthodox Church\'s rich traditions from resident monks.',
+                    'Visit Tis Abay (Blue Nile Falls), locally known as "Tis Issat" meaning "smoking water." Though reduced by hydroelectric projects, the falls remain spectacular during the rainy season, cascading over 400 meters wide and creating permanent rainbows in the mist.'
+                ],
+                inclusions: [
+                    { icon: 'user-shield', text: 'Expert Guide' },
+                    { icon: 'ship', text: 'Boat Trip' },
+                    { icon: 'ticket-alt', text: 'Entry Fees' },
+                    { icon: 'utensils', text: 'Full Board' }
+                ]
+            },
+            'Debre Libanos Monastery': {
+                image: 'https://images.unsplash.com/photo-1605640840605-14ac1855827b?w=800&auto=format&fit=crop&q=80',
+                duration: '1 Day • Spiritual Journey',
+                description: [
+                    'Debre Libanos Monastery, founded by the revered 13th-century saint Tekle Haymanot, is one of Ethiopia\'s most important religious sites. According to legend, the saint stood on one leg for seven years in prayer until the other leg fell off, earning him a place among Ethiopia\'s greatest saints.',
+                    'The current church, rebuilt in the 1960s after Italian destruction during WWII, houses ancient religious artifacts and offers stunning views of the surrounding gorge. Visit the cave where Saint Tekle Haymanot lived and prayed, now a pilgrimage site for thousands of Ethiopian Orthodox faithful.',
+                    'Cross the dramatic Portuguese Bridge spanning a 300-meter-deep gorge, built in the 16th century. The area is home to troops of endemic Gelada baboons, often seen grazing on the cliffsides. The monastery is just 100km north of Addis Ababa, making it a perfect day trip.'
                 ],
                 inclusions: [
                     { icon: 'user-shield', text: 'Expert Guide' },
