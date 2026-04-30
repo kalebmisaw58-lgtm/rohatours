@@ -360,6 +360,14 @@
         body.dark #gallery-section h2 { color: #f0e8d8 !important; }
         body.dark #gallery-section p { color: #8aaa94 !important; }
 
+        /* Festival section dark mode */
+        body.dark .festival-card { background: rgba(255,255,255,0.04) !important; border-color: rgba(255,255,255,0.08) !important; }
+        body.dark .festival-card h3 { color: #f0e8d8 !important; }
+        body.dark .festival-card p { color: #8aaa94 !important; }
+        body.dark .festival-card span { color: #8aaa94 !important; }
+        body.dark .festival-card button { color: var(--gold) !important; border-color: var(--gold) !important; }
+        body.dark .festival-card button:hover { background-color: var(--gold) !important; color: white !important; }
+
         /* Destination modal dark mode */
         body.dark #destinationModal > div { background-color: #1a2b1f !important; }
         body.dark #destinationModal h2 { color: #f0e8d8 !important; }
@@ -699,6 +707,162 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- ===== FESTIVALS SECTION ===== -->
+        <section class="py-24 border-b" style="background-color: var(--green-deep)">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-16">
+                    <span class="font-bold uppercase tracking-[0.3em] text-sm mb-3 block" style="color: var(--gold-light)">Cultural Calendar</span>
+                    <h2 class="text-4xl font-serif mb-3 text-white">Ethiopian Festivals</h2>
+                    <div class="gold-divider"></div>
+                    <p class="text-slate-400 mt-4 max-w-xl mx-auto">Plan your journey around Ethiopia's most spectacular cultural and religious celebrations.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- Timkat -->
+                    <div class="festival-card rounded-[28px] border border-white/10 overflow-hidden flex flex-col" style="background: rgba(255,255,255,0.05)">
+                        <div class="relative h-52 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1627318041007-8846c968940c?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition duration-700" alt="Timkat">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute top-4 left-4 bg-[#C5A059] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">Jan 19–20</div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-2xl">✝️</span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Religious • Nationwide</span>
+                            </div>
+                            <h3 class="text-white font-serif text-xl mb-2">Timkat</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed flex-grow">Ethiopian Epiphany — the most colorful Orthodox Christian celebration. Priests carry the Tabot (Ark replica) in procession to water, where thousands gather in white robes for a blessing. Most spectacular in Gondar and Lalibela.</p>
+                            <button onclick="openFestivalBooking('Timkat Festival', 'January 19–20')" class="mt-5 w-full py-3 rounded-xl border border-[#C5A059] text-[#C5A059] text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-white transition">Plan Your Visit</button>
+                        </div>
+                    </div>
+
+                    <!-- Genna -->
+                    <div class="festival-card rounded-[28px] border border-white/10 overflow-hidden flex flex-col" style="background: rgba(255,255,255,0.05)">
+                        <div class="relative h-52 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1518079562269-53db1e4433b8?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition duration-700" alt="Genna">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute top-4 left-4 bg-[#C5A059] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">Jan 7</div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-2xl">⛪</span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Religious • Lalibela</span>
+                            </div>
+                            <h3 class="text-white font-serif text-xl mb-2">Genna</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed flex-grow">Ethiopian Christmas, celebrated with all-night church services, traditional Genna stick games, and feasting. Lalibela is the ultimate destination — pilgrims fill the rock-hewn churches for a once-in-a-lifetime spiritual experience.</p>
+                            <button onclick="openFestivalBooking('Genna (Ethiopian Christmas)', 'January 7')" class="mt-5 w-full py-3 rounded-xl border border-[#C5A059] text-[#C5A059] text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-white transition">Plan Your Visit</button>
+                        </div>
+                    </div>
+
+                    <!-- Meskel -->
+                    <div class="festival-card rounded-[28px] border border-white/10 overflow-hidden flex flex-col" style="background: rgba(255,255,255,0.05)">
+                        <div class="relative h-52 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1608634193723-1865aa4416ce?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition duration-700" alt="Meskel">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute top-4 left-4 bg-[#C5A059] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">Sep 27</div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-2xl">🔥</span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Religious • Addis Ababa</span>
+                            </div>
+                            <h3 class="text-white font-serif text-xl mb-2">Meskel</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed flex-grow">The Finding of the True Cross — a UNESCO-listed celebration where a massive bonfire (Demera) is lit at Meskel Square in Addis Ababa. Thousands gather in traditional dress as priests chant and the flames light up the night sky.</p>
+                            <button onclick="openFestivalBooking('Meskel Festival', 'September 27')" class="mt-5 w-full py-3 rounded-xl border border-[#C5A059] text-[#C5A059] text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-white transition">Plan Your Visit</button>
+                        </div>
+                    </div>
+
+                    <!-- Enkutatash -->
+                    <div class="festival-card rounded-[28px] border border-white/10 overflow-hidden flex flex-col" style="background: rgba(255,255,255,0.05)">
+                        <div class="relative h-52 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1524734627574-bbb084c4ee66?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition duration-700" alt="Enkutatash">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute top-4 left-4 bg-[#C5A059] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">Sep 11</div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-2xl">🌸</span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Cultural • Nationwide</span>
+                            </div>
+                            <h3 class="text-white font-serif text-xl mb-2">Enkutatash</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed flex-grow">Ethiopian New Year, celebrated as the rainy season ends and the highlands burst into yellow Adey Abeba flowers. Children sing traditional songs and exchange bouquets. Streets fill with music, dancing, and the smell of fresh injera.</p>
+                            <button onclick="openFestivalBooking('Enkutatash (Ethiopian New Year)', 'September 11')" class="mt-5 w-full py-3 rounded-xl border border-[#C5A059] text-[#C5A059] text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-white transition">Plan Your Visit</button>
+                        </div>
+                    </div>
+
+                    <!-- Irreecha -->
+                    <div class="festival-card rounded-[28px] border border-white/10 overflow-hidden flex flex-col" style="background: rgba(255,255,255,0.05)">
+                        <div class="relative h-52 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition duration-700" alt="Irreecha">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute top-4 left-4 bg-[#C5A059] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">Oct (1st Sun)</div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-2xl">🌿</span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Cultural • Lake Hora, Bishoftu</span>
+                            </div>
+                            <h3 class="text-white font-serif text-xl mb-2">Irreecha</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed flex-grow">The Oromo Thanksgiving festival — millions gather at Lake Hora in Bishoftu to give thanks to Waaqa (God) for the end of the rainy season. Participants wear traditional Oromo dress and carry grass and flowers to the lakeside in a breathtaking display of culture.</p>
+                            <button onclick="openFestivalBooking('Irreecha Festival', 'First Sunday of October')" class="mt-5 w-full py-3 rounded-xl border border-[#C5A059] text-[#C5A059] text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-white transition">Plan Your Visit</button>
+                        </div>
+                    </div>
+
+                    <!-- Ashenda -->
+                    <div class="festival-card rounded-[28px] border border-white/10 overflow-hidden flex flex-col" style="background: rgba(255,255,255,0.05)">
+                        <div class="relative h-52 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1627318041007-8846c968940c?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition duration-700" alt="Ashenda">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <div class="absolute top-4 left-4 bg-[#C5A059] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">Aug</div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-2xl">💃</span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Cultural • Tigray & Amhara</span>
+                            </div>
+                            <h3 class="text-white font-serif text-xl mb-2">Ashenda</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed flex-grow">A women's festival unique to northern Ethiopia — girls and women dress in their finest traditional clothes, wear elaborate jewelry, and dance through the streets singing Ashenda songs. A joyful celebration of womanhood and community that lasts several days.</p>
+                            <button onclick="openFestivalBooking('Ashenda Festival', 'August')" class="mt-5 w-full py-3 rounded-xl border border-[#C5A059] text-[#C5A059] text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-white transition">Plan Your Visit</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Festival Calendar Strip -->
+                <div class="mt-14 rounded-[28px] border border-white/10 p-6" style="background: rgba(255,255,255,0.04)">
+                    <h4 class="text-white font-serif text-lg mb-5 text-center">Festival Calendar</h4>
+                    <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 text-center">
+                        <div class="rounded-xl p-3" style="background: rgba(255,255,255,0.05)">
+                            <p class="text-[#C5A059] font-bold text-xs uppercase tracking-widest mb-1">Jan</p>
+                            <p class="text-white text-[11px] leading-tight">Genna<br><span class="text-slate-400">& Timkat</span></p>
+                        </div>
+                        <div class="rounded-xl p-3" style="background: rgba(255,255,255,0.03)">
+                            <p class="text-slate-500 font-bold text-xs uppercase tracking-widest mb-1">Feb–Jul</p>
+                            <p class="text-slate-500 text-[11px]">Off Season</p>
+                        </div>
+                        <div class="rounded-xl p-3" style="background: rgba(255,255,255,0.05)">
+                            <p class="text-[#C5A059] font-bold text-xs uppercase tracking-widest mb-1">Aug</p>
+                            <p class="text-white text-[11px] leading-tight">Ashenda<br><span class="text-slate-400">& Buhe</span></p>
+                        </div>
+                        <div class="rounded-xl p-3" style="background: rgba(255,255,255,0.05)">
+                            <p class="text-[#C5A059] font-bold text-xs uppercase tracking-widest mb-1">Sep</p>
+                            <p class="text-white text-[11px] leading-tight">Enkutatash<br><span class="text-slate-400">& Meskel</span></p>
+                        </div>
+                        <div class="rounded-xl p-3" style="background: rgba(255,255,255,0.05)">
+                            <p class="text-[#C5A059] font-bold text-xs uppercase tracking-widest mb-1">Oct</p>
+                            <p class="text-white text-[11px] leading-tight">Irreecha</p>
+                        </div>
+                        <div class="rounded-xl p-3" style="background: rgba(255,255,255,0.03)">
+                            <p class="text-slate-500 font-bold text-xs uppercase tracking-widest mb-1">Nov–Dec</p>
+                            <p class="text-slate-500 text-[11px]">Off Season</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -1629,6 +1793,24 @@
         // Restore saved theme
         if (localStorage.getItem('theme') === 'dark') {
             document.body.classList.add('dark');
+        }
+
+        function openFestivalBooking(festivalName, dates) {
+            // Pre-fill booking form with festival name as a note in the package
+            document.getElementById('formPackage').value = festivalName;
+            // Deselect all pkg-btn and select none (festival isn't in the picker)
+            document.querySelectorAll('.pkg-btn').forEach(b => {
+                b.classList.remove('selected-pkg', 'border-[#C5A059]', 'bg-[#C5A059]/10');
+                b.classList.add('border-stone-200');
+            });
+            window.location.hash = 'booking';
+            // Show a note about the festival dates
+            setTimeout(() => {
+                const dateInput = document.getElementById('formDate');
+                if (dateInput && !dateInput.value) {
+                    dateInput.placeholder = `Around ${dates}`;
+                }
+            }, 150);
         }
 
         function selectPackage(btn, pkgName) {
