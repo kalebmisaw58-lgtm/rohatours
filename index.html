@@ -6,6 +6,7 @@
     <title>RohaTours | Private Expeditions & Authentic Ethiopia Travel</title>
     
     <meta name="description" content="Discover Ethiopia with RohaTours. Expert-led private expeditions to Lalibela, Gondar, and Axum.">
+    <meta name="robots" content="index, follow">
 
     <!-- Open Graph / Social Sharing -->
     <meta property="og:type" content="website">
@@ -39,6 +40,9 @@
             }
         };
 
+        // Sanitize a string for safe text content
+        const escText = (str) => String(str || '');
+
         // Load trips for this user by email
         window.loadMyTrips = async () => {
             const container = document.getElementById('trips-container');
@@ -49,13 +53,38 @@
             const email = sessionStorage.getItem('bookedEmail');
             if (!email) {
                 container.innerHTML = `
-                    <div class="text-center py-16">
-                        <i class="fas fa-suitcase-rolling text-4xl text-stone-300 mb-4 block"></i>
-                        <p class="text-slate-500 text-sm">Book a trip to see it here.</p>
-                        <a href="#booking" class="inline-block mt-4 btn-gold px-8 py-3 rounded-full text-sm font-bold uppercase tracking-widest">Book a Destination</a>
+                    <div class="text-center py-12">
+                        <div class="mb-6">
+                            <i class="fas fa-suitcase-rolling text-4xl text-stone-300 mb-4 block"></i>
+                            <p class="text-slate-500 text-sm mb-4">Enter your email to look up your bookings.</p>
+                        </div>
+                        <div class="flex gap-2 max-w-sm mx-auto">
+                            <input id="tripEmailInput" type="email" placeholder="your@email.com"
+                                class="form-input flex-1 rounded-xl p-3 text-sm">
+                            <button onclick="lookupTripsByEmail()" class="btn-gold px-5 py-3 rounded-xl text-sm font-bold">Look Up</button>
+                        </div>
+                        <p class="text-slate-400 text-xs mt-4">Or <a href="#booking" class="text-[#C5A059] hover:underline">book a new trip</a></p>
                     </div>`;
                 return;
             }
+
+            await fetchAndRenderTrips(email);
+        };
+
+        window.lookupTripsByEmail = async () => {
+            const input = document.getElementById('tripEmailInput');
+            const email = input ? input.value.trim() : '';
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            sessionStorage.setItem('bookedEmail', email);
+            await fetchAndRenderTrips(email);
+        };
+
+        async function fetchAndRenderTrips(email) {
+            const container = document.getElementById('trips-container');
+            container.innerHTML = `<div class="text-center py-8"><div class="w-8 h-8 border-2 border-[#C5A059] border-t-transparent rounded-full loading-spinner mx-auto"></div></div>`;
 
             try {
                 const res = await fetch(`/api/bookings?email=${encodeURIComponent(email)}`);
@@ -65,33 +94,73 @@
                     container.innerHTML = `
                         <div class="text-center py-16">
                             <i class="fas fa-suitcase-rolling text-4xl text-stone-300 mb-4 block"></i>
-                            <p class="text-slate-500 text-sm">No trips found for ${email}.</p>
+                            <p class="text-slate-500 text-sm mb-2">No trips found for <strong>${email}</strong>.</p>
+                            <button onclick="sessionStorage.removeItem('bookedEmail'); window.loadMyTrips();" class="text-xs text-[#C5A059] hover:underline mt-2 block mx-auto">Try a different email</button>
                             <a href="#booking" class="inline-block mt-4 btn-gold px-8 py-3 rounded-full text-sm font-bold uppercase tracking-widest">Book a Destination</a>
                         </div>`;
                     return;
                 }
 
+                container.innerHTML = '';
                 trips.forEach(trip => {
                     const div = document.createElement('div');
                     div.className = 'bg-white p-6 rounded-2xl shadow flex flex-col md:flex-row justify-between items-start md:items-center gap-4';
-                    div.innerHTML = `
-                        <div>
-                            <h3 class="font-serif text-xl text-[#1B3022] mb-1">${trip.package}</h3>
-                            <p class="text-sm text-slate-500 mb-2">Name: ${trip.customerName}</p>
-                            <p class="text-sm text-slate-500 mb-2">Email: ${trip.customerEmail}</p>
-                            ${trip.customerPhone ? `<p class="text-sm text-slate-500 mb-2">Phone: ${trip.customerPhone}</p>` : ''}
-                            ${trip.travelDate ? `<p class="text-sm text-slate-500 mb-2">Travel Date: ${trip.travelDate}</p>` : ''}
-                            <p class="text-sm text-slate-500">Travelers: ${trip.travelerCount}</p>
-                        </div>
-                        <span class="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full ${trip.status === 'confirmed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">
-                            ${trip.status}
-                        </span>`;
+
+                    // Build content safely using DOM — no innerHTML with DB data
+                    const info = document.createElement('div');
+
+                    const pkg = document.createElement('h3');
+                    pkg.className = 'font-serif text-xl text-[#1B3022] mb-1';
+                    pkg.textContent = trip.package || '—';
+
+                    const name = document.createElement('p');
+                    name.className = 'text-sm text-slate-500 mb-1';
+                    name.textContent = `Name: ${trip.customerName || '—'}`;
+
+                    const emailEl = document.createElement('p');
+                    emailEl.className = 'text-sm text-slate-500 mb-1';
+                    emailEl.textContent = `Email: ${trip.customerEmail || '—'}`;
+
+                    info.appendChild(pkg);
+                    info.appendChild(name);
+                    info.appendChild(emailEl);
+
+                    if (trip.customerPhone) {
+                        const phone = document.createElement('p');
+                        phone.className = 'text-sm text-slate-500 mb-1';
+                        phone.textContent = `Phone: ${trip.customerPhone}`;
+                        info.appendChild(phone);
+                    }
+                    if (trip.travelDate) {
+                        const date = document.createElement('p');
+                        date.className = 'text-sm text-slate-500 mb-1';
+                        date.textContent = `Travel Date: ${trip.travelDate}`;
+                        info.appendChild(date);
+                    }
+                    const travelers = document.createElement('p');
+                    travelers.className = 'text-sm text-slate-500';
+                    travelers.textContent = `Travelers: ${trip.travelerCount || 1}`;
+                    info.appendChild(travelers);
+
+                    const badge = document.createElement('span');
+                    badge.className = `text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full ${trip.status === 'confirmed' ? 'bg-green-100 text-green-800' : trip.status === 'cancelled' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800'}`;
+                    badge.textContent = trip.status || 'pending';
+
+                    div.appendChild(info);
+                    div.appendChild(badge);
                     container.appendChild(div);
                 });
+
+                // Add "try different email" link at bottom
+                const changeEmail = document.createElement('p');
+                changeEmail.className = 'text-center text-xs text-slate-400 mt-4';
+                changeEmail.innerHTML = `Showing trips for <strong>${email}</strong>. <button onclick="sessionStorage.removeItem('bookedEmail'); window.loadMyTrips();" class="text-[#C5A059] hover:underline">Change email</button>`;
+                container.appendChild(changeEmail);
+
             } catch (err) {
-                container.innerHTML = `<p class="text-red-500 text-sm">Error loading trips. Please try again.</p>`;
+                container.innerHTML = `<p class="text-red-500 text-sm text-center">Error loading trips. Please try again.</p>`;
             }
-        };
+        }
     </script>
 
     <style>
@@ -110,12 +179,13 @@
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; background-color: var(--cream); }
         h1, h2, h3, h4, .font-serif { font-family: 'Playfair Display', serif; }
 
-        /* Hero */
-        .hero-gradient {
-            background: linear-gradient(160deg, rgba(27,48,34,0.7) 0%, rgba(0,0,0,0.85) 100%),
-                        url('https://images.unsplash.com/photo-1627318041007-8846c968940c?auto=format&fit=crop&q=80&w=2000');
-            background-size: cover;
-            background-position: center;
+        /* Section label */
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--gold);
         }
 
         /* Nav */
@@ -396,6 +466,7 @@
             <div class="hidden md:flex items-center space-x-8">
                 <a href="#landing" data-page="landing" class="nav-link text-sm font-semibold hover:text-[#C5A059]">Home</a>
                 <a href="#destinations" data-page="destinations" class="nav-link text-sm font-semibold hover:text-[#C5A059]">Destinations</a>
+                <a href="#festivals" data-page="landing" class="nav-link text-sm font-semibold hover:text-[#C5A059]">Festivals</a>
                 <a href="#about" data-page="about" class="nav-link text-sm font-semibold hover:text-[#C5A059]">About Us</a>
                 <a href="#dashboard" data-page="dashboard" class="nav-link text-sm font-semibold hover:text-[#C5A059] flex items-center gap-2">
                     <i class="far fa-user-circle"></i> My Trips
@@ -419,6 +490,7 @@
             <a href="#landing" onclick="toggleMobileMenu(false)">Home</a>
             <a href="#about" onclick="toggleMobileMenu(false)">About Us</a>
             <a href="#destinations" onclick="toggleMobileMenu(false)">Destinations</a>
+            <a href="#festivals" onclick="toggleMobileMenu(false)">Festivals</a>
             <a href="#dashboard" onclick="toggleMobileMenu(false)">My Trips</a>
             <a href="#booking" onclick="toggleMobileMenu(false)" class="btn-gold py-4 rounded-xl text-center text-sm font-bold font-sans uppercase">Book Now</a>
         </div>
@@ -426,9 +498,9 @@
 
     <div id="landing-page" class="page-view active">
         <section class="relative h-screen flex items-center justify-center text-white overflow-hidden">
-            <!-- Video background -->
-            <div class="hero-video-wrap">
-                <video autoplay muted loop playsinline>
+            <!-- Video background — desktop only, poster image used on mobile -->
+            <div class="hero-video-wrap hidden md:block">
+                <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1627318041007-8846c968940c?auto=format&fit=crop&q=80&w=1200">
                     <source src="https://videos.pexels.com/video-files/13240700/13240700-uhd_2560_1440_24fps.mp4" type="video/mp4">
                 </video>
             </div>
@@ -495,52 +567,52 @@
                 <!-- Masonry-style photo grid -->
                 <div id="traveler-grid" class="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
                     <div class="gallery-item rounded-2xl overflow-hidden break-inside-avoid">
-                        <img src="/Public/IMG-20241225-WA0003.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Traveler experience">
+                        <img src="/Public/IMG-20241225-WA0003.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Travelers exploring Ethiopia with RohaTours, Christmas 2024">
                     </div>
                     <div class="gallery-item rounded-2xl overflow-hidden break-inside-avoid">
-                        <img src="/Public/IMG-20241225-WA0008.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Traveler experience">
+                        <img src="/Public/IMG-20241225-WA0008.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="RohaTours group at an Ethiopian landmark, December 2024">
                     </div>
                     <div class="gallery-item rounded-2xl overflow-hidden break-inside-avoid">
-                        <img src="/Public/IMG-20241225-WA0010.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Traveler experience">
+                        <img src="/Public/IMG-20241225-WA0010.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Private tour experience in Ethiopia, December 2024">
                     </div>
                     <div class="gallery-item rounded-2xl overflow-hidden break-inside-avoid">
-                        <img src="/Public/IMG-20241225-WA0011.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Traveler experience">
+                        <img src="/Public/IMG-20241225-WA0011.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Travelers on a RohaTours expedition, December 2024">
                     </div>
                     <div class="gallery-item rounded-2xl overflow-hidden break-inside-avoid">
-                        <img src="/Public/IMG-20250103-WA0001.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Traveler experience">
+                        <img src="/Public/IMG-20250103-WA0001.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="RohaTours cultural experience, January 2025">
                     </div>
                     <div class="gallery-item rounded-2xl overflow-hidden break-inside-avoid">
-                        <img src="/Public/IMG-20250127-WA0009.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Traveler experience">
+                        <img src="/Public/IMG-20250127-WA0009.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Travelers discovering Ethiopia with RohaTours, January 2025">
                     </div>
                     <div class="gallery-item rounded-2xl overflow-hidden break-inside-avoid">
-                        <img src="/Public/IMG-20250127-WA0011.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Traveler experience">
+                        <img src="/Public/IMG-20250127-WA0011.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Private expedition in Ethiopia, January 2025">
                     </div>
                     <div class="gallery-item rounded-2xl overflow-hidden break-inside-avoid">
-                        <img src="/Public/IMG-20250127-WA0012.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Traveler experience">
+                        <img src="/Public/IMG-20250127-WA0012.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="RohaTours guided tour moment, January 2025">
                     </div>
                     <div class="gallery-item rounded-2xl overflow-hidden break-inside-avoid">
-                        <img src="/Public/IMG-20250214-WA0002.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Traveler experience">
+                        <img src="/Public/IMG-20250214-WA0002.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Travelers at an Ethiopian heritage site, February 2025">
                     </div>
                     <div class="gallery-item rounded-2xl overflow-hidden break-inside-avoid">
-                        <img src="/Public/IMG-20250214-WA0011.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Traveler experience">
+                        <img src="/Public/IMG-20250214-WA0011.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="RohaTours authentic Ethiopia experience, February 2025">
                     </div>
                     <div class="gallery-item rounded-2xl overflow-hidden break-inside-avoid">
-                        <img src="/Public/IMG-20251007-WA0006.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Traveler experience">
+                        <img src="/Public/IMG-20251007-WA0006.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="RohaTours expedition in the Ethiopian highlands, October 2025">
                     </div>
                     <div class="gallery-item rounded-2xl overflow-hidden break-inside-avoid">
-                        <img src="/Public/IMG-20251129-WA0000.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Traveler experience">
+                        <img src="/Public/IMG-20251129-WA0000.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Travelers on a private RohaTours journey, November 2025">
                     </div>
                     <div class="gallery-item rounded-2xl overflow-hidden break-inside-avoid">
-                        <img src="/Public/IMG-20251129-WA0004.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Traveler experience">
+                        <img src="/Public/IMG-20251129-WA0004.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Cultural immersion tour with RohaTours, November 2025">
                     </div>
                     <div class="gallery-item rounded-2xl overflow-hidden break-inside-avoid">
-                        <img src="/Public/IMG-20251129-WA0005.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Traveler experience">
+                        <img src="/Public/IMG-20251129-WA0005.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="RohaTours group exploring Ethiopia, November 2025">
                     </div>
                     <div class="gallery-item rounded-2xl overflow-hidden break-inside-avoid">
-                        <img src="/Public/1740917821723.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Traveler experience">
+                        <img src="/Public/1740917821723.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="RohaTours private expedition in Ethiopia">
                     </div>
                     <div class="gallery-item rounded-2xl overflow-hidden break-inside-avoid">
-                        <img src="/Public/IMG-20230128-WA0014.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Traveler experience">
+                        <img src="/Public/IMG-20230128-WA0014.jpg" loading="lazy" class="w-full object-cover hover:scale-105 transition duration-700" alt="Early RohaTours expedition, January 2023">
                     </div>
                 </div>
 
@@ -1342,10 +1414,10 @@
                 </div>
                 <div class="mb-6">
                     <label class="text-xs font-bold uppercase tracking-widest block mb-3" style="color: var(--green-deep)">Choose Your Destination</label>
-                    <input type="hidden" id="formPackage" value="Lalibela Churches">
+                    <input type="hidden" id="formPackage" value="">
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="packagePicker">
                         <button type="button" onclick="selectPackage(this, 'Lalibela Churches')"
-                            class="pkg-btn selected-pkg flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-[#C5A059] bg-[#C5A059]/10 transition text-center">
+                            class="pkg-btn flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-stone-200 hover:border-[#C5A059] hover:bg-[#C5A059]/5 transition text-center">
                             <span class="text-xl">⛪</span>
                             <span class="text-xs font-bold text-[#1B3022] leading-tight">Lalibela Churches</span>
                             <span class="text-[10px] text-slate-400">3 Days</span>
@@ -1712,10 +1784,18 @@
             // Always close mobile menu on navigation
             toggleMobileMenu(false);
 
-            if (hash === 'gallery-section') {
+            if (hash === 'gallery-section' || hash === 'festivals') {
+                // Ensure landing page is active first, then scroll to section
+                document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
                 const landing = document.getElementById('landing-page');
                 landing.classList.add('active');
-                document.getElementById('gallery-section').scrollIntoView({ behavior: 'smooth' });
+                // Use requestAnimationFrame to scroll after paint
+                requestAnimationFrame(() => {
+                    const target = hash === 'festivals'
+                        ? document.querySelector('.py-24.border-b[style*="green-deep"]')
+                        : document.getElementById('gallery-section');
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                });
                 return;
             }
 
@@ -1869,6 +1949,7 @@
 
             if (!name) { alert('Please enter your full name.'); return; }
             if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Please enter a valid email address.'); return; }
+            if (!pkg) { alert('Please select a destination or festival.'); return; }
             if (parseInt(count) < 1 || isNaN(parseInt(count))) { alert('Traveler count must be at least 1.'); return; }
 
             btn.disabled = true;
@@ -2030,6 +2111,13 @@ Pioneering luxury private destinations through the heart of Ethiopia. From the r
     <span id="lightbox-close">&times;</span>
     <img id="lightbox-img" src="" alt="Traveler photo">
 </div>
+<noscript>
+    <style>body { display: block !important; }</style>
+    <div style="font-family: sans-serif; text-align: center; padding: 4rem 2rem; background: #1B3022; color: #FDFAF4; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <h1 style="font-size: 2rem; margin-bottom: 1rem; color: #C5A059;">ROHA<span>TOURS</span></h1>
+        <p style="max-width: 400px; line-height: 1.6; color: #c8d8cc;">This website requires JavaScript to run. Please enable JavaScript in your browser settings and reload the page.</p>
+    </div>
+</noscript>
 
 </body>
 </html>

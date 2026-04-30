@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RohaTours | Staff Dashboard</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -222,42 +224,46 @@
                 return;
             }
 
+            // Sanitize a string for safe HTML insertion
+            const esc = (str) => String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+
             grid.innerHTML = filtered.map(b => {
                 const statusColor = b.status === 'confirmed' ? 'bg-green-100 text-green-800' :
                                     b.status === 'cancelled' ? 'bg-red-100 text-red-800' :
                                     'bg-yellow-100 text-yellow-800';
                 const date = b.createdAt ? new Date(b.createdAt).toLocaleDateString() : '—';
+                const id = esc(b._id);
 
                 return `
                 <div class="bg-white rounded-[24px] border border-stone-200 p-6 flex flex-col gap-4">
                     <div class="flex justify-between items-start">
                         <div>
-                            <h3 class="font-serif text-lg text-[#1B3022]">${b.customerName || '—'}</h3>
-                            <p class="text-xs text-slate-400">${b.customerEmail || ''}</p>
-                            ${b.customerPhone ? `<p class="text-xs text-slate-400">${b.customerPhone}</p>` : ''}
+                            <h3 class="font-serif text-lg text-[#1B3022]">${esc(b.customerName) || '—'}</h3>
+                            <p class="text-xs text-slate-400">${esc(b.customerEmail)}</p>
+                            ${b.customerPhone ? `<p class="text-xs text-slate-400">${esc(b.customerPhone)}</p>` : ''}
                         </div>
-                        <span class="px-3 py-1 text-[10px] font-bold uppercase rounded-full ${statusColor}">${b.status || 'pending'}</span>
+                        <span class="px-3 py-1 text-[10px] font-bold uppercase rounded-full ${statusColor}">${esc(b.status) || 'pending'}</span>
                     </div>
 
                     <div class="bg-stone-50 rounded-xl p-4 text-sm space-y-1">
-                        <p><span class="text-xs font-bold uppercase text-slate-400">Package</span><br>${b.package || '—'}</p>
-                        <p><span class="text-xs font-bold uppercase text-slate-400">Travelers</span> ${b.travelerCount || '—'}</p>
-                        <p><span class="text-xs font-bold uppercase text-slate-400">Travel Date</span> ${b.travelDate || '—'}</p>
+                        <p><span class="text-xs font-bold uppercase text-slate-400">Package</span><br>${esc(b.package) || '—'}</p>
+                        <p><span class="text-xs font-bold uppercase text-slate-400">Travelers</span> ${esc(b.travelerCount) || '—'}</p>
+                        <p><span class="text-xs font-bold uppercase text-slate-400">Travel Date</span> ${esc(b.travelDate) || '—'}</p>
                         <p><span class="text-xs font-bold uppercase text-slate-400">Booked On</span> ${date}</p>
                     </div>
 
                     <div class="flex gap-2 flex-wrap">
                         ${b.status !== 'confirmed' ? `
-                        <button onclick="updateStatus('${b._id}', 'confirmed')"
+                        <button onclick="updateStatus('${id}', 'confirmed')"
                             class="flex-1 bg-green-600 text-white py-2 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-green-700 transition">
                             <i class="fas fa-check mr-1"></i> Approve
                         </button>` : ''}
                         ${b.status !== 'cancelled' ? `
-                        <button onclick="updateStatus('${b._id}', 'cancelled')"
+                        <button onclick="updateStatus('${id}', 'cancelled')"
                             class="flex-1 bg-red-50 text-red-600 border border-red-200 py-2 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-red-100 transition">
                             <i class="fas fa-times mr-1"></i> Cancel
                         </button>` : ''}
-                        <button onclick="openMessage('${b.customerEmail}', '${b.customerName}', '${b.package}', '${b.status}')"
+                        <button onclick="openMessage('${esc(b.customerEmail)}', '${esc(b.customerName)}', '${esc(b.package)}', '${esc(b.status)}')"
                             class="flex-1 bg-stone-100 text-[#1B3022] py-2 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-stone-200 transition">
                             <i class="fas fa-envelope mr-1"></i> Message
                         </button>
