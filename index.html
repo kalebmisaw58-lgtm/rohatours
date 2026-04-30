@@ -1423,6 +1423,45 @@
                             <span class="text-[10px] text-slate-400">1 Day</span>
                         </button>
                     </div>
+
+                    <!-- Festival divider -->
+                    <div class="mt-4 mb-2">
+                        <p class="text-xs font-bold uppercase tracking-widest mb-3" style="color: var(--gold)">
+                            <i class="fas fa-star mr-1"></i> Festivals
+                        </p>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                            <button type="button" onclick="selectPackage(this, 'Timkat Festival')"
+                                class="pkg-btn flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-stone-200 hover:border-[#C5A059] hover:bg-[#C5A059]/5 transition text-center">
+                                <span class="text-xl">✝️</span>
+                                <span class="text-xs font-bold text-[#1B3022] leading-tight">Timkat</span>
+                                <span class="text-[10px] text-slate-400">Jan 19–20</span>
+                            </button>
+                            <button type="button" onclick="selectPackage(this, 'Genna (Ethiopian Christmas)')"
+                                class="pkg-btn flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-stone-200 hover:border-[#C5A059] hover:bg-[#C5A059]/5 transition text-center">
+                                <span class="text-xl">⛪</span>
+                                <span class="text-xs font-bold text-[#1B3022] leading-tight">Genna</span>
+                                <span class="text-[10px] text-slate-400">Jan 7</span>
+                            </button>
+                            <button type="button" onclick="selectPackage(this, 'Meskel Festival')"
+                                class="pkg-btn flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-stone-200 hover:border-[#C5A059] hover:bg-[#C5A059]/5 transition text-center">
+                                <span class="text-xl">🔥</span>
+                                <span class="text-xs font-bold text-[#1B3022] leading-tight">Meskel</span>
+                                <span class="text-[10px] text-slate-400">Sep 27</span>
+                            </button>
+                            <button type="button" onclick="selectPackage(this, 'Irreecha Festival')"
+                                class="pkg-btn flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-stone-200 hover:border-[#C5A059] hover:bg-[#C5A059]/5 transition text-center">
+                                <span class="text-xl">🌿</span>
+                                <span class="text-xs font-bold text-[#1B3022] leading-tight">Irreecha</span>
+                                <span class="text-[10px] text-slate-400">Oct</span>
+                            </button>
+                            <button type="button" onclick="selectPackage(this, 'Ashenda Festival')"
+                                class="pkg-btn flex flex-col items-center gap-2 p-3 rounded-2xl border-2 border-stone-200 hover:border-[#C5A059] hover:bg-[#C5A059]/5 transition text-center">
+                                <span class="text-xl">💃</span>
+                                <span class="text-xs font-bold text-[#1B3022] leading-tight">Ashenda</span>
+                                <span class="text-[10px] text-slate-400">August</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div class="mb-8">
                     <label class="text-xs font-bold uppercase tracking-widest block mb-2" style="color: var(--green-deep)">Traveler Count</label>
@@ -1696,6 +1735,22 @@
             if (hash === 'booking') {
                 document.getElementById('bookingSuccess').classList.add('hidden');
                 document.getElementById('bookingForm').classList.remove('hidden');
+
+                // Apply any pending package selection (from preSelectPackage or openFestivalBooking)
+                if (window._pendingPackage) {
+                    const pkg = window._pendingPackage;
+                    window._pendingPackage = null;
+                    // Find the matching pkg-btn and select it
+                    const btn = Array.from(document.querySelectorAll('.pkg-btn')).find(b =>
+                        b.getAttribute('onclick') && b.getAttribute('onclick').includes(`'${pkg}'`)
+                    );
+                    if (btn) {
+                        selectPackage(btn, pkg);
+                    } else {
+                        // Festival or custom — just set the hidden input directly
+                        document.getElementById('formPackage').value = pkg;
+                    }
+                }
             }
 
             // Load trips when navigating to dashboard
@@ -1778,21 +1833,9 @@
         }
 
         function openFestivalBooking(festivalName, dates) {
-            // Pre-fill booking form with festival name as a note in the package
-            document.getElementById('formPackage').value = festivalName;
-            // Deselect all pkg-btn and select none (festival isn't in the picker)
-            document.querySelectorAll('.pkg-btn').forEach(b => {
-                b.classList.remove('selected-pkg', 'border-[#C5A059]', 'bg-[#C5A059]/10');
-                b.classList.add('border-stone-200');
-            });
+            // Store the pending selection so routing doesn't wipe it
+            window._pendingPackage = festivalName;
             window.location.hash = 'booking';
-            // Show a note about the festival dates
-            setTimeout(() => {
-                const dateInput = document.getElementById('formDate');
-                if (dateInput && !dateInput.value) {
-                    dateInput.placeholder = `Around ${dates}`;
-                }
-            }, 150);
         }
 
         function selectPackage(btn, pkgName) {
@@ -1809,15 +1852,8 @@
         }
 
         function preSelectPackage(pkgName) {
-            document.getElementById('formPackage').value = pkgName;
+            window._pendingPackage = pkgName;
             window.location.hash = 'booking';
-            // Wait for page to load, then select the button
-            setTimeout(() => {
-                const btn = Array.from(document.querySelectorAll('.pkg-btn')).find(b => 
-                    b.getAttribute('onclick').includes(`'${pkgName}'`)
-                );
-                if (btn) selectPackage(btn, pkgName);
-            }, 100);
         }
 
         async function submitBooking() {
