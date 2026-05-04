@@ -466,7 +466,7 @@
             <div class="hidden md:flex items-center space-x-8">
                 <a href="#landing" data-page="landing" class="nav-link text-sm font-semibold hover:text-[#C5A059]">Home</a>
                 <a href="#destinations" data-page="destinations" class="nav-link text-sm font-semibold hover:text-[#C5A059]">Destinations</a>
-                <a href="#festivals" data-page="landing" class="nav-link text-sm font-semibold hover:text-[#C5A059]">Festivals</a>
+                <a href="#festivals" data-page="festivals" class="nav-link text-sm font-semibold hover:text-[#C5A059]">Festivals</a>
                 <a href="#about" data-page="about" class="nav-link text-sm font-semibold hover:text-[#C5A059]">About Us</a>
                 <a href="#dashboard" data-page="dashboard" class="nav-link text-sm font-semibold hover:text-[#C5A059] flex items-center gap-2">
                     <i class="far fa-user-circle"></i> My Trips
@@ -1374,6 +1374,165 @@
         </div>
     </div>
 
+    <div id="festivals-page" class="page-view pt-32 pb-24" style="background-color: var(--cream)">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="mb-16 text-center">
+                <span class="section-label block mb-3">Celebrate Ethiopia</span>
+                <h2 class="text-4xl md:text-5xl font-serif mb-3" style="color: var(--green-deep)">Sacred Festivals</h2>
+                <div class="gold-divider"></div>
+                <p class="text-slate-500 max-w-2xl mx-auto mt-4">Witness Ethiopia's ancient living traditions — ceremonies unchanged for over a thousand years.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Timkat -->
+                <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="p-8 flex-grow">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">3 Days • Jan 19–21 (Ter 10–12)</span>
+                        <h3 class="text-2xl font-serif mb-2">Timkat — Epiphany</h3>
+                        <span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-[#1B3022] bg-[#C5A059]/10 px-3 py-1 rounded-full mb-4"><i class="fas fa-tag text-[#C5A059]"></i> Pricing on Request</span>
+                        <p class="text-sm text-slate-500 mb-6 leading-relaxed">Ethiopia's most spectacular festival. Priests carry the Tabot in procession to water, re-enacting the baptism of Christ in a sea of white robes and chanting.</p>
+                        <div class="bg-stone-50 rounded-2xl p-5 mb-6">
+                            <h4 class="text-[10px] font-bold uppercase text-slate-400 tracking-[0.2em] mb-4">Package Includes</h4>
+                            <div class="grid grid-cols-2 gap-y-3">
+                                <div class="inclusion-item"><i class="fas fa-user-shield"></i> Expert Guide</div>
+                                <div class="inclusion-item"><i class="fas fa-car-side"></i> Luxury 4x4</div>
+                                <div class="inclusion-item"><i class="fas fa-hotel"></i> Hotel Stay</div>
+                                <div class="inclusion-item"><i class="fas fa-utensils"></i> Full Board</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <button onclick="openFestivalModal('Timkat')" class="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-stone-50 transition">Learn More</button>
+                            <button onclick="openFestivalBooking('Timkat — Epiphany', 'Jan 19–21')" class="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-sm hover:bg-[#C5A059] transition">Book Festival</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meskel -->
+                <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="p-8 flex-grow">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">2 Days • Sep 26–27 (Meskerem 17)</span>
+                        <h3 class="text-2xl font-serif mb-2">Meskel — Finding of the Cross</h3>
+                        <span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-[#1B3022] bg-[#C5A059]/10 px-3 py-1 rounded-full mb-4"><i class="fas fa-tag text-[#C5A059]"></i> Pricing on Request</span>
+                        <p class="text-sm text-slate-500 mb-6 leading-relaxed">A UNESCO-listed celebration. Thousands gather around a towering bonfire called the Demera in Addis Ababa's Meskel Square, singing and dancing into the night.</p>
+                        <div class="bg-stone-50 rounded-2xl p-5 mb-6">
+                            <h4 class="text-[10px] font-bold uppercase text-slate-400 tracking-[0.2em] mb-4">Package Includes</h4>
+                            <div class="grid grid-cols-2 gap-y-3">
+                                <div class="inclusion-item"><i class="fas fa-user-shield"></i> Expert Guide</div>
+                                <div class="inclusion-item"><i class="fas fa-car-side"></i> Luxury 4x4</div>
+                                <div class="inclusion-item"><i class="fas fa-hotel"></i> Hotel Stay</div>
+                                <div class="inclusion-item"><i class="fas fa-utensils"></i> Full Board</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <button onclick="openFestivalModal('Meskel')" class="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-stone-50 transition">Learn More</button>
+                            <button onclick="openFestivalBooking('Meskel — Finding of the Cross', 'Sep 26–27')" class="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-sm hover:bg-[#C5A059] transition">Book Festival</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enkutatash -->
+                <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="p-8 flex-grow">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">2 Days • Sep 11 (Meskerem 1)</span>
+                        <h3 class="text-2xl font-serif mb-2">Enkutatash — Ethiopian New Year</h3>
+                        <span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-[#1B3022] bg-[#C5A059]/10 px-3 py-1 rounded-full mb-4"><i class="fas fa-tag text-[#C5A059]"></i> Pricing on Request</span>
+                        <p class="text-sm text-slate-500 mb-6 leading-relaxed">Welcome the Ethiopian New Year as the rains end and the highlands burst into yellow Adey Abeba flowers. Children sing door-to-door and families feast together.</p>
+                        <div class="bg-stone-50 rounded-2xl p-5 mb-6">
+                            <h4 class="text-[10px] font-bold uppercase text-slate-400 tracking-[0.2em] mb-4">Package Includes</h4>
+                            <div class="grid grid-cols-2 gap-y-3">
+                                <div class="inclusion-item"><i class="fas fa-user-shield"></i> Expert Guide</div>
+                                <div class="inclusion-item"><i class="fas fa-car-side"></i> Luxury 4x4</div>
+                                <div class="inclusion-item"><i class="fas fa-hotel"></i> Hotel Stay</div>
+                                <div class="inclusion-item"><i class="fas fa-utensils"></i> Full Board</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <button onclick="openFestivalModal('Enkutatash')" class="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-stone-50 transition">Learn More</button>
+                            <button onclick="openFestivalBooking('Enkutatash — Ethiopian New Year', 'Sep 11')" class="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-sm hover:bg-[#C5A059] transition">Book Festival</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Genna -->
+                <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1543362906-acfc16c67564?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="p-8 flex-grow">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">2 Days • Jan 7 (Ter 29)</span>
+                        <h3 class="text-2xl font-serif mb-2">Genna — Ethiopian Christmas</h3>
+                        <span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-[#1B3022] bg-[#C5A059]/10 px-3 py-1 rounded-full mb-4"><i class="fas fa-tag text-[#C5A059]"></i> Pricing on Request</span>
+                        <p class="text-sm text-slate-500 mb-6 leading-relaxed">Experience Christmas as it has been celebrated for 1,600 years. Candlelit processions circle ancient churches at dawn while priests chant in Ge'ez, the ancient liturgical language.</p>
+                        <div class="bg-stone-50 rounded-2xl p-5 mb-6">
+                            <h4 class="text-[10px] font-bold uppercase text-slate-400 tracking-[0.2em] mb-4">Package Includes</h4>
+                            <div class="grid grid-cols-2 gap-y-3">
+                                <div class="inclusion-item"><i class="fas fa-user-shield"></i> Expert Guide</div>
+                                <div class="inclusion-item"><i class="fas fa-car-side"></i> Luxury 4x4</div>
+                                <div class="inclusion-item"><i class="fas fa-hotel"></i> Hotel Stay</div>
+                                <div class="inclusion-item"><i class="fas fa-utensils"></i> Full Board</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <button onclick="openFestivalModal('Genna')" class="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-stone-50 transition">Learn More</button>
+                            <button onclick="openFestivalBooking('Genna — Ethiopian Christmas', 'Jan 7')" class="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-sm hover:bg-[#C5A059] transition">Book Festival</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Irreecha -->
+                <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="p-8 flex-grow">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">1 Day • Oct (First Sunday)</span>
+                        <h3 class="text-2xl font-serif mb-2">Irreecha — Oromo Thanksgiving</h3>
+                        <span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-[#1B3022] bg-[#C5A059]/10 px-3 py-1 rounded-full mb-4"><i class="fas fa-tag text-[#C5A059]"></i> Pricing on Request</span>
+                        <p class="text-sm text-slate-500 mb-6 leading-relaxed">Millions of Oromo people gather at Lake Hora Arsedi in Bishoftu to give thanks to Waaqa (God) for the end of the rainy season. A breathtaking display of color, song, and unity.</p>
+                        <div class="bg-stone-50 rounded-2xl p-5 mb-6">
+                            <h4 class="text-[10px] font-bold uppercase text-slate-400 tracking-[0.2em] mb-4">Package Includes</h4>
+                            <div class="grid grid-cols-2 gap-y-3">
+                                <div class="inclusion-item"><i class="fas fa-user-shield"></i> Expert Guide</div>
+                                <div class="inclusion-item"><i class="fas fa-car-side"></i> Luxury 4x4</div>
+                                <div class="inclusion-item"><i class="fas fa-hotel"></i> Hotel Stay</div>
+                                <div class="inclusion-item"><i class="fas fa-utensils"></i> Full Board</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <button onclick="openFestivalModal('Irreecha')" class="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-stone-50 transition">Learn More</button>
+                            <button onclick="openFestivalBooking('Irreecha — Oromo Thanksgiving', 'Oct')" class="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-sm hover:bg-[#C5A059] transition">Book Festival</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hamar Bull Jumping -->
+                <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1524734627574-bbb084c4ee66?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="p-8 flex-grow">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">3 Days • Oct–Nov (Seasonal)</span>
+                        <h3 class="text-2xl font-serif mb-2">Hamar Bull Jumping</h3>
+                        <span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest text-[#1B3022] bg-[#C5A059]/10 px-3 py-1 rounded-full mb-4"><i class="fas fa-tag text-[#C5A059]"></i> Pricing on Request</span>
+                        <p class="text-sm text-slate-500 mb-6 leading-relaxed">Witness the Hamar tribe's ancient coming-of-age rite in the Omo Valley. A young man must run across the backs of cattle to prove his readiness for marriage — a ceremony of raw, unfiltered tradition.</p>
+                        <div class="bg-stone-50 rounded-2xl p-5 mb-6">
+                            <h4 class="text-[10px] font-bold uppercase text-slate-400 tracking-[0.2em] mb-4">Package Includes</h4>
+                            <div class="grid grid-cols-2 gap-y-3">
+                                <div class="inclusion-item"><i class="fas fa-user-shield"></i> Expert Guide</div>
+                                <div class="inclusion-item"><i class="fas fa-car-side"></i> Luxury 4x4</div>
+                                <div class="inclusion-item"><i class="fas fa-campground"></i> Bush Camp</div>
+                                <div class="inclusion-item"><i class="fas fa-utensils"></i> Full Board</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <button onclick="openFestivalModal('Hamar Bull Jumping')" class="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-stone-50 transition">Learn More</button>
+                            <button onclick="openFestivalBooking('Hamar Bull Jumping', 'Oct–Nov')" class="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-sm hover:bg-[#C5A059] transition">Book Festival</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <div id="dashboard-page" class="page-view pt-32 pb-24 min-h-screen" style="background-color: var(--stone)">
         <div class="max-w-4xl mx-auto px-4 text-center">
             <h2 class="text-4xl font-serif mb-8">My Trips</h2>
@@ -1390,7 +1549,7 @@
             <div class="bg-white p-8 md:p-12 rounded-[40px] shadow-2xl border border-white/20">
                 <span class="section-label block mb-3">Start Your Journey</span>
                 <h2 class="text-3xl font-serif mb-2" style="color: var(--green-deep)">Request Your Private Destination</h2>
-                <div class="gold-divider" style="margin: 0 0 2rem 0"></div>
+                <div class="gol" style="margin: 0 0 2rem 0"></div>
 
                 <!-- Success message (hidden by default) -->
                 <div id="bookingSuccess" class="hidden mb-8 bg-green-50 border border-green-200 rounded-2xl p-6 text-center">
@@ -1784,16 +1943,13 @@
             // Always close mobile menu on navigation
             toggleMobileMenu(false);
 
-            if (hash === 'gallery-section' || hash === 'festivals') {
+            if (hash === 'gallery-section') {
                 // Ensure landing page is active first, then scroll to section
                 document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
                 const landing = document.getElementById('landing-page');
                 landing.classList.add('active');
-                // Use requestAnimationFrame to scroll after paint
                 requestAnimationFrame(() => {
-                    const target = hash === 'festivals'
-                        ? document.querySelector('.py-24.border-b[style*="green-deep"]')
-                        : document.getElementById('gallery-section');
+                    const target = document.getElementById('gallery-section');
                     if (target) target.scrollIntoView({ behavior: 'smooth' });
                 });
                 return;
@@ -2022,60 +2178,76 @@
 <footer class="bg-[#1B3022] text-white pt-12 pb-8 border-t border-white/5">
 <div class="max-w-7xl mx-auto px-4">
 <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
-<!-- Brand & Mission -->
-<div class="col-span-1 md:col-span-2">
-<span class="text-xl font-serif font-bold tracking-wider mb-4 block">ROHA<span class="text-[#C5A059]">TOURS</span></span>
-<p class="text-slate-400 max-w-sm text-xs leading-relaxed mb-5">
-Pioneering luxury private destinations through the heart of Ethiopia. From the rock-hewn heights of Lalibela to the vibrant tribal cultures of the South, we reveal the soul of the Land of Origins.
-</p>
-<div class="flex space-x-4 text-base">
-<a href="https://www.instagram.com/mekuanintasnake?igsh=MWwxc20zbno1NXpjOA==" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-[#C5A059] transition"><i class="fab fa-instagram"></i></a>
-</div>
+
+    <!-- Brand & Mission -->
+    <div class="col-span-1 md:col-span-2">
+        <span class="text-xl font-serif font-bold tracking-wider mb-4 block">ROHA<span class="text-[#C5A059]">TOURS</span></span>
+        <p class="text-slate-400 max-w-sm text-sm leading-relaxed mb-5">
+            Pioneering luxury private destinations through the heart of Ethiopia. From the rock-hewn heights of Lalibela to the vibrant tribal cultures of the South, we reveal the soul of the Land of Origins.
+        </p>
+        <!-- Social Links -->
+        <div class="flex space-x-4 text-lg mb-4">
+            <a href="https://www.instagram.com/mekuanintasnake?igsh=MWwxc20zbno1NXpjOA==" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-slate-400 hover:text-[#C5A059] transition"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/251963575717" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="text-slate-400 hover:text-[#C5A059] transition"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p class="text-xs text-slate-500">We typically respond within a few hours.</p>
+    </div>
+
+    <!-- Navigation Links -->
+    <div>
+        <h4 class="font-serif text-base mb-4 border-b border-[#C5A059]/30 pb-1 inline-block">Quick Links</h4>
+        <ul class="space-y-2 text-xs font-semibold uppercase tracking-widest text-slate-400">
+            <li><a href="#landing" class="hover:text-[#C5A059] transition">Home</a></li>
+            <li><a href="#about" class="hover:text-[#C5A059] transition">About Us</a></li>
+            <li><a href="#destinations" class="hover:text-[#C5A059] transition">Destinations</a></li>
+            <li><a href="#festivals" class="hover:text-[#C5A059] transition">Festivals</a></li>
+            <li><a href="#gallery" class="hover:text-[#C5A059] transition">Gallery</a></li>
+            <li><a href="#booking" class="hover:text-[#C5A059] transition">Book Now</a></li>
+            <li><a href="#dashboard" class="hover:text-[#C5A059] transition">My Trips</a></li>
+        </ul>
+    </div>
+
+    <!-- Contact Information -->
+    <div>
+        <h4 class="font-serif text-base mb-4 border-b border-[#C5A059]/30 pb-1 inline-block">Connect</h4>
+        <ul class="space-y-3 text-sm text-slate-400">
+            <li class="flex items-start gap-2">
+                <i class="fas fa-map-marker-alt text-[#C5A059] mt-1"></i>
+                <span>Addis Ababa, Ethiopia</span>
+            </li>
+            <li class="flex items-center gap-2">
+                <i class="fas fa-envelope text-[#C5A059]"></i>
+                <a href="mailto:expeditions@rohatours.com" class="hover:text-white transition">expeditions@rohatours.com</a>
+            </li>
+            <li class="flex items-center gap-2">
+                <i class="fas fa-phone-alt text-[#C5A059]"></i>
+                <a href="tel:+251963575717" class="hover:text-white transition">+251 963 575 717</a>
+            </li>
+            <li class="flex items-center gap-2">
+                <i class="fab fa-whatsapp text-[#C5A059]"></i>
+                <a href="https://wa.me/251963575717" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">WhatsApp Us</a>
+            </li>
+        </ul>
+    </div>
 </div>
 
-        <!-- Navigation Links -->
-        <div>
-            <h4 class="font-serif text-base mb-4 border-b border-[#C5A059]/30 pb-1 inline-block">Quick Links</h4>
-            <ul class="space-y-2 text-[10px] font-semibold uppercase tracking-widest text-slate-400">
-                <li><a href="#landing" class="hover:text-[#C5A059] transition">Home</a></li>
-                <li><a href="#about" class="hover:text-[#C5A059] transition">About Us</a></li>
-                <li><a href="#destinations" class="hover:text-[#C5A059] transition">Destinations</a></li>
-                <li><a href="#dashboard" class="hover:text-[#C5A059] transition">My Trips</a></li>
-            </ul>
-        </div>
-
-        <!-- Contact Information -->
-        <div>
-            <h4 class="font-serif text-base mb-4 border-b border-[#C5A059]/30 pb-1 inline-block">Connect</h4>
-            <ul class="space-y-3 text-xs text-slate-400">
-                <li class="flex items-start gap-2">
-                    <i class="fas fa-map-marker-alt text-[#C5A059] mt-1"></i>
-                    <span>Addis Ababa, Ethiopia</span>
-                </li>
-                <li class="flex items-center gap-2">
-                    <i class="fas fa-envelope text-[#C5A059]"></i>
-                    <a href="mailto:expeditions@rohatours.com" class="hover:text-white transition">expeditions@rohatours.com</a>
-                </li>
-                <li class="flex items-center gap-2">
-                    <i class="fas fa-phone-alt text-[#C5A059]"></i>
-                    <a href="tel:+251963575717" class="hover:text-white transition">+251 963 575 717</a>
-                </li>
-            </ul>
-        </div>
+<!-- Bottom Bar -->
+<div class="pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+    <p class="text-xs text-slate-500 uppercase tracking-[0.2em]">© <span id="footer-year"></span> RohaTours Private Ltd.</p>
+    <div class="flex gap-4 text-xs uppercase tracking-widest text-slate-500">
+        <a href="#privacy" class="hover:text-white transition">Privacy Policy</a>
+        <a href="#terms" class="hover:text-white transition">Terms & Conditions</a>
+        <a href="staff.html" class="hover:text-slate-400 transition text-slate-700">Staff</a>
     </div>
-    
-    <!-- Bottom Bar -->
-    <div class="pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p class="text-[9px] text-slate-500 uppercase tracking-[0.2em]">© 2026 RohaTours Private Ltd.</p>
-        <div class="flex gap-4 text-[9px] uppercase tracking-widest text-slate-500">
-            <a href="#privacy" class="hover:text-white transition">Privacy</a>
-            <a href="#terms" class="hover:text-white transition">Terms</a>
-            <a href="staff.html" class="hover:text-white transition">Staff</a>
-        </div>
-    </div>
+</div>
 
 </div>
 </footer>
+
+<script>
+    // Dynamic copyright year
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+</script>
 
 <!-- Destination Info Modal -->
 <div id="destinationModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center p-4" onclick="closeDestinationModal()">
@@ -2105,6 +2277,168 @@ Pioneering luxury private destinations through the heart of Ethiopia. From the r
         </div>
     </div>
 </div>
+
+<!-- Festival Info Modal -->
+<div id="festivalModal" class="hidden fixed inset-0 bg-black/80 z-[60] flex items-center justify-center p-4" onclick="closeFestivalModal()">
+    <div class="bg-white rounded-[32px] max-w-2xl w-full max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+        <div class="relative">
+            <button onclick="closeFestivalModal()" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/50 text-white hover:bg-black/70 transition flex items-center justify-center">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="festivalModalImage" src="" alt="" class="w-full h-64 object-cover rounded-t-[32px]">
+        </div>
+        <div class="p-8">
+            <span id="festivalModalDates" class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-2"></span>
+            <h2 id="festivalModalTitle" class="text-3xl font-serif mb-4 text-[#1B3022]"></h2>
+            <div id="festivalModalDescription" class="text-slate-600 leading-relaxed mb-6 space-y-3"></div>
+            <div class="bg-stone-50 rounded-2xl p-6 mb-6">
+                <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Package Includes</h4>
+                <div id="festivalModalInclusions" class="grid grid-cols-2 gap-3"></div>
+            </div>
+            <button id="festivalModalBookBtn" class="w-full btn-gold py-4 rounded-2xl font-bold text-sm uppercase tracking-widest">
+                Book This Festival
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Festival Modal JS -->
+<script>
+    const festivalData = {
+        'Timkat': {
+            image: 'https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=800&auto=format&fit=crop&q=80',
+            dates: '3 Days • Jan 19–21 (Ter 10–12)',
+            fullName: 'Timkat — Epiphany',
+            description: [
+                'Timkat is Ethiopia\'s most visually spectacular festival, celebrating the Epiphany — the baptism of Jesus Christ in the Jordan River. It is one of the most important dates in the Ethiopian Orthodox calendar and has been celebrated for over 1,500 years.',
+                'On the eve of Timkat, priests carry the Tabot (a replica of the Ark of the Covenant) from each church, wrapped in rich cloth and carried on the head, in a candlelit procession to a nearby body of water. Thousands of white-robed worshippers follow, singing ancient hymns in Ge\'ez.',
+                'The following morning, the water is blessed and the faithful are sprinkled or immersed in it, renewing their baptismal vows. The celebration in Gondar — held at the Royal Bath of Emperor Fasilides — is the most famous, drawing thousands of pilgrims and visitors from around the world. The third day features more processions and joyful celebrations.'
+            ],
+            inclusions: [
+                { icon: 'user-shield', text: 'Expert Guide' },
+                { icon: 'car-side', text: 'Luxury 4x4' },
+                { icon: 'hotel', text: 'Hotel Stay' },
+                { icon: 'utensils', text: 'Full Board' }
+            ]
+        },
+        'Meskel': {
+            image: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&auto=format&fit=crop&q=80',
+            dates: '2 Days • Sep 26–27 (Meskerem 17)',
+            fullName: 'Meskel — Finding of the True Cross',
+            description: [
+                'Meskel commemorates the discovery of the True Cross by Queen Helena (mother of Emperor Constantine) in the 4th century. According to Ethiopian tradition, she lit a bonfire and followed the smoke to find the cross buried in Jerusalem. The festival has been celebrated in Ethiopia for over 1,600 years and is inscribed on UNESCO\'s Intangible Cultural Heritage list.',
+                'The centerpiece of Meskel is the Demera — a massive bonfire constructed from bundled branches and decorated with yellow Adey Abeba flowers. In Addis Ababa, the Demera at Meskel Square stands several stories tall. As dusk falls, the Patriarch of the Ethiopian Orthodox Church lights the bonfire, and thousands of worshippers circle it with torches, singing and chanting.',
+                'The direction the bonfire falls is believed to predict the fortunes of the coming year. The following day, the embers are used to make a cross on the forehead. The festival is celebrated across the country, with particularly vibrant ceremonies in Lalibela, Gondar, and Axum.'
+            ],
+            inclusions: [
+                { icon: 'user-shield', text: 'Expert Guide' },
+                { icon: 'car-side', text: 'Luxury 4x4' },
+                { icon: 'hotel', text: 'Hotel Stay' },
+                { icon: 'utensils', text: 'Full Board' }
+            ]
+        },
+        'Enkutatash': {
+            image: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=800&auto=format&fit=crop&q=80',
+            dates: '2 Days • Sep 11 (Meskerem 1)',
+            fullName: 'Enkutatash — Ethiopian New Year',
+            description: [
+                'Enkutatash, meaning "gift of jewels," marks the Ethiopian New Year on the first day of Meskerem (September 11 in the Gregorian calendar, or September 12 in leap years). It coincides with the end of the long rainy season, when the highlands transform into a carpet of yellow Adey Abeba wildflowers.',
+                'The name derives from the legend of the Queen of Sheba\'s return from visiting King Solomon in Jerusalem. Her chiefs welcomed her back with gifts of jewels (enkuta), and the celebration has continued ever since. It is a time of renewal, forgiveness, and fresh beginnings.',
+                'Children dress in new clothes and go door-to-door singing traditional songs, presenting hand-painted cards and bunches of flowers to neighbors in exchange for small gifts or money. Families slaughter a sheep or chicken for a feast, and the smell of roasting coffee and incense fills every home. Churches hold special dawn services, and the streets are alive with music and celebration.'
+            ],
+            inclusions: [
+                { icon: 'user-shield', text: 'Expert Guide' },
+                { icon: 'car-side', text: 'Luxury 4x4' },
+                { icon: 'hotel', text: 'Hotel Stay' },
+                { icon: 'utensils', text: 'Full Board' }
+            ]
+        },
+        'Genna': {
+            image: 'https://images.unsplash.com/photo-1543362906-acfc16c67564?w=800&auto=format&fit=crop&q=80',
+            dates: '2 Days • Jan 7 (Ter 29)',
+            fullName: 'Genna — Ethiopian Christmas',
+            description: [
+                'Genna (Ethiopian Christmas) is celebrated on January 7th according to the Julian calendar used by the Ethiopian Orthodox Church. Unlike the commercial Christmas of the West, Genna is a deeply spiritual occasion centered on fasting, prayer, and church services that last through the night.',
+                'The most extraordinary experience is attending the pre-dawn service at Lalibela, where thousands of white-robed pilgrims gather at the rock-hewn churches by torchlight. Priests in elaborate ceremonial robes chant ancient liturgies in Ge\'ez, the classical Ethiopian language, while the smell of incense drifts through the stone corridors carved from living rock.',
+                'After the service, families break their fast together with injera and traditional dishes. Young men play a traditional game also called Genna — a form of field hockey said to have been played by shepherds on the night of Christ\'s birth. The festival is followed twelve days later by Timkat (Epiphany), making January a month of continuous celebration.'
+            ],
+            inclusions: [
+                { icon: 'user-shield', text: 'Expert Guide' },
+                { icon: 'car-side', text: 'Luxury 4x4' },
+                { icon: 'hotel', text: 'Hotel Stay' },
+                { icon: 'utensils', text: 'Full Board' }
+            ]
+        },
+        'Irreecha': {
+            image: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&auto=format&fit=crop&q=80',
+            dates: '1 Day • October (First Sunday)',
+            fullName: 'Irreecha — Oromo Thanksgiving',
+            description: [
+                'Irreecha is the thanksgiving festival of the Oromo people — Ethiopia\'s largest ethnic group — celebrated at the end of the rainy season to give thanks to Waaqa (God) for the rains, the harvest, and the gift of life. It is one of Africa\'s largest annual gatherings, drawing millions of people to Lake Hora Arsedi in Bishoftu (Debre Zeit), 45km south of Addis Ababa.',
+                'Participants dress in traditional Oromo attire — women in white dresses with colorful beadwork, men carrying green grass and yellow flowers — and wade into the lake\'s edge to offer prayers and blessings. The air fills with the sound of traditional songs, the beat of drums, and the calls of the Qaallu (spiritual leaders) leading the ceremony.',
+                'Irreecha is a celebration of peace, unity, and gratitude that transcends religious boundaries — both Christians and Muslims participate. The festival was inscribed on UNESCO\'s Intangible Cultural Heritage list in 2023. Witnessing it is a profound, moving experience unlike anything else in Africa.'
+            ],
+            inclusions: [
+                { icon: 'user-shield', text: 'Expert Guide' },
+                { icon: 'car-side', text: 'Luxury 4x4' },
+                { icon: 'hotel', text: 'Hotel Stay' },
+                { icon: 'utensils', text: 'Full Board' }
+            ]
+        },
+        'Hamar Bull Jumping': {
+            image: 'https://images.unsplash.com/photo-1524734627574-bbb084c4ee66?w=800&auto=format&fit=crop&q=80',
+            dates: '3 Days • Oct–Nov (Seasonal)',
+            fullName: 'Hamar Bull Jumping',
+            description: [
+                'The Bull Jumping ceremony (Ukuli Bula) is the most important rite of passage in Hamar society, marking a young man\'s transition from boyhood to adulthood and his readiness for marriage. It takes place in the Omo Valley, one of the most culturally diverse regions on Earth, home to over 40 distinct tribes.',
+                'To pass the test, the initiate must run across the backs of a line of cattle — typically 10 to 15 bulls — four times without falling. Success means he earns the right to marry, own cattle, and take on adult responsibilities. Failure brings shame and he must wait for another opportunity.',
+                'Before the jumping, the female relatives of the initiate — his sisters and cousins — voluntarily submit to ritual whipping by the Maza (men who have already passed the ceremony) to demonstrate their support and love for him. The scars are worn with pride as proof of devotion. The ceremony is accompanied by singing, dancing, and the blowing of horns, and the entire village participates in the feast that follows.'
+            ],
+            inclusions: [
+                { icon: 'user-shield', text: 'Expert Guide' },
+                { icon: 'car-side', text: 'Luxury 4x4' },
+                { icon: 'campground', text: 'Bush Camp' },
+                { icon: 'utensils', text: 'Full Board' }
+            ]
+        }
+    };
+
+    function openFestivalModal(festivalKey) {
+        const data = festivalData[festivalKey];
+        if (!data) return;
+
+        document.getElementById('festivalModalImage').src = data.image;
+        document.getElementById('festivalModalImage').alt = data.fullName;
+        document.getElementById('festivalModalDates').textContent = data.dates;
+        document.getElementById('festivalModalTitle').textContent = data.fullName;
+
+        const descDiv = document.getElementById('festivalModalDescription');
+        descDiv.innerHTML = data.description.map(p => `<p>${p}</p>`).join('');
+
+        const inclDiv = document.getElementById('festivalModalInclusions');
+        inclDiv.innerHTML = data.inclusions.map(inc =>
+            `<div class="inclusion-item"><i class="fas fa-${inc.icon}"></i> ${inc.text}</div>`
+        ).join('');
+
+        const bookBtn = document.getElementById('festivalModalBookBtn');
+        bookBtn.onclick = () => {
+            closeFestivalModal();
+            openFestivalBooking(data.fullName, data.dates);
+        };
+
+        document.getElementById('festivalModal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeFestivalModal() {
+        document.getElementById('festivalModal').classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeFestivalModal();
+    });
+</script>
 
 <!-- Lightbox -->
 <div id="lightbox" onclick="closeLightbox()">
