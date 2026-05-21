@@ -443,6 +443,7 @@
         body.dark .destination-card .bg-stone-50 { background-color: #162318 !important; }
         body.dark .destination-card button { color: #c8d8cc !important; border-color: #2d4a35 !important; }
         body.dark .destination-card button:hover { background-color: #2d4a35 !important; color: #f0e8d8 !important; }
+        body.dark .destination-card .bg-\[#1B3022\] { background-color: #2d4a35 !important; }
 
         /* Why section cards */
         body.dark .rounded-\[28px\] p { color: #8aaa94 !important; }
@@ -834,7 +835,8 @@
                             </div>
                             <h3 class="text-white font-serif text-xl mb-2">Timkat</h3>
                             <p class="text-slate-400 text-sm leading-relaxed flex-grow">Ethiopian Epiphany — the most colorful Orthodox Christian celebration. Priests carry the Tabot (Ark replica) in procession to water, where thousands gather in white robes for a blessing. Most spectacular in Gondar and Lalibela.</p>
-                            <button onclick="openFestivalBooking('Timkat Festival', 'January 19–20')" class="mt-5 w-full py-3 rounded-xl border border-[#C5A059] text-[#C5A059] text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-white transition">Plan Your Visit</button>
+                            <button onclick="openFestivalModal('Timkat')" class="mt-5 w-full py-3 rounded-xl border border-[#C5A059] text-[#C5A059] text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-white transition">Learn More</button>
+                            <button onclick="openFestivalBooking('Timkat Festival', 'January 19–20')" class="mt-2 w-full py-3 rounded-xl bg-[#C5A059] text-white text-xs font-bold uppercase tracking-widest hover:bg-[#9A7A3A] transition">Plan Your Visit</button>
                         </div>
                     </div>
 
@@ -852,7 +854,8 @@
                             </div>
                             <h3 class="text-white font-serif text-xl mb-2">Genna</h3>
                             <p class="text-slate-400 text-sm leading-relaxed flex-grow">Ethiopian Christmas, celebrated with all-night church services, traditional Genna stick games, and feasting. Lalibela is the ultimate destination — pilgrims fill the rock-hewn churches for a once-in-a-lifetime spiritual experience.</p>
-                            <button onclick="openFestivalBooking('Genna (Ethiopian Christmas)', 'January 7')" class="mt-5 w-full py-3 rounded-xl border border-[#C5A059] text-[#C5A059] text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-white transition">Plan Your Visit</button>
+                            <button onclick="openFestivalModal('Genna')" class="mt-5 w-full py-3 rounded-xl border border-[#C5A059] text-[#C5A059] text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-white transition">Learn More</button>
+                            <button onclick="openFestivalBooking('Genna (Ethiopian Christmas)', 'January 7')" class="mt-2 w-full py-3 rounded-xl bg-[#C5A059] text-white text-xs font-bold uppercase tracking-widest hover:bg-[#9A7A3A] transition">Plan Your Visit</button>
                         </div>
                     </div>
 
@@ -870,7 +873,8 @@
                             </div>
                             <h3 class="text-white font-serif text-xl mb-2">Meskel</h3>
                             <p class="text-slate-400 text-sm leading-relaxed flex-grow">The Finding of the True Cross — a UNESCO-listed celebration where a massive bonfire (Demera) is lit at Meskel Square in Addis Ababa. Thousands gather in traditional dress as priests chant and the flames light up the night sky.</p>
-                            <button onclick="openFestivalBooking('Meskel Festival', 'September 27')" class="mt-5 w-full py-3 rounded-xl border border-[#C5A059] text-[#C5A059] text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-white transition">Plan Your Visit</button>
+                            <button onclick="openFestivalModal('Meskel')" class="mt-5 w-full py-3 rounded-xl border border-[#C5A059] text-[#C5A059] text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-white transition">Learn More</button>
+                            <button onclick="openFestivalBooking('Meskel Festival', 'September 27')" class="mt-2 w-full py-3 rounded-xl bg-[#C5A059] text-white text-xs font-bold uppercase tracking-widest hover:bg-[#9A7A3A] transition">Plan Your Visit</button>
                         </div>
                     </div>
 
@@ -888,7 +892,8 @@
                             </div>
                             <h3 class="text-white font-serif text-xl mb-2">Irreecha</h3>
                             <p class="text-slate-400 text-sm leading-relaxed flex-grow">The Oromo Thanksgiving festival — millions gather at Lake Hora in Bishoftu to give thanks to Waaqa (God) for the end of the rainy season. Participants wear traditional Oromo dress and carry grass and flowers to the lakeside in a breathtaking display of culture.</p>
-                            <button onclick="openFestivalBooking('Irreecha Festival', 'First Sunday of October')" class="mt-5 w-full py-3 rounded-xl border border-[#C5A059] text-[#C5A059] text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-white transition">Plan Your Visit</button>
+                            <button onclick="openFestivalModal('Irreecha')" class="mt-5 w-full py-3 rounded-xl border border-[#C5A059] text-[#C5A059] text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-white transition">Learn More</button>
+                            <button onclick="openFestivalBooking('Irreecha Festival', 'First Sunday of October')" class="mt-2 w-full py-3 rounded-xl bg-[#C5A059] text-white text-xs font-bold uppercase tracking-widest hover:bg-[#9A7A3A] transition">Plan Your Visit</button>
                         </div>
                     </div>
 
@@ -906,7 +911,8 @@
                             </div>
                             <h3 class="text-white font-serif text-xl mb-2">Ashenda</h3>
                             <p class="text-slate-400 text-sm leading-relaxed flex-grow">A women's festival unique to northern Ethiopia — girls and women dress in their finest traditional clothes, wear elaborate jewelry, and dance through the streets singing Ashenda songs. A joyful celebration of womanhood and community that lasts several days.</p>
-                            <button onclick="openFestivalBooking('Ashenda Festival', 'August')" class="mt-5 w-full py-3 rounded-xl border border-[#C5A059] text-[#C5A059] text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-white transition">Plan Your Visit</button>
+                            <button onclick="openFestivalModal('Ashenda')" class="mt-5 w-full py-3 rounded-xl border border-[#C5A059] text-[#C5A059] text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-white transition">Learn More</button>
+                            <button onclick="openFestivalBooking('Ashenda Festival', 'August')" class="mt-2 w-full py-3 rounded-xl bg-[#C5A059] text-white text-xs font-bold uppercase tracking-widest hover:bg-[#9A7A3A] transition">Plan Your Visit</button>
                         </div>
                     </div>
 
@@ -1138,7 +1144,10 @@
                             </div>
                         </div>
 
-                        <button onclick="preSelectPackage('Lalibela Churches')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Destination</button>
+                        <div class="flex gap-2">
+                            <button onclick="openDestinationModal('Lalibela Churches')" class="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-stone-50 transition">Learn More</button>
+                            <button onclick="preSelectPackage('Lalibela Churches')" class="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-sm hover:bg-[#C5A059] transition">Book</button>
+                        </div>
                     </div>
                 </div>
 
@@ -1160,7 +1169,10 @@
                             </div>
                         </div>
 
-                        <button onclick="preSelectPackage('Gondar Castles')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Destination</button>
+                        <div class="flex gap-2">
+                            <button onclick="openDestinationModal('Gondar Castles')" class="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-stone-50 transition">Learn More</button>
+                            <button onclick="preSelectPackage('Gondar Castles')" class="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-sm hover:bg-[#C5A059] transition">Book</button>
+                        </div>
                     </div>
                 </div>
 
@@ -1182,7 +1194,10 @@
                             </div>
                         </div>
 
-                        <button onclick="preSelectPackage('Danakil Adventure')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Destination</button>
+                        <div class="flex gap-2">
+                            <button onclick="openDestinationModal('Danakil Adventure')" class="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-stone-50 transition">Learn More</button>
+                            <button onclick="preSelectPackage('Danakil Adventure')" class="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-sm hover:bg-[#C5A059] transition">Book</button>
+                        </div>
                     </div>
                 </div>
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
@@ -1203,7 +1218,10 @@
                             </div>
                         </div>
 
-                        <button onclick="preSelectPackage('Axum Monuments')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Destination</button>
+                        <div class="flex gap-2">
+                            <button onclick="openDestinationModal('Axum Monuments')" class="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-stone-50 transition">Learn More</button>
+                            <button onclick="preSelectPackage('Axum Monuments')" class="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-sm hover:bg-[#C5A059] transition">Book</button>
+                        </div>
                     </div>
                 </div>
 
@@ -1224,7 +1242,10 @@
                                 <div class="inclusion-item"><i class="fas fa-utensils"></i> Full Board</div>
                             </div>
                         </div>
-                        <button onclick="preSelectPackage('Omo Valley Tribes')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Destination</button>
+                        <div class="flex gap-2">
+                            <button onclick="openDestinationModal('Omo Valley Tribes')" class="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-stone-50 transition">Learn More</button>
+                            <button onclick="preSelectPackage('Omo Valley Tribes')" class="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-sm hover:bg-[#C5A059] transition">Book</button>
+                        </div>
                     </div>
                 </div>
 
@@ -1245,7 +1266,10 @@
                                 <div class="inclusion-item"><i class="fas fa-utensils"></i> Full Board</div>
                             </div>
                         </div>
-                        <button onclick="preSelectPackage('Simien Mountains')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Destination</button>
+                        <div class="flex gap-2">
+                            <button onclick="openDestinationModal('Simien Mountains')" class="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-stone-50 transition">Learn More</button>
+                            <button onclick="preSelectPackage('Simien Mountains')" class="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-sm hover:bg-[#C5A059] transition">Book</button>
+                        </div>
                     </div>
                 </div>
 
@@ -1266,7 +1290,10 @@
                                 <div class="inclusion-item"><i class="fas fa-utensils"></i> Full Board</div>
                             </div>
                         </div>
-                        <button onclick="preSelectPackage('Lake Langano')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Destination</button>
+                        <div class="flex gap-2">
+                            <button onclick="openDestinationModal('Lake Langano')" class="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-stone-50 transition">Learn More</button>
+                            <button onclick="preSelectPackage('Lake Langano')" class="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-sm hover:bg-[#C5A059] transition">Book</button>
+                        </div>
                     </div>
                 </div>
 
@@ -1287,7 +1314,10 @@
                                 <div class="inclusion-item"><i class="fas fa-utensils"></i> Full Board</div>
                             </div>
                         </div>
-                        <button onclick="preSelectPackage('Hawassa')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Destination</button>
+                        <div class="flex gap-2">
+                            <button onclick="openDestinationModal('Hawassa')" class="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-stone-50 transition">Learn More</button>
+                            <button onclick="preSelectPackage('Hawassa')" class="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-sm hover:bg-[#C5A059] transition">Book</button>
+                        </div>
                     </div>
                 </div>
 
@@ -1308,7 +1338,10 @@
                                 <div class="inclusion-item"><i class="fas fa-utensils"></i> Full Board</div>
                             </div>
                         </div>
-                        <button onclick="preSelectPackage('Bale Mountains')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Destination</button>
+                        <div class="flex gap-2">
+                            <button onclick="openDestinationModal('Bale Mountains')" class="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-stone-50 transition">Learn More</button>
+                            <button onclick="preSelectPackage('Bale Mountains')" class="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-sm hover:bg-[#C5A059] transition">Book</button>
+                        </div>
                     </div>
                 </div>
 
@@ -1329,7 +1362,10 @@
                                 <div class="inclusion-item"><i class="fas fa-coffee"></i> Refreshments</div>
                             </div>
                         </div>
-                        <button onclick="preSelectPackage('Entoto Park')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Destination</button>
+                        <div class="flex gap-2">
+                            <button onclick="openDestinationModal('Entoto Park')" class="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-stone-50 transition">Learn More</button>
+                            <button onclick="preSelectPackage('Entoto Park')" class="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-sm hover:bg-[#C5A059] transition">Book</button>
+                        </div>
                     </div>
                 </div>
 
@@ -1350,7 +1386,10 @@
                                 <div class="inclusion-item"><i class="fas fa-utensils"></i> Lunch</div>
                             </div>
                         </div>
-                        <button onclick="preSelectPackage('Addis Ababa City Tour')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Destination</button>
+                        <div class="flex gap-2">
+                            <button onclick="openDestinationModal('Addis Ababa City Tour')" class="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-stone-50 transition">Learn More</button>
+                            <button onclick="preSelectPackage('Addis Ababa City Tour')" class="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-sm hover:bg-[#C5A059] transition">Book</button>
+                        </div>
                     </div>
                 </div>
 
@@ -1371,7 +1410,10 @@
                                 <div class="inclusion-item"><i class="fas fa-utensils"></i> Full Board</div>
                             </div>
                         </div>
-                        <button onclick="preSelectPackage('Lake Tana & Tis Abay Fall')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Destination</button>
+                        <div class="flex gap-2">
+                            <button onclick="openDestinationModal('Lake Tana & Tis Abay Fall')" class="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-stone-50 transition">Learn More</button>
+                            <button onclick="preSelectPackage('Lake Tana & Tis Abay Fall')" class="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-sm hover:bg-[#C5A059] transition">Book</button>
+                        </div>
                     </div>
                 </div>
 
@@ -1392,7 +1434,10 @@
                                 <div class="inclusion-item"><i class="fas fa-utensils"></i> Lunch</div>
                             </div>
                         </div>
-                        <button onclick="preSelectPackage('Debre Libanos Monastery')" class="w-full py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-[#1B3022] hover:text-white transition">Book Destination</button>
+                        <div class="flex gap-2">
+                            <button onclick="openDestinationModal('Debre Libanos Monastery')" class="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-stone-50 transition">Learn More</button>
+                            <button onclick="preSelectPackage('Debre Libanos Monastery')" class="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-sm hover:bg-[#C5A059] transition">Book</button>
+                        </div>
                     </div>
                 </div>
 
