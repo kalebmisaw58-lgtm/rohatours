@@ -14,7 +14,6 @@
     <!-- Performance: preconnect to external origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://images.unsplash.com">
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 
     <!-- Open Graph / Social Sharing -->
@@ -22,14 +21,14 @@
     <meta property="og:url" content="https://rohatours.vercel.app/">
     <meta property="og:title" content="RohaTours | Private Expeditions & Authentic Ethiopia Travel">
     <meta property="og:description" content="Expert-led private expeditions to Lalibela, Gondar, Axum, Danakil and beyond. Discover the soul of Ethiopia.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1627318041007-8846c968940c?auto=format&fit=crop&q=80&w=1200">
+    <meta property="og:image" content="https://rohatours.vercel.app/Public/Timkat Festival.jpg">
     <meta property="og:locale" content="en_US">
     <meta property="og:site_name" content="RohaTours">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@rohatours">
     <meta name="twitter:title" content="RohaTours | Private Expeditions & Authentic Ethiopia Travel">
     <meta name="twitter:description" content="Expert-led private expeditions to Lalibela, Gondar, Axum, Danakil and beyond. Discover the soul of Ethiopia.">
-    <meta name="twitter:image" content="https://images.unsplash.com/photo-1627318041007-8846c968940c?auto=format&fit=crop&q=80&w=1200">
+    <meta name="twitter:image" content="https://rohatours.vercel.app/Public/Timkat Festival.jpg">
 
     <!-- Fonts — load after preconnect -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -527,12 +526,12 @@
         <section class="relative h-screen flex items-center justify-center text-white overflow-hidden">
             <!-- Video background — desktop only, poster image used on mobile -->
             <div class="hero-video-wrap hidden md:block">
-                <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1627318041007-8846c968940c?auto=format&fit=crop&q=80&w=1200">
+                <video autoplay muted loop playsinline poster="/Public/Timkat Festival.jpg">
                     <source src="https://videos.pexels.com/video-files/13240700/13240700-uhd_2560_1440_24fps.mp4" type="video/mp4">
                 </video>
             </div>
             <!-- Fallback bg in case video doesn't load -->
-            <div class="absolute inset-0 z-0" style="background: linear-gradient(160deg, rgba(27,48,34,0.85) 0%, rgba(0,0,0,0.90) 100%), url('https://images.unsplash.com/photo-1627318041007-8846c968940c?auto=format&fit=crop&q=80&w=2000') center/cover no-repeat;"></div>
+            <div class="absolute inset-0 z-0" style="background: linear-gradient(160deg, rgba(27,48,34,0.85) 0%, rgba(0,0,0,0.90) 100%), url('/Public/Timkat Festival.jpg') center/cover no-repeat;"></div>
             <div class="hero-content text-center px-4 max-w-4xl">
                 <span class="text-[#C5A059] font-bold uppercase tracking-[0.3em] text-sm mb-4 block">Est. in the Land of Origins</span>
                 <h1 class="text-5xl md:text-8xl mb-6 leading-tight">Ethiopia, <br><i class="font-serif italic text-[#C5A059]">Revealed.</i></h1>
@@ -554,28 +553,28 @@
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div class="aspect-square rounded-3xl gallery-item shadow-sm group overflow-hidden cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
-                        <img src="https://images.unsplash.com/flagged/photo-1572644973628-e9be84915d59?w=500&auto=format&fit=crop&q=60" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lalibela">
+                        <img src="/Public/Lalibela Churches.jpg" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lalibela rock-hewn churches, Ethiopia">
                     </div>
                     <div class="aspect-square rounded-3xl gallery-item shadow-sm group overflow-hidden cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
-                        <img src="https://images.unsplash.com/photo-1608634193723-1865aa4416ce?w=500&auto=format&fit=crop&q=60" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Gondar">
+                        <img src="/Public/Gondar Castles.jpg" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Gondar Royal Enclosure, Ethiopia">
                     </div>
                     <div class="aspect-square rounded-3xl gallery-item shadow-sm group overflow-hidden cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
-                        <img src="https://images.unsplash.com/photo-1516533075015-a3838414c3ca?q=80&w=870&auto=format&fit=crop" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Danakil">
+                        <img src="/Public/Danakil Adventure.jpg" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Danakil Depression, Ethiopia">
                     </div>
                     <div class="aspect-square rounded-3xl gallery-item shadow-sm group overflow-hidden cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
-                        <img src="https://images.unsplash.com/photo-1524734627574-bbb084c4ee66?w=500&auto=format&fit=crop&q=60" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Omo Valley">
+                        <img src="/Public/Omo Valley Tribes.jpg" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Omo Valley tribes, Ethiopia">
                     </div>
                     <div class="aspect-square rounded-3xl gallery-item shadow-sm group overflow-hidden cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
-                        <img src="https://plus.unsplash.com/premium_photo-1695297516798-d275bdf26575?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZXRoaW9waWFuJTIwZm9vZHxlbnwwfHwwfHx8MA%3D%3D" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Ethiopian Food">
+                        <img src="/Public/Simien Mountains.jpg" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Simien Mountains, Ethiopia">
                     </div>
                     <div class="aspect-square rounded-3xl gallery-item shadow-sm group overflow-hidden cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
-                        <img src="https://media.istockphoto.com/id/1168053027/photo/church-of-our-lady-of-zion-in-axum-ethiopia.webp?a=1&b=1&s=612x612&w=0&k=20&c=PY7SNICdmAdB2Oxn5te5xt24Buu53p5QyaeSk-uZrx0=" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Axum">
+                        <img src="/Public/Axum Monuments.jpg" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Axum obelisks, Ethiopia">
                     </div>
                     <div class="aspect-square rounded-3xl gallery-item shadow-sm group overflow-hidden cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
-                        <img src="https://images.unsplash.com/photo-1518079562269-53db1e4433b8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGFsaWJlbGF8ZW58MHx8MHx8fDA%3D" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lalibela">
+                        <img src="/Public/Timkat Festival.jpg" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Timkat festival, Ethiopia">
                     </div>
                     <div class="aspect-square rounded-3xl gallery-item shadow-sm group overflow-hidden cursor-pointer" onclick="openLightbox(this.querySelector('img').src)">
-                        <img src="https://images.unsplash.com/photo-1646647689051-ed33eecf1c21?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bGFsaWJlbGF8ZW58MHx8MHx8fDA%3D" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lalibela Interior">
+                        <img src="/Public/Meskel Festival.jpg" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Meskel festival bonfire, Ethiopia">
                     </div>
                 </div>
             </div>
@@ -702,7 +701,7 @@
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div onclick="event.preventDefault(); event.stopPropagation(); openDestinationModal('Lalibela Churches');" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')openDestinationModal('Lalibela Churches')" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm cursor-pointer">
-                        <img src="https://images.unsplash.com/flagged/photo-1572644973628-e9be84915d59?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lalibela rock-hewn churches, Ethiopia">
+                        <img src="/Public/Lalibela Churches.jpg" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lalibela rock-hewn churches, Ethiopia">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">3 Days • Spiritual Marvel</span>
@@ -710,7 +709,7 @@
                         </div>
                     </div>
                     <div onclick="event.preventDefault(); event.stopPropagation(); openDestinationModal('Danakil Adventure');" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')openDestinationModal('Danakil Adventure')" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1564101151838-630e722d7b1f?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Danakil Depression lava lake, Ethiopia">
+                        <img src="/Public/Danakil Adventure.jpg" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Danakil Depression lava lake, Ethiopia">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">4 Days • Geological Wonder</span>
@@ -718,7 +717,7 @@
                         </div>
                     </div>
                     <div onclick="event.preventDefault(); event.stopPropagation(); openDestinationModal('Omo Valley Tribes');" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')openDestinationModal('Omo Valley Tribes')" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1524734627574-bbb084c4ee66?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Omo Valley tribal culture, Ethiopia">
+                        <img src="/Public/Omo Valley Tribes.jpg" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Omo Valley tribal culture, Ethiopia">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">5 Days • Cultural Immersion</span>
@@ -726,7 +725,7 @@
                         </div>
                     </div>
                     <div onclick="event.preventDefault(); event.stopPropagation(); openDestinationModal('Gondar Castles');" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')openDestinationModal('Gondar Castles')" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1608634193723-1865aa4416ce?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Gondar Royal Enclosure castles, Ethiopia">
+                        <img src="/Public/Gondar Castles.jpg" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Gondar Royal Enclosure castles, Ethiopia">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">2 Days • Royal History</span>
@@ -734,7 +733,7 @@
                         </div>
                     </div>
                     <div onclick="event.preventDefault(); event.stopPropagation(); openDestinationModal('Axum Monuments');" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')openDestinationModal('Axum Monuments')" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm cursor-pointer">
-                        <img src="https://media.istockphoto.com/id/186914973/photo/obelisk-in-the-aksum-kingdom-ethiopia.webp?a=1&b=1&s=612x612&w=0&k=20&c=cNH4mhbn4sIrWgV0SIf-NVjfQGCF1wn0HI0YuchvuyE=" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Ancient obelisks of Axum, Ethiopia">
+                        <img src="/Public/Axum Monuments.jpg" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Ancient obelisks of Axum, Ethiopia">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">2 Days • Ancient Civilization</span>
@@ -742,7 +741,7 @@
                         </div>
                     </div>
                     <div onclick="event.preventDefault(); event.stopPropagation(); openDestinationModal('Simien Mountains');" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')openDestinationModal('Simien Mountains')" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1518079562269-53db1e4433b8?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Simien Mountains escarpment, Ethiopia">
+                        <img src="/Public/Simien Mountains.jpg" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Simien Mountains escarpment, Ethiopia">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">4 Days • Highland Trek</span>
@@ -750,7 +749,7 @@
                         </div>
                     </div>
                     <div onclick="event.preventDefault(); event.stopPropagation(); openDestinationModal('Lake Langano');" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')openDestinationModal('Lake Langano')" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lake Langano shoreline, Ethiopia">
+                        <img src="/Public/Lake Langano.jpg" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lake Langano shoreline, Ethiopia">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">2 Days • Lakeside Retreat</span>
@@ -758,7 +757,7 @@
                         </div>
                     </div>
                     <div onclick="event.preventDefault(); event.stopPropagation(); openDestinationModal('Hawassa');" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')openDestinationModal('Hawassa')" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1580674285054-bed31e145f59?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lake Hawassa waterfront, Ethiopia">
+                        <img src="/Public/Hawassa.jpg" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lake Hawassa waterfront, Ethiopia">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">2 Days • Lakeside City</span>
@@ -766,7 +765,7 @@
                         </div>
                     </div>
                     <div onclick="event.preventDefault(); event.stopPropagation(); openDestinationModal('Bale Mountains');" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')openDestinationModal('Bale Mountains')" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Bale Mountains alpine landscape, Ethiopia">
+                        <img src="/Public/Bale Mountains.jpg" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Bale Mountains alpine landscape, Ethiopia">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">3 Days • Wildlife Safari</span>
@@ -774,7 +773,7 @@
                         </div>
                     </div>
                     <div onclick="event.preventDefault(); event.stopPropagation(); openDestinationModal('Entoto Park');" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')openDestinationModal('Entoto Park')" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Entoto eucalyptus forest above Addis Ababa">
+                        <img src="/Public/Entoto Park.jpg" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Entoto eucalyptus forest above Addis Ababa">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">Half Day • Nature Escape</span>
@@ -782,7 +781,7 @@
                         </div>
                     </div>
                     <div onclick="event.preventDefault(); event.stopPropagation(); openDestinationModal('Addis Ababa City Tour');" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')openDestinationModal('Addis Ababa City Tour')" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1578070181910-f1e514afdd08?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Addis Ababa city skyline, Ethiopia">
+                        <img src="/Public/Addis Ababa City Tour.jpg" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Addis Ababa city skyline, Ethiopia">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">1 Day • Urban Discovery</span>
@@ -790,7 +789,7 @@
                         </div>
                     </div>
                     <div onclick="event.preventDefault(); event.stopPropagation(); openDestinationModal('Lake Tana & Tis Abay Fall');" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')openDestinationModal('Lake Tana & Tis Abay Fall')" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lake Tana and Blue Nile Falls, Ethiopia">
+                        <img src="/Public/Lake Tana & Tis Abay Fall.png" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lake Tana and Blue Nile Falls, Ethiopia">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">2 Days • Sacred Waters</span>
@@ -798,7 +797,7 @@
                         </div>
                     </div>
                     <div onclick="event.preventDefault(); event.stopPropagation(); openDestinationModal('Debre Libanos Monastery');" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')openDestinationModal('Debre Libanos Monastery')" class="group relative h-72 rounded-[28px] overflow-hidden shadow-sm cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1605640840605-14ac1855827b?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Debre Libanos Monastery gorge, Ethiopia">
+                        <img src="/Public/Debre Libanos Monastery.jpg" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Debre Libanos Monastery gorge, Ethiopia">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-0 left-0 p-6">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">1 Day • Spiritual Journey</span>
@@ -824,7 +823,7 @@
                     <!-- Timkat -->
                     <div class="festival-card rounded-[28px] border border-white/10 overflow-hidden flex flex-col" style="background: rgba(255,255,255,0.05)">
                         <div class="relative h-52 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1627318041007-8846c968940c?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition duration-700" alt="Timkat">
+                            <img src="/Public/Timkat Festival.jpg" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition duration-700" alt="Timkat festival, Ethiopia">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                             <div class="absolute top-4 left-4 bg-[#C5A059] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">Jan 19–20</div>
                         </div>
@@ -842,7 +841,7 @@
                     <!-- Genna -->
                     <div class="festival-card rounded-[28px] border border-white/10 overflow-hidden flex flex-col" style="background: rgba(255,255,255,0.05)">
                         <div class="relative h-52 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1518079562269-53db1e4433b8?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition duration-700" alt="Genna">
+                            <img src="/Public/Genna.jpg" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition duration-700" alt="Genna Ethiopian Christmas, Ethiopia">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                             <div class="absolute top-4 left-4 bg-[#C5A059] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">Jan 7</div>
                         </div>
@@ -860,7 +859,7 @@
                     <!-- Meskel -->
                     <div class="festival-card rounded-[28px] border border-white/10 overflow-hidden flex flex-col" style="background: rgba(255,255,255,0.05)">
                         <div class="relative h-52 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1608634193723-1865aa4416ce?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition duration-700" alt="Meskel">
+                            <img src="/Public/Meskel Festival.jpg" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition duration-700" alt="Meskel festival, Ethiopia">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                             <div class="absolute top-4 left-4 bg-[#C5A059] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">Sep 27</div>
                         </div>
@@ -878,7 +877,7 @@
                     <!-- Irreecha -->
                     <div class="festival-card rounded-[28px] border border-white/10 overflow-hidden flex flex-col" style="background: rgba(255,255,255,0.05)">
                         <div class="relative h-52 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition duration-700" alt="Irreecha">
+                            <img src="/Public/Irreecha Festival.jpg" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition duration-700" alt="Irreecha festival, Ethiopia">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                             <div class="absolute top-4 left-4 bg-[#C5A059] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">Oct (1st Sun)</div>
                         </div>
@@ -896,7 +895,7 @@
                     <!-- Ashenda -->
                     <div class="festival-card rounded-[28px] border border-white/10 overflow-hidden flex flex-col" style="background: rgba(255,255,255,0.05)">
                         <div class="relative h-52 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1627318041007-8846c968940c?w=600&auto=format&fit=crop&q=70" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition duration-700" alt="Ashenda">
+                            <img src="/Public/Ashenda Festival.jpg" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition duration-700" alt="Ashenda festival, Ethiopia">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                             <div class="absolute top-4 left-4 bg-[#C5A059] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">Aug</div>
                         </div>
@@ -1122,7 +1121,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/flagged/photo-1572644973628-e9be84915d59?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bGFsaWJlbGF8ZW58MHx8MHx8fDA%3D')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('/Public/Lalibela Churches.jpg')"></div>
                     <div class="p-8 flex-grow">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">3 Days • Spiritual Marvel</span>
                         <h3 class="text-2xl font-serif mb-2">Lalibela Churches</h3>
@@ -1144,7 +1143,7 @@
                 </div>
 
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1608634193723-1865aa4416ce?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z29uZGFyfGVufDB8fDB8fHww')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('/Public/Gondar Castles.jpg')"></div>
                     <div class="p-8 flex-grow">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">2 Days • Royal History</span>
                         <h3 class="text-2xl font-serif mb-2">Gondar Castles</h3>
@@ -1166,7 +1165,7 @@
                 </div>
 
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1564101151838-630e722d7b1f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZGFuYWtpbCUyMGRlcHJlc3Npb258ZW58MHx8MHx8fDA%3D')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('/Public/Danakil Adventure.jpg')"></div>
                     <div class="p-8 flex-grow">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">4 Days • Geological Wonder</span>
                         <h3 class="text-2xl font-serif mb-2">Danakil Adventure</h3>
@@ -1187,7 +1186,7 @@
                     </div>
                 </div>
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://media.istockphoto.com/id/186914973/photo/obelisk-in-the-aksum-kingdom-ethiopia.webp?a=1&b=1&s=612x612&w=0&k=20&c=cNH4mhbn4sIrWgV0SIf-NVjfQGCF1wn0HI0YuchvuyE=')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('/Public/Axum Monuments.jpg')"></div>
                     <div class="p-8 flex-grow">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">2 Days • Royal History</span>
                         <h3 class="text-2xl font-serif mb-2">Axum Monuments</h3>
@@ -1210,7 +1209,7 @@
 
                 <!-- Omo Valley -->
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1524734627574-bbb084c4ee66?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('/Public/Omo Valley Tribes.jpg')"></div>
                     <div class="p-8 flex-grow">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">5 Days • Cultural Immersion</span>
                         <h3 class="text-2xl font-serif mb-2">Omo Valley Tribes</h3>
@@ -1231,7 +1230,7 @@
 
                 <!-- Simien Mountains -->
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1518079562269-53db1e4433b8?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('/Public/Simien Mountains.jpg')"></div>
                     <div class="p-8 flex-grow">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">4 Days • Highland Trek</span>
                         <h3 class="text-2xl font-serif mb-2">Simien Mountains</h3>
@@ -1252,7 +1251,7 @@
 
                 <!-- Lake Langano -->
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('/Public/Lake Langano.jpg')"></div>
                     <div class="p-8 flex-grow">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">2 Days • Lakeside Retreat</span>
                         <h3 class="text-2xl font-serif mb-2">Lake Langano</h3>
@@ -1273,7 +1272,7 @@
 
                 <!-- Hawassa -->
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1580674285054-bed31e145f59?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('/Public/Hawassa.jpg')"></div>
                     <div class="p-8 flex-grow">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">2 Days • Lakeside City</span>
                         <h3 class="text-2xl font-serif mb-2">Hawassa</h3>
@@ -1294,7 +1293,7 @@
 
                 <!-- Bale Mountains -->
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('/Public/Bale Mountains.jpg')"></div>
                     <div class="p-8 flex-grow">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">3 Days • Wildlife Safari</span>
                         <h3 class="text-2xl font-serif mb-2">Bale Mountains</h3>
@@ -1315,7 +1314,7 @@
 
                 <!-- Entoto Park -->
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('/Public/Entoto Park.jpg')"></div>
                     <div class="p-8 flex-grow">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">Half Day • Nature Escape</span>
                         <h3 class="text-2xl font-serif mb-2">Entoto Park</h3>
@@ -1336,7 +1335,7 @@
 
                 <!-- Addis Ababa City Tour -->
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1578070181910-f1e514afdd08?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('/Public/Addis Ababa City Tour.jpg')"></div>
                     <div class="p-8 flex-grow">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">1 Day • Urban Discovery</span>
                         <h3 class="text-2xl font-serif mb-2">Addis Ababa City Tour</h3>
@@ -1357,7 +1356,7 @@
 
                 <!-- Lake Tana & Tis Abay Fall -->
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('/Public/Lake Tana & Tis Abay Fall.png')"></div>
                     <div class="p-8 flex-grow">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">2 Days • Sacred Waters</span>
                         <h3 class="text-2xl font-serif mb-2">Lake Tana & Tis Abay Fall</h3>
@@ -1378,7 +1377,7 @@
 
                 <!-- Debre Libanos Monastery -->
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1605640840605-14ac1855827b?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('/Public/Debre Libanos Monastery.jpg')"></div>
                     <div class="p-8 flex-grow">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">1 Day • Spiritual Journey</span>
                         <h3 class="text-2xl font-serif mb-2">Debre Libanos Monastery</h3>
@@ -1414,7 +1413,7 @@
 
                 <!-- Timkat -->
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('/Public/Timkat Festival.jpg')"></div>
                     <div class="p-8 flex-grow">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">3 Days • Jan 19–21 (Ter 10–12)</span>
                         <h3 class="text-2xl font-serif mb-2">Timkat — Epiphany</h3>
@@ -1438,7 +1437,7 @@
 
                 <!-- Meskel -->
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('/Public/Meskel Festival.jpg')"></div>
                     <div class="p-8 flex-grow">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">2 Days • Sep 26–27 (Meskerem 17)</span>
                         <h3 class="text-2xl font-serif mb-2">Meskel — Finding of the Cross</h3>
@@ -1462,7 +1461,7 @@
 
                 <!-- Enkutatash -->
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('/Public/Timkat Festival.jpg')"></div>
                     <div class="p-8 flex-grow">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">2 Days • Sep 11 (Meskerem 1)</span>
                         <h3 class="text-2xl font-serif mb-2">Enkutatash — Ethiopian New Year</h3>
@@ -1486,7 +1485,7 @@
 
                 <!-- Genna -->
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1543362906-acfc16c67564?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('/Public/Genna.jpg')"></div>
                     <div class="p-8 flex-grow">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">2 Days • Jan 7 (Ter 29)</span>
                         <h3 class="text-2xl font-serif mb-2">Genna — Ethiopian Christmas</h3>
@@ -1510,7 +1509,7 @@
 
                 <!-- Irreecha -->
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('/Public/Irreecha Festival.jpg')"></div>
                     <div class="p-8 flex-grow">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">1 Day • Oct (First Sunday)</span>
                         <h3 class="text-2xl font-serif mb-2">Irreecha — Oromo Thanksgiving</h3>
@@ -1534,7 +1533,7 @@
 
                 <!-- Hamar Bull Jumping -->
                 <div class="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                    <div class="h-64 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1524734627574-bbb084c4ee66?w=500&auto=format&fit=crop&q=60')"></div>
+                    <div class="h-64 bg-cover bg-center" style="background-image: url('/Public/Omo Valley Tribes.jpg')"></div>
                     <div class="p-8 flex-grow">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">3 Days • Oct–Nov (Seasonal)</span>
                         <h3 class="text-2xl font-serif mb-2">Hamar Bull Jumping</h3>
@@ -1738,7 +1737,7 @@
         // Destination data
         const destinationData = {
             'Lalibela Churches': {
-                image: 'https://images.unsplash.com/flagged/photo-1572644973628-e9be84915d59?w=800&auto=format&fit=crop&q=80',
+                image: '/Public/Lalibela Churches.jpg',
                 duration: '3 Days • Spiritual Marvel',
                 description: [
                     'Lalibela, often called the "New Jerusalem," is home to 11 monolithic rock-hewn churches carved from solid volcanic rock in the 12th century. These architectural marvels were commissioned by King Lalibela and remain active places of worship today.',
@@ -1753,7 +1752,7 @@
                 ]
             },
             'Danakil Adventure': {
-                image: 'https://images.unsplash.com/photo-1564101151838-630e722d7b1f?w=800&auto=format&fit=crop&q=80',
+                image: '/Public/Danakil Adventure.jpg',
                 duration: '4 Days • Geological Wonder',
                 description: [
                     'The Danakil Depression is one of the hottest, lowest, and most geologically active places on Earth. Witness the Erta Ale volcano with its permanent lava lake, one of only six in the world.',
@@ -1768,7 +1767,7 @@
                 ]
             },
             'Omo Valley Tribes': {
-                image: 'https://images.unsplash.com/photo-1524734627574-bbb084c4ee66?w=800&auto=format&fit=crop&q=80',
+                image: '/Public/Omo Valley Tribes.jpg',
                 duration: '5 Days • Cultural Immersion',
                 description: [
                     'The Omo Valley is home to over 50 indigenous tribes, each with distinct languages, customs, and traditions. Meet the Mursi people, known for their lip plates, the Hamar with their bull-jumping ceremonies, and the Karo with their elaborate body painting.',
@@ -1783,7 +1782,7 @@
                 ]
             },
             'Gondar Castles': {
-                image: 'https://images.unsplash.com/photo-1608634193723-1865aa4416ce?w=800&auto=format&fit=crop&q=80',
+                image: '/Public/Gondar Castles.jpg',
                 duration: '2 Days • Royal History',
                 description: [
                     'Gondar, the "Camelot of Africa," served as Ethiopia\'s capital from 1636 to 1855. The Royal Enclosure contains six castles built by various emperors, showcasing a unique blend of Portuguese, Indian, and local architectural styles.',
@@ -1798,7 +1797,7 @@
                 ]
             },
             'Axum Monuments': {
-                image: 'https://media.istockphoto.com/id/186914973/photo/obelisk-in-the-aksum-kingdom-ethiopia.webp?w=800&auto=format&fit=crop&q=80',
+                image: '/Public/Axum Monuments.jpg',
                 duration: '2 Days • Ancient Civilization',
                 description: [
                     'Axum was the capital of the ancient Aksumite Empire, one of the four great civilizations of the ancient world alongside Rome, Persia, and China. The city is home to towering granite obelisks, some reaching 33 meters high and weighing over 500 tons.',
@@ -1813,7 +1812,7 @@
                 ]
             },
             'Simien Mountains': {
-                image: 'https://images.unsplash.com/photo-1518079562269-53db1e4433b8?w=800&auto=format&fit=crop&q=80',
+                image: '/Public/Simien Mountains.jpg',
                 duration: '4 Days • Highland Trek',
                 description: [
                     'The Simien Mountains, often called the "Roof of Africa," feature dramatic escarpments, deep valleys, and peaks reaching over 4,500 meters. This UNESCO World Heritage site is home to unique wildlife found nowhere else on Earth.',
@@ -1828,7 +1827,7 @@
                 ]
             },
             'Lake Langano': {
-                image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&auto=format&fit=crop&q=80',
+                image: '/Public/Lake Langano.jpg',
                 duration: '2 Days • Lakeside Retreat',
                 description: [
                     'Lake Langano is one of Ethiopia\'s most popular weekend getaways, known for its unique brown water caused by high mineral content. Unlike most Ethiopian lakes, it\'s safe for swimming and water sports.',
@@ -1843,7 +1842,7 @@
                 ]
             },
             'Hawassa': {
-                image: 'https://images.unsplash.com/photo-1580674285054-bed31e145f59?w=800&auto=format&fit=crop&q=80',
+                image: '/Public/Hawassa.jpg',
                 duration: '2 Days • Lakeside City',
                 description: [
                     'Hawassa, the capital of the Sidama Region, sits on the shores of Lake Hawassa in the Great Rift Valley. The city is famous for its vibrant fish market where fishermen bring in their daily catch to be sold and prepared fresh.',
@@ -1858,7 +1857,7 @@
                 ]
             },
             'Bale Mountains': {
-                image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop&q=80',
+                image: '/Public/Bale Mountains.jpg',
                 duration: '3 Days • Wildlife Safari',
                 description: [
                     'The Bale Mountains National Park is a biodiversity hotspot and the best place in the world to see the critically endangered Ethiopian wolf. With fewer than 500 individuals remaining, this is a once-in-a-lifetime wildlife experience.',
@@ -1873,7 +1872,7 @@
                 ]
             },
             'Entoto Park': {
-                image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&auto=format&fit=crop&q=80',
+                image: '/Public/Entoto Park.jpg',
                 duration: 'Half Day • Nature Escape',
                 description: [
                     'Entoto Park sits at 3,200 meters above sea level, offering panoramic views of Addis Ababa and fresh mountain air. The area is covered in eucalyptus forests planted by Emperor Menelik II in the late 19th century.',
@@ -1888,7 +1887,7 @@
                 ]
             },
             'Addis Ababa City Tour': {
-                image: 'https://images.unsplash.com/photo-1578070181910-f1e514afdd08?w=800&auto=format&fit=crop&q=80',
+                image: '/Public/Addis Ababa City Tour.jpg',
                 duration: '1 Day • Urban Discovery',
                 description: [
                     'Explore Ethiopia\'s vibrant capital, a city of contrasts where ancient traditions meet modern development. Visit the National Museum to see "Lucy," the 3.2 million-year-old hominid fossil that changed our understanding of human evolution.',
@@ -1903,7 +1902,7 @@
                 ]
             },
             'Lake Tana & Tis Abay Fall': {
-                image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop&q=80',
+                image: '/Public/Lake Tana & Tis Abay Fall.png',
                 duration: '2 Days • Sacred Waters',
                 description: [
                     'Lake Tana, Ethiopia\'s largest lake and the source of the Blue Nile, is dotted with 37 islands, many home to ancient monasteries dating back to the 14th century. Take a traditional tankwa boat to visit these sacred sites adorned with stunning religious murals and manuscripts.',
@@ -1918,7 +1917,7 @@
                 ]
             },
             'Debre Libanos Monastery': {
-                image: 'https://images.unsplash.com/photo-1605640840605-14ac1855827b?w=800&auto=format&fit=crop&q=80',
+                image: '/Public/Debre Libanos Monastery.jpg',
                 duration: '1 Day • Spiritual Journey',
                 description: [
                     'Debre Libanos Monastery, founded by the revered 13th-century saint Tekle Haymanot, is one of Ethiopia\'s most important religious sites. According to legend, the saint stood on one leg for seven years in prayer until the other leg fell off, earning him a place among Ethiopia\'s greatest saints.',
@@ -2355,7 +2354,7 @@
 <script>
     const festivalData = {
         'Timkat': {
-            image: 'https://images.unsplash.com/photo-1578321272176-b7bbc0679853?w=800&auto=format&fit=crop&q=80',
+            image: '/Public/Timkat Festival.jpg',
             dates: '3 Days • Jan 19–21 (Ter 10–12)',
             fullName: 'Timkat — Epiphany',
             description: [
@@ -2371,7 +2370,7 @@
             ]
         },
         'Meskel': {
-            image: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&auto=format&fit=crop&q=80',
+            image: '/Public/Meskel Festival.jpg',
             dates: '2 Days • Sep 26–27 (Meskerem 17)',
             fullName: 'Meskel — Finding of the True Cross',
             description: [
@@ -2387,7 +2386,7 @@
             ]
         },
         'Enkutatash': {
-            image: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=800&auto=format&fit=crop&q=80',
+            image: '/Public/Timkat Festival.jpg',
             dates: '2 Days • Sep 11 (Meskerem 1)',
             fullName: 'Enkutatash — Ethiopian New Year',
             description: [
@@ -2403,7 +2402,7 @@
             ]
         },
         'Genna': {
-            image: 'https://images.unsplash.com/photo-1543362906-acfc16c67564?w=800&auto=format&fit=crop&q=80',
+            image: '/Public/Genna.jpg',
             dates: '2 Days • Jan 7 (Ter 29)',
             fullName: 'Genna — Ethiopian Christmas',
             description: [
@@ -2419,7 +2418,7 @@
             ]
         },
         'Irreecha': {
-            image: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800&auto=format&fit=crop&q=80',
+            image: '/Public/Irreecha Festival.jpg',
             dates: '1 Day • October (First Sunday)',
             fullName: 'Irreecha — Oromo Thanksgiving',
             description: [
@@ -2435,7 +2434,7 @@
             ]
         },
         'Hamar Bull Jumping': {
-            image: 'https://images.unsplash.com/photo-1524734627574-bbb084c4ee66?w=800&auto=format&fit=crop&q=80',
+            image: '/Public/Omo Valley Tribes.jpg',
             dates: '3 Days • Oct–Nov (Seasonal)',
             fullName: 'Hamar Bull Jumping',
             description: [
