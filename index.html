@@ -2126,15 +2126,23 @@
             const dotsContainer = document.getElementById('sliderDots');
             if (!inner) return;
 
-            const slides = inner.querySelectorAll('.slide');
-            const total = slides.length;
+            // Shuffle slides randomly on each page load
+            const slides = Array.from(inner.querySelectorAll('.slide'));
+            for (let i = slides.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                inner.appendChild(slides[j]);
+                slides.splice(j, 1);
+            }
+            // Re-query after shuffle
+            const allSlides = inner.querySelectorAll('.slide');
+            const total = allSlides.length;
             let current = 0;
             let autoTimer = null;
 
             // Set slide widths dynamically
             function setWidths() {
                 const vis = SLIDES_VISIBLE();
-                slides.forEach(s => s.style.width = (100 / vis) + '%');
+                allSlides.forEach(s => s.style.width = (100 / vis) + '%');
             }
 
             // Build dots
