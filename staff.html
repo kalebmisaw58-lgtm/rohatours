@@ -127,8 +127,54 @@
         let allBookings = [];
         let currentFilter = 'all';
 
+        // ===== AUTO-LOGOUT AFTER 15 MINUTES OF INACTIVITY =====
+        const TIMEOUT_MS = 15 * 60 * 1000; // 15 minutes
+        const WARN_MS = 2 * 60 * 1000;     // warn 2 minutes before
+        let inactivityTimer = null;
+        let warnTimer = null;
+        let warnBanner = null;
+
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            clearTimeout(warnTimer);
+            if (warnBanner) { warnBanner.remove(); warnBanner = null; }
+
+            // Only run if logged in
+            if (sessionStorage.getItem(SESSION_KEY) !== 'true') return;
+
+            // Warn 2 minutes before logout
+            warnTimer = setTimeout(() => {
+                warnBanner = document.createElement('div');
+                warnBanner.id = 'inactivityWarn';
+                warnBanner.className = 'fixed top-0 left-0 right-0 z-[999] bg-yellow-500 text-white text-sm font-bold text-center py-3 px-4 flex items-center justify-center gap-4';
+                warnBanner.innerHTML = `
+                    <i class="fas fa-clock"></i>
+                    <span>You will be logged out in 2 minutes due to inactivity.</span>
+                    <button onclick="resetInactivityTimer()" class="underline hover:no-underline ml-2">Stay logged in</button>`;
+                document.body.prepend(warnBanner);
+            }, TIMEOUT_MS - WARN_MS);
+
+            // Auto-logout
+            inactivityTimer = setTimeout(() => {
+                if (warnBanner) { warnBanner.remove(); warnBanner = null; }
+                window.handleLogout();
+                // Show message on login screen
+                const errorBox = document.getElementById('loginError');
+                errorBox.textContent = 'You were logged out due to 15 minutes of inactivity.';
+                errorBox.classList.remove('hidden');
+            }, TIMEOUT_MS);
+        }
+
+        // Reset timer on any user activity
+        ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll', 'click'].forEach(evt => {
+            document.addEventListener(evt, resetInactivityTimer, { passive: true });
+        });
+
         function checkAuth() {
-            if (sessionStorage.getItem(SESSION_KEY) === 'true') showDashboard();
+            if (sessionStorage.getItem(SESSION_KEY) === 'true') {
+                showDashboard();
+                resetInactivityTimer();
+            }
         }
 
         function showDashboard() {
@@ -164,6 +210,7 @@
                 sessionStorage.setItem('staff_email', email);
                 sessionStorage.setItem('staff_token', password); // store for API calls
                 showDashboard();
+                resetInactivityTimer();
             } catch (err) {
                 errorBox.textContent = err.message;
                 errorBox.classList.remove('hidden');
@@ -175,6 +222,9 @@
         };
 
         window.handleLogout = () => {
+            clearTimeout(inactivityTimer);
+            clearTimeout(warnTimer);
+            if (warnBanner) { warnBanner.remove(); warnBanner = null; }
             sessionStorage.removeItem(SESSION_KEY);
             sessionStorage.removeItem('staff_email');
             sessionStorage.removeItem('staff_token');
