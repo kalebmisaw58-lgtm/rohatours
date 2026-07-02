@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /staff.html
+
+Sitemap: https://rohatours.vercel.app/sitemap.xml

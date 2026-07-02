@@ -10,6 +10,7 @@
     <meta name="robots" content="index, follow">
     <meta name="author" content="RohaTours">
     <link rel="canonical" href="https://rohatours.vercel.app/">
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 
     <!-- Performance: preconnect to external origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,6 +35,115 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "TravelAgency",
+          "@id": "https://rohatours.vercel.app/#organization",
+          "name": "RohaTours",
+          "description": "Expert-led private expeditions across Ethiopia. Lalibela, Gondar, Danakil, Omo Valley and beyond.",
+          "url": "https://rohatours.vercel.app/",
+          "logo": "https://rohatours.vercel.app/Public/Logoo.png",
+          "image": "https://rohatours.vercel.app/Public/Timkat Festival.jpg",
+          "telephone": "+251963575717",
+          "email": "expeditions@rohatours.com",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Addis Ababa",
+            "addressCountry": "ET"
+          },
+          "sameAs": [
+            "https://www.instagram.com/mekuanintasnake"
+          ],
+          "priceRange": "$$$$",
+          "areaServed": {
+            "@type": "Country",
+            "name": "Ethiopia"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://rohatours.vercel.app/#website",
+          "url": "https://rohatours.vercel.app/",
+          "name": "RohaTours",
+          "publisher": { "@id": "https://rohatours.vercel.app/#organization" }
+        },
+        {
+          "@type": "ItemList",
+          "name": "Ethiopia Tour Destinations",
+          "description": "Private expedition destinations offered by RohaTours in Ethiopia",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Lalibela Churches", "description": "11 monolithic rock-hewn churches carved from volcanic rock, UNESCO World Heritage site.", "url": "https://rohatours.vercel.app/#destinations" },
+            { "@type": "ListItem", "position": 2, "name": "Danakil Adventure", "description": "The Danakil Depression — lava lakes, sulfur springs, the hottest place on Earth.", "url": "https://rohatours.vercel.app/#destinations" },
+            { "@type": "ListItem", "position": 3, "name": "Gondar Castles", "description": "The Royal Enclosure and medieval castles of Gondar, the Camelot of Africa.", "url": "https://rohatours.vercel.app/#destinations" },
+            { "@type": "ListItem", "position": 4, "name": "Axum Monuments", "description": "Ancient obelisks and ruins of the Aksumite Empire, home of the legendary Ark of the Covenant.", "url": "https://rohatours.vercel.app/#destinations" },
+            { "@type": "ListItem", "position": 5, "name": "Omo Valley Tribes", "description": "Cultural immersion with the Mursi, Hamar, and Karo tribes of southern Ethiopia.", "url": "https://rohatours.vercel.app/#destinations" },
+            { "@type": "ListItem", "position": 6, "name": "Simien Mountains", "description": "Trek the Roof of Africa — Gelada baboons, Ethiopian wolves, UNESCO World Heritage park.", "url": "https://rohatours.vercel.app/#destinations" },
+            { "@type": "ListItem", "position": 7, "name": "Bale Mountains", "description": "Wildlife safari to track the rare Ethiopian wolf in Afro-alpine wilderness.", "url": "https://rohatours.vercel.app/#destinations" },
+            { "@type": "ListItem", "position": 8, "name": "Lake Tana & Tis Abay Fall", "description": "Ethiopia's largest lake, ancient island monasteries, and the Blue Nile Falls.", "url": "https://rohatours.vercel.app/#destinations" },
+            { "@type": "ListItem", "position": 9, "name": "Debre Libanos Monastery", "description": "13th-century monastery, Portuguese Bridge, and endemic Gelada baboons.", "url": "https://rohatours.vercel.app/#destinations" },
+            { "@type": "ListItem", "position": 10, "name": "Hawassa", "description": "Vibrant fish market and lakeside city on the shores of Lake Hawassa.", "url": "https://rohatours.vercel.app/#destinations" },
+            { "@type": "ListItem", "position": 11, "name": "Lake Langano", "description": "Ethiopia's premier lakeside retreat, safe for swimming, birdwatching and relaxation.", "url": "https://rohatours.vercel.app/#destinations" },
+            { "@type": "ListItem", "position": 12, "name": "Entoto Park", "description": "Mountain forest escape above Addis Ababa with panoramic city views.", "url": "https://rohatours.vercel.app/#destinations" },
+            { "@type": "ListItem", "position": 13, "name": "Addis Ababa City Tour", "description": "National Museum, Merkato market, Holy Trinity Cathedral and authentic Ethiopian cuisine.", "url": "https://rohatours.vercel.app/#destinations" }
+          ]
+        },
+        {
+          "@type": "ItemList",
+          "name": "Ethiopian Festivals",
+          "description": "Cultural and religious festivals in Ethiopia you can experience with RohaTours",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Timkat", "description": "Ethiopian Epiphany — the most colorful Orthodox Christian celebration, January 19-20." },
+            { "@type": "ListItem", "position": 2, "name": "Genna", "description": "Ethiopian Christmas celebrated with all-night church services in Lalibela, January 7." },
+            { "@type": "ListItem", "position": 3, "name": "Meskel", "description": "UNESCO-listed Finding of the True Cross festival, massive bonfire at Meskel Square, September 27." },
+            { "@type": "ListItem", "position": 4, "name": "Irreecha", "description": "Oromo Thanksgiving festival at Lake Hora, Bishoftu, first Sunday of October." },
+            { "@type": "ListItem", "position": 5, "name": "Ashenda", "description": "Women's festival unique to northern Ethiopia celebrating womanhood and community, August." }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What destinations does RohaTours cover in Ethiopia?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "RohaTours offers private expeditions to 13 destinations including Lalibela Churches, Danakil Adventure, Gondar Castles, Axum Monuments, Omo Valley Tribes, Simien Mountains, Bale Mountains, Lake Tana & Tis Abay Falls, Debre Libanos Monastery, Hawassa, Lake Langano, Entoto Park, and Addis Ababa City Tour."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I book a private tour with RohaTours?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "You can book directly on our website by selecting a destination, filling in your details, and submitting a booking request. We confirm within 24 hours. You can also contact us at expeditions@rohatours.com or WhatsApp +251963575717."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does RohaTours offer festival tours in Ethiopia?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, RohaTours organizes tours around major Ethiopian festivals including Timkat (Epiphany), Genna (Christmas), Meskel, Irreecha, and Ashenda. These can be combined with destination tours."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Where is RohaTours based?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "RohaTours is based in Addis Ababa, Ethiopia. Our lead guide Mekuanent has over 15 years of experience leading private expeditions across the country."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
     
     <script>
         // Save booking to MongoDB via API
@@ -233,9 +343,23 @@
             box-shadow: 0 6px 20px rgba(197, 160, 89, 0.4);
         }
 
-        /* Pages */
-        .page-view { display: none; }
-        .page-view.active { display: block; }
+        /* Pages — hidden from users but readable by crawlers */
+        .page-view {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+        }
+        .page-view.active {
+            position: static;
+            width: auto;
+            height: auto;
+            overflow: visible;
+            clip: auto;
+            white-space: normal;
+        }
 
         /* Destination cards */
         .destination-card {
@@ -2028,6 +2152,17 @@
             if (e.key === 'Escape') closeDestinationModal();
         });
 
+        // Page metadata for dynamic title/description updates
+        const pageMeta = {
+            landing:      { title: 'RohaTours | Private Expeditions & Authentic Ethiopia Travel', desc: 'Discover Ethiopia with RohaTours. Expert-led private expeditions to Lalibela, Gondar, Axum, Danakil and beyond.' },
+            destinations: { title: 'Destinations | RohaTours Ethiopia', desc: 'Explore 13 private expedition destinations in Ethiopia — Lalibela, Danakil, Omo Valley, Simien Mountains and more.' },
+            about:        { title: 'About Us | RohaTours Ethiopia', desc: 'Meet Mekuanent, RohaTours lead guide with 15+ years experience leading private expeditions across Ethiopia.' },
+            booking:      { title: 'Book a Private Tour | RohaTours Ethiopia', desc: 'Request your private expedition to any of our 13 Ethiopian destinations. We confirm within 24 hours.' },
+            dashboard:    { title: 'My Trips | RohaTours', desc: 'View and manage your RohaTours bookings.' },
+            privacy:      { title: 'Privacy Policy | RohaTours', desc: 'RohaTours privacy policy — how we collect and protect your personal data.' },
+            terms:        { title: 'Terms & Conditions | RohaTours', desc: 'RohaTours terms and conditions for bookings and travel.' }
+        };
+
         function handleRouting() {
             const hash = window.location.hash.substring(1) || 'landing';
 
@@ -2052,6 +2187,16 @@
                 target.classList.add('active');
                 window.scrollTo(0, 0);
             }
+
+            // Update page title and meta description dynamically
+            const meta = pageMeta[hash] || pageMeta.landing;
+            document.title = meta.title;
+            const descTag = document.querySelector('meta[name="description"]');
+            if (descTag) descTag.setAttribute('content', meta.desc);
+            const ogTitle = document.querySelector('meta[property="og:title"]');
+            if (ogTitle) ogTitle.setAttribute('content', meta.title);
+            const ogDesc = document.querySelector('meta[property="og:description"]');
+            if (ogDesc) ogDesc.setAttribute('content', meta.desc);
 
             // Update active nav link
             document.querySelectorAll('.nav-link').forEach(link => {
