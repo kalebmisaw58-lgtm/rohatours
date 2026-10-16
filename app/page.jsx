@@ -51,6 +51,16 @@ const FESTIVAL_LIST = [
     { key: 'Ashenda', date: 'August', emoji: '💃', fullName: 'Ashenda Festival' },
 ];
 
+const HERO_SLIDES = [
+    { src: '/Lalibela Churches.jpg', name: 'Lalibela Churches' },
+    { src: '/Simien Mountains.jpg', name: 'Simien Mountains' },
+    { src: '/Danakil Adventure.jpg', name: 'Danakil Depression' },
+    { src: '/Timkat Festival.jpg', name: 'Timkat Epiphany' },
+    { src: '/Gondar Castles.jpg', name: 'Gondar Castles' },
+    { src: '/Omo Valley Tribes.jpg', name: 'Omo Valley' },
+    { src: '/Bale Mountains.jpg', name: 'Bale Mountains' },
+];
+
 export default function HomePage() {
     const [currentPage, setCurrentPage] = useState('landing');
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -58,6 +68,9 @@ export default function HomePage() {
     const [destinationModal, setDestinationModal] = useState(null);
     const [festivalModal, setFestivalModal] = useState(null);
     const [lightboxSrc, setLightboxSrc] = useState(null);
+
+    // Hero background slideshow state
+    const [heroIndex, setHeroIndex] = useState(0);
 
     // Experience slider state
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -173,6 +186,14 @@ export default function HomePage() {
         handleResize();
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    // Auto-advance hero background slideshow
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setHeroIndex(prev => (prev + 1) % HERO_SLIDES.length);
+        }, 5500);
+        return () => clearInterval(interval);
     }, []);
 
     // Auto-advance slider
@@ -429,25 +450,88 @@ export default function HomePage() {
                 {/* 1. LANDING PAGE */}
                 <div id="landing-page" className={currentPage === 'landing' ? 'block' : 'hidden'}>
                     <section className="relative h-screen flex items-center justify-center text-white overflow-hidden">
-                        <div className="hero-video-wrap hidden md:block">
-                            <video autoPlay muted loop playsInline poster="/Timkat Festival.jpg">
-                                <source src="https://videos.pexels.com/video-files/13240700/13240700-uhd_2560_1440_24fps.mp4" type="video/mp4" />
-                            </video>
+                        {/* Background Slideshow Layer */}
+                        <div className="absolute inset-0 z-0 overflow-hidden">
+                            {HERO_SLIDES.map((slide, idx) => (
+                                <div
+                                    key={slide.src}
+                                    className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                                        idx === heroIndex ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+                                    }`}
+                                >
+                                    <Image
+                                        src={slide.src}
+                                        alt={slide.name}
+                                        fill
+                                        priority={idx === 0}
+                                        sizes="100vw"
+                                        className={`object-cover transition-transform duration-[7000ms] ease-out ${
+                                            idx === heroIndex ? 'scale-105' : 'scale-100'
+                                        }`}
+                                    />
+                                    {/* Gradients and vignette for contrast */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-[#1B3022]/70" />
+                                    <div className="absolute inset-0 bg-black/25" />
+                                </div>
+                            ))}
                         </div>
-                        <div
-                            className="absolute inset-0 z-0"
-                            style={{
-                                background: "linear-gradient(160deg, rgba(27,48,34,0.85) 0%, rgba(0,0,0,0.90) 100%), url('/Timkat Festival.jpg') center/cover no-repeat"
-                            }}
-                        />
-                        <div className="hero-content text-center px-4 max-w-4xl">
-                            <span className="text-[#C5A059] font-bold uppercase tracking-[0.3em] text-sm mb-4 block">Est. in the Land of Origins</span>
-                            <h1 className="text-5xl md:text-8xl mb-6 leading-tight">Ethiopia, <br /><i className="font-serif italic text-[#C5A059]">Revealed.</i></h1>
-                            <p className="text-lg md:text-2xl mb-10 font-light opacity-90 max-w-2xl mx-auto leading-relaxed">We don&apos;t just show you the landmarks; we invite you into the living history of our ancestors.</p>
+
+                        {/* Slide Previous / Next Controls */}
+                        <button
+                            onClick={() => setHeroIndex(prev => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)}
+                            aria-label="Previous background slide"
+                            className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/30 backdrop-blur-md border border-white/20 text-white/80 hover:text-white hover:bg-black/60 transition flex items-center justify-center shadow-lg"
+                        >
+                            <i className="fas fa-chevron-left text-sm"></i>
+                        </button>
+                        <button
+                            onClick={() => setHeroIndex(prev => (prev + 1) % HERO_SLIDES.length)}
+                            aria-label="Next background slide"
+                            className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/30 backdrop-blur-md border border-white/20 text-white/80 hover:text-white hover:bg-black/60 transition flex items-center justify-center shadow-lg"
+                        >
+                            <i className="fas fa-chevron-right text-sm"></i>
+                        </button>
+
+                        {/* Hero Text Content */}
+                        <div className="hero-content relative z-20 text-center px-4 max-w-4xl">
+                            <span className="text-[#C5A059] font-bold uppercase tracking-[0.3em] text-sm mb-4 block drop-shadow">
+                                Est. in the Land of Origins
+                            </span>
+                            <h1 className="text-5xl md:text-8xl mb-6 leading-tight font-serif drop-shadow-md">
+                                Ethiopia, <br />
+                                <i className="italic text-[#C5A059]">Revealed.</i>
+                            </h1>
+                            <p className="text-lg md:text-2xl mb-10 font-light opacity-95 max-w-2xl mx-auto leading-relaxed drop-shadow">
+                                We don&apos;t just show you the landmarks; we invite you into the living history of our ancestors.
+                            </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                <a href="#destinations" className="btn-gold px-12 py-5 rounded-full text-sm font-bold uppercase tracking-widest">Explore Destinations</a>
-                                <a href="#gallery-section" className="bg-white/10 backdrop-blur-md border border-white/20 px-12 py-5 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-white hover:text-[#1B3022] transition">View Gallery</a>
+                                <a href="#destinations" className="btn-gold px-12 py-5 rounded-full text-sm font-bold uppercase tracking-widest shadow-xl">
+                                    Explore Destinations
+                                </a>
+                                <a href="#gallery-section" className="bg-white/10 backdrop-blur-md border border-white/20 px-12 py-5 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-white hover:text-[#1B3022] transition shadow-xl">
+                                    View Gallery
+                                </a>
                             </div>
+                        </div>
+
+                        {/* Interactive Slide Indicators & Destination Pill */}
+                        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 bg-black/40 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/15 shadow-xl">
+                            {HERO_SLIDES.map((slide, idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => setHeroIndex(idx)}
+                                    className={`transition-all duration-300 rounded-full ${
+                                        idx === heroIndex
+                                            ? 'w-8 h-2 bg-[#C5A059]'
+                                            : 'w-2 h-2 bg-white/40 hover:bg-white/80'
+                                    }`}
+                                    aria-label={`Switch to slide ${slide.name}`}
+                                />
+                            ))}
+                            <span className="text-[11px] font-semibold tracking-wider uppercase text-white/90 ml-2 hidden sm:inline border-l border-white/20 pl-3">
+                                <i className="fas fa-map-marker-alt text-[#C5A059] mr-1.5"></i>
+                                {HERO_SLIDES[heroIndex].name}
+                            </span>
                         </div>
                     </section>
 
