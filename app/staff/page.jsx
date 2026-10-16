@@ -17,6 +17,8 @@ export default function StaffPage() {
     const [bookings, setBookings] = useState([]);
     const [loadingBookings, setLoadingBookings] = useState(false);
     const [currentFilter, setCurrentFilter] = useState('all');
+    const [searchQuery, setSearchQuery] = useState('');
+    const [dateFilter, setDateFilter] = useState('all');
 
     // Inactivity warning banner
     const [showWarnBanner, setShowWarnBanner] = useState(false);
@@ -175,9 +177,58 @@ export default function StaffPage() {
         setMessageModal(null);
     };
 
-    const filteredBookings = currentFilter === 'all'
-        ? bookings
-        : bookings.filter(b => b.status === currentFilter);
+    const exportToCSV = () => {
+        if (!filteredBookings || filteredBookings.length === 0) {
+            alert('No bookings match the current filter to export.');
+            return;
+        }
+        const headers = ['ID', 'Customer Name', 'Email', 'Phone', 'Package', 'Travelers', 'Travel Date', 'Status', 'Created At'];
+        const rows = filteredBookings.map(b => [
+            `"${b._id || ''}"`,
+            `"${(b.customerName || '').replace(/"/g, '""')}"`,
+            `"${(b.customerEmail || '').replace(/"/g, '""')}"`,
+            `"${(b.customerPhone || '').replace(/"/g, '""')}"`,
+            `"${(b.package || '').replace(/"/g, '""')}"`,
+            `"${b.travelerCount || ''}"`,
+            `"${b.travelDate || ''}"`,
+            `"${b.status || 'pending'}"`,
+            `"${b.createdAt ? new Date(b.createdAt).toISOString() : ''}"`
+        ]);
+        const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', `rohatours_bookings_${new Date().toISOString().split('T')[0]}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
+    const filteredBookings = bookings.filter(b => {
+        if (currentFilter !== 'all' && b.status !== currentFilter) return false;
+        if (searchQuery.trim()) {
+            const q = searchQuery.toLowerCase();
+            const name = (b.customerName || '').toLowerCase();
+            const email = (b.customerEmail || '').toLowerCase();
+            const pkg = (b.package || '').toLowerCase();
+            const phone = (b.customerPhone || '').toLowerCase();
+            if (!name.includes(q) && !email.includes(q) && !pkg.includes(q) && !phone.includes(q)) {
+                return false;
+            }
+        }
+        if (dateFilter === 'upcoming') {
+            if (!b.travelDate) return false;
+            const tDate = new Date(b.travelDate).getTime();
+            const today = new Date().setHours(0, 0, 0, 0);
+            if (tDate < today) return false;
+        } else if (dateFilter === 'past') {
+            if (!b.travelDate) return false;
+            const tDate = new Date(b.travelDate).getTime();
+            const today = new Date().setHours(0, 0, 0, 0);
+            if (tDate >= today) return false;
+        }
+        return true;
+    });
 
     const stats = {
         total: bookings.length,
@@ -298,21 +349,68 @@ export default function StaffPage() {
                             </div>
                         </div>
 
-                        {/* Filter Tabs */}
-                        <div className="flex gap-3 mb-6 flex-wrap">
-                            {['all', 'pending', 'confirmed', 'cancelled'].map(f => (
-                                <button
-                                    key={f}
-                                    onClick={() => setCurrentFilter(f)}
-                                    className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest border border-stone-200 transition ${
-                                        currentFilter === f
-                                            ? 'bg-[#1B3022] text-white'
-                                            : 'bg-white text-slate-600 hover:bg-stone-100'
-                                    }`}
+                        {/* Filter & Search Bar */}
+                        <div className="bg-white rounded-2xl border border-stone-200 p-4 mb-6 shadow-sm flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between">
+                            {/* Filter Tabs & Date Filter */}
+                            <div className="flex gap-2 flex-wrap items-center">
+                                {['all', 'pending', 'confirmed', 'cancelled'].map(f => (
+                                    <button
+                                        key={f}
+                                        onClick={() => setCurrentFilter(f)}
+                                        className={`px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest border transition ${
+                                            currentFilter === f
+                                                ? 'bg-[#1B3022] text-white border-[#1B3022]'
+                                                : 'bg-white text-slate-600 border-stone-200 hover:bg-stone-50'
+                                        }`}
+                                    >
+                                        {f.charAt(0).toUpperCase() + f.slice(1)}
+                                    </button>
+                                ))}
+
+                                <span className="h-4 w-px bg-stone-200 mx-1 hidden sm:inline-block"></span>
+
+                                {/* Date filter select */}
+                                <select
+                                    value={dateFilter}
+                                    onChange={e => setDateFilter(e.target.value)}
+                                    className="px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border border-stone-200 bg-white text-slate-600 outline-none cursor-pointer hover:bg-stone-50"
                                 >
-                                    {f.charAt(0).toUpperCase() + f.slice(1)}
+                                    <option value="all">All Dates</option>
+                                    <option value="upcoming">Upcoming Tours</option>
+                                    <option value="past">Past Tours</option>
+                                </select>
+                            </div>
+
+                            {/* Search & Export */}
+                            <div className="flex gap-3 items-center">
+                                <div className="relative flex-1 md:w-64">
+                                    <i className="fas fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                                    <input
+                                        type="text"
+                                        placeholder="Search customer, package..."
+                                        value={searchQuery}
+                                        onChange={e => setSearchQuery(e.target.value)}
+                                        className="w-full pl-9 pr-8 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-[#C5A059]"
+                                    />
+                                    {searchQuery && (
+                                        <button
+                                            onClick={() => setSearchQuery('')}
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs"
+                                        >
+                                            <i className="fas fa-times"></i>
+                                        </button>
+                                    )}
+                                </div>
+
+                                <button
+                                    onClick={exportToCSV}
+                                    title="Export to CSV"
+                                    className="px-4 py-2 bg-[#C5A059] text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-[#b08d48] transition flex items-center gap-2 whitespace-nowrap shadow-sm"
+                                >
+                                    <i className="fas fa-download"></i>
+                                    <span className="hidden sm:inline">Export CSV</span>
                                 </button>
-                            ))}
+                            </div>
                         </div>
 
                         {/* Bookings Grid */}

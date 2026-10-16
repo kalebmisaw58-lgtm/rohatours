@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/mongodb';
+import { sendBookingConfirmation, sendStaffBookingAlert } from '@/lib/email';
 
 const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'https://rohatours.vercel.app';
 
@@ -41,7 +42,7 @@ export async function GET(request) {
             return setCorsHeaders(res);
         }
 
-        const userBookings = await bookings.find({ customerEmail: email }).sort({ createdAt: -1 }).toArray();
+        const userBookings = await bookings.find({ customerEmail: email.toLowerCase().trim() }).sort({ createdAt: -1 }).toArray();
         const res = NextResponse.json(userBookings, { status: 200 });
         return setCorsHeaders(res);
 
@@ -64,7 +65,12 @@ export async function GET(request) {
 export async function POST(request) {
     try {
         const body = await request.json().catch(() => ({}));
-        const { customerName, customerEmail, customerPhone, travelDate, package: pkg, travelerCount } = body;
+        const { customerName, customerEmail, customerPhone, travelDate, package: pkg, travelerCount, honeypot } = body;
+
+        // Anti-bot honeypot protection: bots fill in invisible fields
+        if (honeypot) {
+            return setCorsHeaders(NextResponse.json({ success: true, message: 'Received' }, { status: 200 }));
+        }
 
         if (!customerName || !customerName.trim()) {
             const res = NextResponse.json({ success: false, message: 'Name is required.' }, { status: 400 });
@@ -78,7 +84,7 @@ export async function POST(request) {
         const newBooking = {
             customerName: customerName.trim(),
             customerEmail: customerEmail.toLowerCase().trim(),
-            customerPhone: customerPhone || '',
+            customerPhone: customerPhone ? customerPhone.trim() : '',
             travelDate: travelDate || '',
             package: pkg || 'General Inquiry',
             travelerCount: Math.max(1, parseInt(travelerCount) || 1),
@@ -89,6 +95,10 @@ export async function POST(request) {
         const { db } = await connectToDatabase();
         const bookings = db.collection('bookings');
         const result = await bookings.insertOne(newBooking);
+
+        // Send automated notifications asynchronously
+        sendBookingConfirmation(newBooking).catch(err => console.error('Booking confirmation email error:', err));
+        sendStaffBookingAlert(newBooking).catch(err => console.error('Staff booking alert email error:', err));
 
         const res = NextResponse.json(
             { success: true, message: 'Booking received', id: result.insertedId },
@@ -111,4 +121,3 @@ export async function POST(request) {
         return setCorsHeaders(res);
     }
 }
-

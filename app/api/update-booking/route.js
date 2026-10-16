@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { ObjectId } from 'mongodb';
 import { connectToDatabase } from '@/lib/mongodb';
+import { sendBookingStatusUpdate } from '@/lib/email';
 
 const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'https://rohatours.vercel.app';
 const VALID_STATUSES = ['pending', 'confirmed', 'cancelled'];
@@ -52,15 +53,19 @@ export async function PATCH(request) {
             return setCorsHeaders(res);
         }
 
-        const result = await db.collection('bookings').updateOne(
+        const existing = await db.collection('bookings').findOne({ _id: objectId });
+        if (!existing) {
+            const res = NextResponse.json({ success: false, message: 'Booking not found' }, { status: 404 });
+            return setCorsHeaders(res);
+        }
+
+        await db.collection('bookings').updateOne(
             { _id: objectId },
             { $set: { status, updatedAt: new Date() } }
         );
 
-        if (result.matchedCount === 0) {
-            const res = NextResponse.json({ success: false, message: 'Booking not found' }, { status: 404 });
-            return setCorsHeaders(res);
-        }
+        // Send status email to customer asynchronously
+        sendBookingStatusUpdate(existing, status).catch(err => console.error('Status update email error:', err));
 
         const res = NextResponse.json({ success: true, message: 'Booking updated' }, { status: 200 });
         return setCorsHeaders(res);
@@ -71,4 +76,3 @@ export async function PATCH(request) {
         return setCorsHeaders(res);
     }
 }
-

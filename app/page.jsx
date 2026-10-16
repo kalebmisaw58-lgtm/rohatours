@@ -2,7 +2,11 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { destinationData, festivalData, pageMeta } from '@/lib/data';
+import DestinationModal from '@/components/DestinationModal';
+import FestivalModal from '@/components/FestivalModal';
+import EthiopiaMap from '@/components/EthiopiaMap';
 
 const SLIDE_IMAGES = [
     { src: '/IMG-20241225-WA0003.jpg', alt: 'Travelers exploring Ethiopia with RohaTours, Christmas 2024' },
@@ -68,6 +72,7 @@ export default function HomePage() {
         phone: '',
         date: '',
         count: 1,
+        honeypot: '',
     });
     const [bookingLoading, setBookingLoading] = useState(false);
     const [bookingSuccess, setBookingSuccess] = useState(false);
@@ -229,12 +234,20 @@ export default function HomePage() {
     // Submit Booking
     const handleBookingSubmit = async (e) => {
         e.preventDefault();
-        const { name, email, phone, date, count } = bookingForm;
+        const { name, email, phone, date, count, honeypot } = bookingForm;
 
         if (!name.trim()) return alert('Please enter your full name.');
         if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return alert('Please enter a valid email address.');
         if (!selectedPackage) return alert('Please select a destination or festival.');
         if (parseInt(count) < 1 || isNaN(parseInt(count))) return alert('Traveler count must be at least 1.');
+
+        if (date) {
+            const chosen = new Date(date).setHours(0, 0, 0, 0);
+            const today = new Date().setHours(0, 0, 0, 0);
+            if (chosen < today) {
+                return alert('Please select a current or upcoming travel date.');
+            }
+        }
 
         setBookingLoading(true);
         try {
@@ -248,6 +261,7 @@ export default function HomePage() {
                     travelDate: date,
                     package: selectedPackage,
                     travelerCount: parseInt(count),
+                    honeypot: honeypot || '',
                 }),
             });
             const data = await res.json();
@@ -255,7 +269,7 @@ export default function HomePage() {
 
             sessionStorage.setItem('bookedEmail', email.toLowerCase().trim());
             setBookingSuccess(true);
-            setBookingForm({ name: '', email: '', phone: '', date: '', count: 1 });
+            setBookingForm({ name: '', email: '', phone: '', date: '', count: 1, honeypot: '' });
         } catch (err) {
             alert('Error: ' + err.message);
         } finally {
@@ -580,6 +594,9 @@ export default function HomePage() {
                         </div>
                     </section>
 
+                    {/* Interactive Route Map Across Ethiopia */}
+                    <EthiopiaMap onSelectDestination={openDestination} />
+
                     {/* Destination Preview Strip */}
                     <section className="py-20 border-b" style={{ backgroundColor: 'var(--stone)' }}>
                         <div className="max-w-7xl mx-auto px-4">
@@ -600,8 +617,24 @@ export default function HomePage() {
                                             tabIndex={0}
                                             className="group relative h-72 rounded-[28px] overflow-hidden shadow-sm cursor-pointer"
                                         >
-                                            <img src={data?.image || '/Timkat Festival.jpg'} alt={item.key} className="w-full h-full object-cover group-hover:scale-110 transition duration-700" loading="lazy" />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                                            <Image
+                                                src={data?.image || '/Timkat Festival.jpg'}
+                                                alt={item.key}
+                                                fill
+                                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                                className="object-cover group-hover:scale-110 transition duration-700"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent"></div>
+                                            <div className="absolute top-4 right-4 z-10">
+                                                <Link
+                                                    href={`/destinations/${data?.slug || 'lalibela-churches'}`}
+                                                    onClick={(e) => e.stopPropagation()}
+                                                    title="Read Detailed Itinerary"
+                                                    className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-[#C5A059] transition flex items-center justify-center text-xs"
+                                                >
+                                                    <i className="fas fa-compass"></i>
+                                                </Link>
+                                            </div>
                                             <div className="absolute bottom-0 left-0 p-6">
                                                 <span className="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-1">{item.tag}</span>
                                                 <h3 className="text-white font-serif text-2xl">{item.key}</h3>
@@ -629,9 +662,15 @@ export default function HomePage() {
                                     return (
                                         <div key={idx} className="festival-card rounded-[28px] border border-white/10 overflow-hidden flex flex-col" style={{ background: 'rgba(255,255,255,0.05)' }}>
                                             <div className="relative h-52 overflow-hidden">
-                                                <img src={data?.image || '/Timkat Festival.jpg'} alt={item.key} className="w-full h-full object-cover hover:scale-105 transition duration-700" loading="lazy" />
+                                                <Image
+                                                    src={data?.image || '/Timkat Festival.jpg'}
+                                                    alt={item.key}
+                                                    fill
+                                                    sizes="(max-width: 768px) 100vw, 33vw"
+                                                    className="object-cover hover:scale-105 transition duration-700"
+                                                />
                                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                                                <div className="absolute top-4 left-4 bg-[#C5A059] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full">{item.date}</div>
+                                                <div className="absolute top-4 left-4 bg-[#C5A059] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full z-10">{item.date}</div>
                                             </div>
                                             <div className="p-6 flex flex-col flex-grow">
                                                 <div className="flex items-center gap-2 mb-3">
@@ -640,12 +679,21 @@ export default function HomePage() {
                                                 </div>
                                                 <h3 className="text-white font-serif text-xl mb-2">{item.key}</h3>
                                                 <p className="text-slate-400 text-sm leading-relaxed flex-grow">{data?.description[0]}</p>
-                                                <button
-                                                    onClick={() => openFestival(item.key)}
-                                                    className="mt-5 w-full py-3 rounded-xl border border-[#C5A059] text-[#C5A059] text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-white transition"
-                                                >
-                                                    Learn More
-                                                </button>
+                                                <div className="flex gap-2 mt-5">
+                                                    <button
+                                                        onClick={() => openFestival(item.key)}
+                                                        className="flex-1 py-3 rounded-xl border border-[#C5A059] text-[#C5A059] text-xs font-bold uppercase tracking-widest hover:bg-[#C5A059] hover:text-white transition"
+                                                    >
+                                                        Quick View
+                                                    </button>
+                                                    <Link
+                                                        href={`/festivals/${data?.slug || 'timkat'}`}
+                                                        className="px-4 py-3 rounded-xl border border-white/20 text-white/80 hover:bg-white/10 transition text-xs flex items-center justify-center"
+                                                        title="Full Festival Guide"
+                                                    >
+                                                        <i className="fas fa-arrow-right"></i>
+                                                    </Link>
+                                                </div>
                                                 <button
                                                     onClick={() => navigateToBookingWithPackage(item.fullName)}
                                                     className="mt-2 w-full py-3 rounded-xl bg-[#C5A059] text-white text-xs font-bold uppercase tracking-widest hover:bg-[#9A7A3A] transition"
@@ -922,13 +970,21 @@ export default function HomePage() {
                                             <div className="flex gap-2">
                                                 <button
                                                     onClick={() => openDestination(item.key)}
-                                                    className="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-stone-50 transition"
+                                                    className="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-xs uppercase tracking-wider hover:bg-stone-50 transition"
                                                 >
-                                                    Learn More
+                                                    Quick View
                                                 </button>
+                                                <Link
+                                                    href={`/destinations/${data?.slug || 'lalibela-churches'}`}
+                                                    className="px-3 py-3 rounded-xl border border-[#C5A059] text-[#C5A059] hover:bg-[#C5A059] hover:text-white transition text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1"
+                                                    title="View Full Itinerary"
+                                                >
+                                                    <i className="fas fa-compass"></i>
+                                                    <span className="hidden sm:inline">Guide</span>
+                                                </Link>
                                                 <button
                                                     onClick={() => navigateToBookingWithPackage(item.key)}
-                                                    className="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-sm hover:bg-[#C5A059] transition"
+                                                    className="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-xs uppercase tracking-wider hover:bg-[#C5A059] transition"
                                                 >
                                                     Book
                                                 </button>
@@ -972,18 +1028,26 @@ export default function HomePage() {
                                             </div>
                                         </div>
 
-                                        <div className="flex gap-3">
+                                        <div className="flex gap-2">
                                             <button
                                                 onClick={() => openFestival(name)}
-                                                className="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-sm hover:bg-stone-50 transition"
+                                                className="flex-1 py-3 rounded-xl border border-stone-200 font-bold text-xs uppercase tracking-wider hover:bg-stone-50 transition"
                                             >
-                                                Learn More
+                                                Quick View
                                             </button>
+                                            <Link
+                                                href={`/festivals/${data.slug || 'timkat'}`}
+                                                className="px-3 py-3 rounded-xl border border-[#C5A059] text-[#C5A059] hover:bg-[#C5A059] hover:text-white transition text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1"
+                                                title="View Festival Guide"
+                                            >
+                                                <i className="fas fa-landmark"></i>
+                                                <span className="hidden sm:inline">Story</span>
+                                            </Link>
                                             <button
                                                 onClick={() => navigateToBookingWithPackage(data.fullName)}
-                                                className="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-sm hover:bg-[#C5A059] transition"
+                                                className="flex-1 py-3 rounded-xl bg-[#1B3022] text-white font-bold text-xs uppercase tracking-wider hover:bg-[#C5A059] transition"
                                             >
-                                                Book Festival
+                                                Book
                                             </button>
                                         </div>
                                     </div>
@@ -1120,12 +1184,25 @@ export default function HomePage() {
                                             <label className="text-xs font-bold uppercase tracking-widest text-slate-400 block mb-1 ml-1">Travel Date</label>
                                             <input
                                                 type="date"
+                                                min={new Date().toISOString().split('T')[0]}
                                                 value={bookingForm.date}
                                                 onChange={e => setBookingForm({ ...bookingForm, date: e.target.value })}
                                                 className="form-input w-full rounded-xl p-4 text-sm"
                                             />
                                         </div>
                                     </div>
+
+                                    {/* Anti-bot Honeypot Field */}
+                                    <input
+                                        type="text"
+                                        name="hp_roha_verify"
+                                        tabIndex={-1}
+                                        autoComplete="off"
+                                        style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', height: 0, width: 0 }}
+                                        value={bookingForm.honeypot || ''}
+                                        onChange={e => setBookingForm({ ...bookingForm, honeypot: e.target.value })}
+                                        aria-hidden="true"
+                                    />
 
                                     {/* Destination Picker */}
                                     <div className="mb-6">
@@ -1240,99 +1317,26 @@ export default function HomePage() {
 
             {/* Destination Info Modal */}
             {destinationModal && (
-                <div className="fixed inset-0 bg-black/80 z-[60] flex items-center justify-center p-4" onClick={() => setDestinationModal(null)}>
-                    <div className="bg-white rounded-[32px] max-w-2xl w-full max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
-                        <div className="relative">
-                            <button
-                                onClick={() => setDestinationModal(null)}
-                                className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/50 text-white hover:bg-black/70 transition flex items-center justify-center"
-                            >
-                                <i className="fas fa-times"></i>
-                            </button>
-                            <img src={destinationModal.image} alt={destinationModal.name} className="w-full h-64 object-cover rounded-t-[32px]" />
-                        </div>
-                        <div className="p-8">
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-2">{destinationModal.duration}</span>
-                            <h2 className="text-3xl font-serif mb-4 text-[#1B3022]">{destinationModal.name}</h2>
-                            <div className="text-slate-600 leading-relaxed mb-6 space-y-3 text-sm">
-                                {destinationModal.description.map((p, i) => (
-                                    <p key={i}>{p}</p>
-                                ))}
-                            </div>
-                            <div className="bg-stone-50 rounded-2xl p-6 mb-6">
-                                <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Package Includes</h4>
-                                <div className="grid grid-cols-2 gap-3">
-                                    {destinationModal.inclusions.map((inc, i) => (
-                                        <div key={i} className="inclusion-item"><i className={`fas fa-${inc.icon}`}></i> {inc.text}</div>
-                                    ))}
-                                </div>
-                            </div>
-                            <div className="flex gap-3">
-                                <button
-                                    onClick={() => {
-                                        setDestinationModal(null);
-                                        window.location.hash = 'destinations';
-                                    }}
-                                    className="flex-1 bg-[#1B3022] text-white py-4 rounded-2xl font-bold text-sm uppercase tracking-widest hover:bg-[#2a4a34] transition"
-                                >
-                                    View Full Details
-                                </button>
-                                <button
-                                    onClick={() => {
-                                        setDestinationModal(null);
-                                        navigateToBookingWithPackage(destinationModal.name);
-                                    }}
-                                    className="flex-1 btn-gold py-4 rounded-2xl font-bold text-sm uppercase tracking-widest"
-                                >
-                                    Book Now
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <DestinationModal
+                    destination={destinationModal}
+                    onClose={() => setDestinationModal(null)}
+                    onBook={(pkgName) => {
+                        setDestinationModal(null);
+                        navigateToBookingWithPackage(pkgName);
+                    }}
+                />
             )}
 
             {/* Festival Info Modal */}
             {festivalModal && (
-                <div className="fixed inset-0 bg-black/80 z-[60] flex items-center justify-center p-4" onClick={() => setFestivalModal(null)}>
-                    <div className="bg-white rounded-[32px] max-w-2xl w-full max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
-                        <div className="relative">
-                            <button
-                                onClick={() => setFestivalModal(null)}
-                                className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/50 text-white hover:bg-black/70 transition flex items-center justify-center"
-                            >
-                                <i className="fas fa-times"></i>
-                            </button>
-                            <img src={festivalModal.image} alt={festivalModal.fullName} className="w-full h-64 object-cover rounded-t-[32px]" />
-                        </div>
-                        <div className="p-8">
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] block mb-2">{festivalModal.dates}</span>
-                            <h2 className="text-3xl font-serif mb-4 text-[#1B3022]">{festivalModal.fullName}</h2>
-                            <div className="text-slate-600 leading-relaxed mb-6 space-y-3 text-sm">
-                                {festivalModal.description.map((p, i) => (
-                                    <p key={i}>{p}</p>
-                                ))}
-                            </div>
-                            <div className="bg-stone-50 rounded-2xl p-6 mb-6">
-                                <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4">Package Includes</h4>
-                                <div className="grid grid-cols-2 gap-3">
-                                    {festivalModal.inclusions.map((inc, i) => (
-                                        <div key={i} className="inclusion-item"><i className={`fas fa-${inc.icon}`}></i> {inc.text}</div>
-                                    ))}
-                                </div>
-                            </div>
-                            <button
-                                onClick={() => {
-                                    setFestivalModal(null);
-                                    navigateToBookingWithPackage(festivalModal.fullName);
-                                }}
-                                className="w-full btn-gold py-4 rounded-2xl font-bold text-sm uppercase tracking-widest"
-                            >
-                                Book This Festival
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <FestivalModal
+                    festival={festivalModal}
+                    onClose={() => setFestivalModal(null)}
+                    onBook={(pkgName) => {
+                        setFestivalModal(null);
+                        navigateToBookingWithPackage(pkgName);
+                    }}
+                />
             )}
 
             {/* Lightbox */}
