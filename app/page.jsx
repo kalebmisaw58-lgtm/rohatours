@@ -52,13 +52,13 @@ const FESTIVAL_LIST = [
 ];
 
 const HERO_SLIDES = [
-    { src: '/Lalibela Churches.jpg', name: 'Lalibela Churches' },
-    { src: '/Simien Mountains.jpg', name: 'Simien Mountains' },
-    { src: '/Danakil Adventure.jpg', name: 'Danakil Depression' },
+    { src: '/IMG-20241225-WA0008.jpg', name: 'Ethiopian Highlands' },
+    { src: '/Lalibela Churches.jpg', name: 'Lalibela Rock Churches' },
+    { src: '/IMG-20241225-WA0010.jpg', name: 'Historic Lalibela' },
     { src: '/Timkat Festival.jpg', name: 'Timkat Epiphany' },
     { src: '/Gondar Castles.jpg', name: 'Gondar Castles' },
-    { src: '/Omo Valley Tribes.jpg', name: 'Omo Valley' },
-    { src: '/Bale Mountains.jpg', name: 'Bale Mountains' },
+    { src: '/IMG-20241225-WA0003.jpg', name: 'Simien Mountains' },
+    { src: '/Meskel Festival.jpg', name: 'Meskel Festival' },
 ];
 
 export default function HomePage() {
@@ -465,7 +465,8 @@ export default function HomePage() {
                                         fill
                                         priority={idx === 0}
                                         sizes="100vw"
-                                        className={`object-cover transition-transform duration-[7000ms] ease-out ${
+                                        style={{ objectFit: 'cover', objectPosition: 'center' }}
+                                        className={`transition-transform duration-[7000ms] ease-out ${
                                             idx === heroIndex ? 'scale-105' : 'scale-100'
                                         }`}
                                     />
@@ -557,10 +558,17 @@ export default function HomePage() {
                                 ].map((img, idx) => (
                                     <div
                                         key={idx}
-                                        className="aspect-square rounded-3xl gallery-item shadow-sm group overflow-hidden cursor-pointer"
+                                        className="relative aspect-square rounded-3xl gallery-item shadow-sm group overflow-hidden cursor-pointer"
                                         onClick={() => setLightboxSrc(img.src)}
                                     >
-                                        <img src={img.src} alt={img.alt} className="w-full h-full object-cover group-hover:scale-110 transition duration-700" loading="lazy" />
+                                        <Image
+                                            src={img.src}
+                                            alt={img.alt}
+                                            fill
+                                            sizes="(max-width: 768px) 50vw, 25vw"
+                                            style={{ objectFit: 'cover', objectPosition: 'center' }}
+                                            className="group-hover:scale-110 transition duration-700"
+                                        />
                                     </div>
                                 ))}
                             </div>
@@ -597,13 +605,17 @@ export default function HomePage() {
                                                 className="flex-shrink-0 px-2"
                                                 style={{ width: `${100 / visibleSlides}%` }}
                                             >
-                                                <img
-                                                    src={img.src}
-                                                    alt={img.alt}
-                                                    className="w-full h-80 object-cover rounded-2xl cursor-pointer hover:opacity-95 transition"
-                                                    loading="lazy"
-                                                    onClick={() => setLightboxSrc(img.src)}
-                                                />
+                                                <div className="relative w-full h-80 rounded-2xl overflow-hidden cursor-pointer shadow-md">
+                                                    <Image
+                                                        src={img.src}
+                                                        alt={img.alt}
+                                                        fill
+                                                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                                        style={{ objectFit: 'cover', objectPosition: 'center' }}
+                                                        className="hover:opacity-95 transition-all duration-700 hover:scale-105"
+                                                        onClick={() => setLightboxSrc(img.src)}
+                                                    />
+                                                </div>
                                             </div>
                                         ))}
                                     </div>
@@ -706,7 +718,8 @@ export default function HomePage() {
                                                 alt={item.key}
                                                 fill
                                                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                                                className="object-cover group-hover:scale-110 transition duration-700"
+                                                style={{ objectFit: 'cover', objectPosition: 'center' }}
+                                                className="group-hover:scale-110 transition duration-700"
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent"></div>
                                             <div className="absolute top-4 right-4 z-10">
@@ -751,7 +764,8 @@ export default function HomePage() {
                                                     alt={item.key}
                                                     fill
                                                     sizes="(max-width: 768px) 100vw, 33vw"
-                                                    className="object-cover hover:scale-105 transition duration-700"
+                                                    style={{ objectFit: 'cover', objectPosition: 'center' }}
+                                                    className="hover:scale-105 transition duration-700"
                                                 />
                                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                                                 <div className="absolute top-4 left-4 bg-[#C5A059] text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full z-10">{item.date}</div>
@@ -887,8 +901,15 @@ export default function HomePage() {
                     <div className="max-w-7xl mx-auto px-4">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-24">
                             <div className="relative">
-                                <div className="aspect-[4/5] rounded-[40px] overflow-hidden shadow-2xl">
-                                    <img src="/IMG-20230128-WA0030.jpg" loading="lazy" alt="Lead Tour Guide" className="w-full h-full object-cover" />
+                                <div className="relative aspect-[4/5] rounded-[40px] overflow-hidden shadow-2xl">
+                                    <Image
+                                        src="/IMG-20230128-WA0030.jpg"
+                                        alt="Mekuanent, Lead Tour Guide"
+                                        fill
+                                        sizes="(max-width: 768px) 100vw, 50vw"
+                                        style={{ objectFit: 'cover', objectPosition: 'center top' }}
+                                        className="transition duration-700 hover:scale-105"
+                                    />
                                 </div>
                                 <div className="absolute -bottom-6 -right-6 bg-[#1B3022] p-8 rounded-3xl text-white shadow-xl hidden lg:block max-w-xs">
                                     <p className="font-serif italic text-lg mb-2">&quot;Ethiopia is not a destination you visit; it is a story you enter.&quot;</p>
@@ -1032,8 +1053,17 @@ export default function HomePage() {
                             {DESTINATION_LIST.map((item, idx) => {
                                 const data = destinationData[item.key];
                                 return (
-                                    <div key={idx} className="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                                        <div className="h-64 bg-cover bg-center" style={{ backgroundImage: `url('${data?.image}')` }}></div>
+                                    <div key={idx} className="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col group">
+                                        <div className="relative h-64 w-full overflow-hidden bg-stone-100">
+                                            <Image
+                                                src={data?.image || '/Timkat Festival.jpg'}
+                                                alt={item.key}
+                                                fill
+                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                                style={{ objectFit: 'cover', objectPosition: 'center' }}
+                                                className="transition-transform duration-700 ease-out group-hover:scale-105"
+                                            />
+                                        </div>
                                         <div className="p-8 flex-grow flex flex-col">
                                             <span className="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">{item.tag}</span>
                                             <h3 className="text-2xl font-serif mb-2">{item.key}</h3>
@@ -1093,8 +1123,17 @@ export default function HomePage() {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {Object.entries(festivalData).map(([name, data], idx) => (
-                                <div key={idx} className="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col">
-                                    <div className="h-64 bg-cover bg-center" style={{ backgroundImage: `url('${data.image}')` }}></div>
+                                <div key={idx} className="destination-card bg-white rounded-[32px] overflow-hidden shadow-sm border border-stone-200 flex flex-col group">
+                                    <div className="relative h-64 w-full overflow-hidden bg-stone-100">
+                                        <Image
+                                            src={data.image || '/Meskel Festival.jpg'}
+                                            alt={data.fullName}
+                                            fill
+                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                            style={{ objectFit: 'cover', objectPosition: 'center' }}
+                                            className="transition-transform duration-700 ease-out group-hover:scale-105"
+                                        />
+                                    </div>
                                     <div className="p-8 flex-grow flex flex-col">
                                         <span className="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-2 block">{data.dates}</span>
                                         <h3 className="text-2xl font-serif mb-2">{data.fullName}</h3>
@@ -1458,26 +1497,132 @@ export default function HomePage() {
             </a>
 
             {/* Footer Section */}
-            <footer className="bg-[#1B3022] text-white pt-12 pb-8 border-t border-white/5">
+            <footer className="bg-[#1B3022] text-white pt-16 pb-8 border-t border-white/5">
                 <div className="max-w-7xl mx-auto px-4">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
-                        {/* Brand & Mission */}
-                        <div className="col-span-1 md:col-span-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 mb-12">
+                        {/* Brand & Mission (5 cols) */}
+                        <div className="lg:col-span-5">
                             <img src="/Logoo.png" alt="RohaTours" className="h-20 w-auto object-contain mb-4 brightness-0 invert" />
-                            <p className="text-slate-400 max-w-sm text-sm leading-relaxed mb-5">
+                            <p className="text-slate-400 max-w-md text-sm leading-relaxed mb-6">
                                 Pioneering luxury private destinations through the heart of Ethiopia. From the rock-hewn heights of Lalibela to the vibrant tribal cultures of the South, we reveal the soul of the Land of Origins.
                             </p>
-                            <div className="flex space-x-4 text-lg mb-4">
-                                <a href="https://www.instagram.com/mekuanintasnake?igsh=MWwxc20zbno1NXpjOA==" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-slate-400 hover:text-[#C5A059] transition"><i className="fab fa-instagram"></i></a>
-                                <a href="https://wa.me/251963575717" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="text-slate-400 hover:text-[#C5A059] transition"><i className="fab fa-whatsapp"></i></a>
+
+                            {/* Social Media Channels Strip */}
+                            <div className="mb-4">
+                                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C5A059] block mb-3">Connect With Us Everywhere</span>
+                                <div className="flex flex-wrap gap-2.5">
+                                    <a
+                                        href="https://www.instagram.com/mekuanintasnake?igsh=MWwxc20zbno1NXpjOA=="
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label="Instagram"
+                                        title="Instagram (@mekuanintasnake)"
+                                        className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:border-[#C5A059] hover:bg-[#C5A059] text-slate-300 hover:text-[#1B3022] flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm"
+                                    >
+                                        <i className="fab fa-instagram text-base"></i>
+                                    </a>
+                                    <a
+                                        href="https://wa.me/251963575717"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label="WhatsApp"
+                                        title="WhatsApp Direct Chat"
+                                        className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:border-[#25D366] hover:bg-[#25D366] text-slate-300 hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm"
+                                    >
+                                        <i className="fab fa-whatsapp text-base"></i>
+                                    </a>
+                                    <a
+                                        href="https://www.facebook.com"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label="Facebook"
+                                        title="Facebook"
+                                        className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:border-[#1877F2] hover:bg-[#1877F2] text-slate-300 hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm"
+                                    >
+                                        <i className="fab fa-facebook-f text-base"></i>
+                                    </a>
+                                    <a
+                                        href="https://www.tiktok.com"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label="TikTok"
+                                        title="TikTok"
+                                        className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:border-[#FE2C55] hover:bg-[#FE2C55] text-slate-300 hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm"
+                                    >
+                                        <i className="fab fa-tiktok text-base"></i>
+                                    </a>
+                                    <a
+                                        href="https://www.youtube.com"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label="YouTube"
+                                        title="YouTube Expeditions"
+                                        className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:border-[#FF0000] hover:bg-[#FF0000] text-slate-300 hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm"
+                                    >
+                                        <i className="fab fa-youtube text-base"></i>
+                                    </a>
+                                    <a
+                                        href="https://t.me/rohatours"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label="Telegram"
+                                        title="Telegram Channel"
+                                        className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:border-[#229ED9] hover:bg-[#229ED9] text-slate-300 hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm"
+                                    >
+                                        <i className="fab fa-telegram-plane text-base"></i>
+                                    </a>
+                                    <a
+                                        href="https://www.tripadvisor.com"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label="TripAdvisor"
+                                        title="TripAdvisor Reviews"
+                                        className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:border-[#00AF87] hover:bg-[#00AF87] text-slate-300 hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm"
+                                    >
+                                        <i className="fab fa-tripadvisor text-base"></i>
+                                    </a>
+                                    <a
+                                        href="https://x.com"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label="X / Twitter"
+                                        title="X (Twitter)"
+                                        className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:border-[#C5A059] hover:bg-[#C5A059] text-slate-300 hover:text-[#1B3022] flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm"
+                                    >
+                                        <i className="fab fa-twitter text-base"></i>
+                                    </a>
+                                    <a
+                                        href="https://www.linkedin.com"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label="LinkedIn"
+                                        title="LinkedIn"
+                                        className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:border-[#0A66C2] hover:bg-[#0A66C2] text-slate-300 hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm"
+                                    >
+                                        <i className="fab fa-linkedin-in text-base"></i>
+                                    </a>
+                                    <a
+                                        href="https://www.pinterest.com"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label="Pinterest"
+                                        title="Pinterest Inspirations"
+                                        className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:border-[#E60023] hover:bg-[#E60023] text-slate-300 hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-sm"
+                                    >
+                                        <i className="fab fa-pinterest-p text-base"></i>
+                                    </a>
+                                </div>
                             </div>
-                            <p className="text-xs text-slate-500">We typically respond within a few hours.</p>
+                            <p className="text-xs text-slate-400 flex items-center gap-2 mt-3">
+                                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                                Fast response guaranteed: We typically reply within 2 hours.
+                            </p>
                         </div>
 
-                        {/* Navigation Links */}
-                        <div>
+                        {/* Navigation Links (2 cols) */}
+                        <div className="lg:col-span-2">
                             <h4 className="font-serif text-base mb-4 border-b border-[#C5A059]/30 pb-1 inline-block">Quick Links</h4>
-                            <ul className="space-y-2 text-xs font-semibold uppercase tracking-widest text-slate-400">
+                            <ul className="space-y-2.5 text-xs font-semibold uppercase tracking-widest text-slate-400">
                                 <li><a href="#landing" className="hover:text-[#C5A059] transition">Home</a></li>
                                 <li><a href="#about" className="hover:text-[#C5A059] transition">About Us</a></li>
                                 <li><a href="#destinations" className="hover:text-[#C5A059] transition">Destinations</a></li>
@@ -1488,13 +1633,13 @@ export default function HomePage() {
                             </ul>
                         </div>
 
-                        {/* Contact Information */}
-                        <div>
-                            <h4 className="font-serif text-base mb-4 border-b border-[#C5A059]/30 pb-1 inline-block">Connect</h4>
+                        {/* Contact Information (2 cols) */}
+                        <div className="lg:col-span-2">
+                            <h4 className="font-serif text-base mb-4 border-b border-[#C5A059]/30 pb-1 inline-block">Direct Contact</h4>
                             <ul className="space-y-3 text-sm text-slate-400">
                                 <li className="flex items-start gap-2">
                                     <i className="fas fa-map-marker-alt text-[#C5A059] mt-1"></i>
-                                    <span>Addis Ababa, Ethiopia</span>
+                                    <span>Lalibela &amp; Addis Ababa, Ethiopia</span>
                                 </li>
                                 <li className="flex items-center gap-2">
                                     <i className="fas fa-envelope text-[#C5A059]"></i>
@@ -1505,8 +1650,63 @@ export default function HomePage() {
                                     <a href="tel:+251963575717" className="hover:text-white transition">+251 963 575 717</a>
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <i className="fab fa-whatsapp text-[#C5A059]"></i>
-                                    <a href="https://wa.me/251963575717" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">WhatsApp Us</a>
+                                    <i className="fab fa-whatsapp text-[#25D366]"></i>
+                                    <a href="https://wa.me/251963575717" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">WhatsApp Expeditions</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        {/* Social Channels Directory (3 cols) */}
+                        <div className="lg:col-span-3">
+                            <h4 className="font-serif text-base mb-4 border-b border-[#C5A059]/30 pb-1 inline-block">Social Channels</h4>
+                            <ul className="space-y-2.5 text-xs text-slate-400">
+                                <li>
+                                    <a href="https://www.instagram.com/mekuanintasnake?igsh=MWwxc20zbno1NXpjOA==" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 hover:text-[#C5A059] transition group">
+                                        <i className="fab fa-instagram text-[#C5A059] w-4"></i>
+                                        <span>Instagram <span className="text-slate-500 group-hover:text-slate-300">@mekuanintasnake</span></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://wa.me/251963575717" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 hover:text-[#25D366] transition group">
+                                        <i className="fab fa-whatsapp text-[#25D366] w-4"></i>
+                                        <span>WhatsApp <span className="text-slate-500 group-hover:text-slate-300">+251 963 575 717</span></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://t.me/rohatours" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 hover:text-[#229ED9] transition group">
+                                        <i className="fab fa-telegram-plane text-[#229ED9] w-4"></i>
+                                        <span>Telegram <span className="text-slate-500 group-hover:text-slate-300">@rohatours</span></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 hover:text-[#FE2C55] transition group">
+                                        <i className="fab fa-tiktok text-[#FE2C55] w-4"></i>
+                                        <span>TikTok <span className="text-slate-500 group-hover:text-slate-300">@rohatours</span></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 hover:text-[#FF0000] transition group">
+                                        <i className="fab fa-youtube text-[#FF0000] w-4"></i>
+                                        <span>YouTube <span className="text-slate-500 group-hover:text-slate-300">Roha Expeditions</span></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.tripadvisor.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 hover:text-[#00AF87] transition group">
+                                        <i className="fab fa-tripadvisor text-[#00AF87] w-4"></i>
+                                        <span>TripAdvisor <span className="text-slate-500 group-hover:text-slate-300">Verified Reviews</span></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 hover:text-[#1877F2] transition group">
+                                        <i className="fab fa-facebook-f text-[#1877F2] w-4"></i>
+                                        <span>Facebook <span className="text-slate-500 group-hover:text-slate-300">RohaTours Official</span></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 hover:text-[#C5A059] transition group">
+                                        <i className="fab fa-twitter text-[#C5A059] w-4"></i>
+                                        <span>X (Twitter) <span className="text-slate-500 group-hover:text-slate-300">@rohatours</span></span>
+                                    </a>
                                 </li>
                             </ul>
                         </div>

@@ -161,7 +161,8 @@ export default function EthiopiaMap({ onSelectDestination }) {
                                         alt={activeKey}
                                         fill
                                         sizes="(max-width: 768px) 100vw, 500px"
-                                        className="object-cover"
+                                        style={{ objectFit: 'cover', objectPosition: 'center' }}
+                                        className="transition-transform duration-700 hover:scale-105"
                                     />
                                     <div className="absolute top-4 left-4 bg-[#1B3022]/90 backdrop-blur-md text-[#C5A059] text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-[#C5A059]/30">
                                         {activeData.region}

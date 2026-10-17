@@ -58,7 +58,7 @@ export default async function DestinationDetailPage({ params }) {
                         fill
                         priority
                         sizes="(max-width: 1200px) 100vw, 1100px"
-                        className="object-cover"
+                        style={{ objectFit: 'cover', objectPosition: 'center' }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
                     <div className="absolute bottom-8 left-8 right-8">

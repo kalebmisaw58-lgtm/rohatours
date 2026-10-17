@@ -25,7 +25,8 @@ export default function DestinationModal({ destination, onClose, onBook }) {
                         fill
                         priority
                         sizes="(max-width: 768px) 100vw, 800px"
-                        className="object-cover rounded-t-[32px]"
+                        style={{ objectFit: 'cover', objectPosition: 'center' }}
+                        className="rounded-t-[32px]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                     <button

@@ -58,7 +58,7 @@ export default async function FestivalDetailPage({ params }) {
                         fill
                         priority
                         sizes="(max-width: 1200px) 100vw, 1100px"
-                        className="object-cover"
+                        style={{ objectFit: 'cover', objectPosition: 'center' }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10" />
                     

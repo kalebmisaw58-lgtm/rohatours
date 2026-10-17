@@ -34,9 +34,37 @@ button:focus-visible, a:focus-visible {
     outline-offset: 3px;
 }
 
-/* Smooth image loading */
+/* Strict image aspect ratio preservation — prevent stretching and distortion */
 img {
     transition: opacity 0.3s ease;
+    max-width: 100%;
+}
+
+img.object-cover,
+.object-cover,
+[class*="object-cover"] {
+    object-fit: cover !important;
+    object-position: center !important;
+}
+
+img.object-contain,
+.object-contain,
+[class*="object-contain"] {
+    object-fit: contain !important;
+}
+
+/* Ensure all Next.js fill images never distort */
+img[data-nimg="fill"],
+[data-nimg="fill"] {
+    object-fit: cover !important;
+    object-position: center !important;
+}
+
+.gallery-item img,
+.destination-card img,
+.festival-card img {
+    object-fit: cover !important;
+    object-position: center !important;
 }
 
 /* Section label */
@@ -569,7 +597,7 @@ body.dark #festivalModal button {
 #lightbox img {
     max-width: 90vw;
     max-height: 90vh;
-    object-fit: contain;
+    object-fit: contain !important;
     border-radius: 16px;
 }
 #lightbox-close {
