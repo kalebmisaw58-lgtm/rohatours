@@ -389,8 +389,16 @@ export default function HomePage() {
             {/* Navigation Header */}
             <nav className="fixed w-full z-50 glass-nav border-b border-stone-200">
                 <div className="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
-                    <a href="#landing" className="cursor-pointer">
-                        <img src="/Logoo.png" alt="Iconic Ethiopia Tours" className="h-20 w-auto object-contain" />
+                    <a href="#landing" className="cursor-pointer flex items-center gap-3 group">
+                        <img src="/Logoo.png" alt="Iconic Ethiopia Tours" className="h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
+                        <div className="flex flex-col">
+                            <span className="font-serif text-lg md:text-xl font-bold tracking-wide leading-none text-[#1B3022] dark:text-[#f0e8d8]">
+                                Iconic Ethiopia
+                            </span>
+                            <span className="text-[10px] md:text-[11px] uppercase font-bold tracking-[0.25em] text-[#C5A059] mt-1">
+                                Tours
+                            </span>
+                        </div>
                     </a>
                     <div className="hidden md:flex items-center space-x-8">
                         <a href="#landing" className={`nav-link text-sm font-semibold hover:text-[#C5A059] ${currentPage === 'landing' ? 'active' : ''}`}>Home</a>
@@ -431,7 +439,13 @@ export default function HomePage() {
             {mobileMenuOpen && (
                 <div id="mobile-menu" className="fixed inset-0 bg-white z-[60] p-8 flex flex-col">
                     <div className="flex justify-between items-center mb-12">
-                        <img src="/Logoo.png" alt="Iconic Ethiopia Tours" className="h-20 w-auto object-contain" />
+                        <div className="flex items-center gap-3">
+                            <img src="/Logoo.png" alt="Iconic Ethiopia Tours" className="h-14 w-auto object-contain" />
+                            <div className="flex flex-col">
+                                <span className="font-serif text-base font-bold text-[#1B3022]">Iconic Ethiopia</span>
+                                <span className="text-[9px] uppercase font-bold tracking-[0.2em] text-[#C5A059]">Tours</span>
+                            </div>
+                        </div>
                         <button onClick={() => setMobileMenuOpen(false)} className="text-3xl" aria-label="Close menu">&times;</button>
                     </div>
                     <div className="flex flex-col space-y-6 text-xl font-serif">
@@ -1511,7 +1525,17 @@ export default function HomePage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 mb-12">
                         {/* Brand & Mission (5 cols) */}
                         <div className="lg:col-span-5">
-                            <img src="/Logoo.png" alt="Iconic Ethiopia Tours" className="h-20 w-auto object-contain mb-4 brightness-0 invert" />
+                            <div className="flex items-center gap-3 mb-4">
+                                <img src="/Logoo.png" alt="Iconic Ethiopia Tours" className="h-16 w-auto object-contain brightness-0 invert" />
+                                <div className="flex flex-col">
+                                    <span className="font-serif text-2xl font-bold tracking-wide text-white">
+                                        Iconic Ethiopia
+                                    </span>
+                                    <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#C5A059]">
+                                        Tours
+                                    </span>
+                                </div>
+                            </div>
                             <p className="text-slate-400 max-w-md text-sm leading-relaxed mb-6">
                                 Pioneering luxury private expeditions through the heart of Ethiopia. From the rock-hewn heights of Lalibela to the vibrant tribal cultures of the South, we reveal the soul of the Land of Origins.
                             </p>

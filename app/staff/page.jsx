@@ -255,10 +255,11 @@ export default function StaffPage() {
                 <div className="min-h-screen flex items-center justify-center px-4">
                     <div className="bg-white rounded-[32px] shadow-sm border border-stone-200 p-10 w-full max-w-md">
                         <div className="text-center mb-8">
-                            <Link href="/#landing">
+                            <Link href="/#landing" className="inline-block text-center">
                                 <img src="/Logoo.png" alt="Iconic Ethiopia Tours" className="h-20 w-auto object-contain mx-auto mb-2" />
+                                <span className="font-serif text-lg font-bold text-[#1B3022] block">Iconic Ethiopia Tours</span>
                             </Link>
-                            <p className="text-slate-500 text-sm mt-2 font-semibold">Staff Portal</p>
+                            <p className="text-slate-500 text-sm mt-1 font-semibold">Staff Portal</p>
                         </div>
 
                         {loginError && (
@@ -306,10 +307,11 @@ export default function StaffPage() {
                 <div>
                     <nav className="bg-[#1B3022] text-white px-6 py-4 flex justify-between items-center sticky top-0 z-50">
                         <span className="flex items-center gap-3">
-                            <Link href="/#landing">
-                                <img src="/Logoo.png" alt="Iconic Ethiopia Tours" className="h-14 w-auto object-contain brightness-0 invert" />
+                            <Link href="/#landing" className="flex items-center gap-2">
+                                <img src="/Logoo.png" alt="Iconic Ethiopia Tours" className="h-12 w-auto object-contain brightness-0 invert" />
+                                <span className="font-serif text-base font-bold text-white hidden sm:inline">Iconic Ethiopia Tours</span>
                             </Link>
-                            <span className="text-sm font-sans font-normal text-slate-400">Staff Dashboard</span>
+                            <span className="text-sm font-sans font-normal text-slate-400">| Staff Dashboard</span>
                         </span>
                         <div className="flex items-center gap-4">
                             <span className="text-xs text-slate-400 hidden md:block">{staffEmail}</span>
