@@ -597,7 +597,6 @@ body.dark #festivalModal button {
 #lightbox img {
     max-width: 90vw;
     max-height: 90vh;
-    object-fit: contain;
     object-fit: contain !important;
     border-radius: 16px;
 }
