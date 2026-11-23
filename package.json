@@ -1,11 +1,11 @@
 {
-  "name": "rohatours",
+  "name": "iconic-ethiopia-tours",
   "version": "1.0.0",
   "type": "module",
   "description": "",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start"
   },
   "keywords": [],

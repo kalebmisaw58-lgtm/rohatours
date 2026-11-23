@@ -12,16 +12,16 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }) {
     const { slug } = await params;
     const festival = getFestivalBySlug(slug);
-    if (!festival) return { title: 'Festival Not Found | RohaTours' };
+    if (!festival) return { title: 'Festival Not Found | Iconic Ethiopia Tours' };
 
     return {
-        title: `${festival.fullName} Tour | RohaTours Ethiopia`,
+        title: `${festival.fullName} Tour | Iconic Ethiopia Tours`,
         description: festival.highlight || festival.description[0],
         alternates: {
             canonical: `/festivals/${festival.slug}`,
         },
         openGraph: {
-            title: `${festival.fullName} Cultural Experience | RohaTours`,
+            title: `${festival.fullName} Cultural Experience | Iconic Ethiopia Tours`,
             description: festival.highlight,
             images: [festival.image],
             type: 'article',

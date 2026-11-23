@@ -155,11 +155,11 @@ export default function StaffPage() {
     const openMessageModal = (trip) => {
         const isConfirmed = trip.status === 'confirmed';
         const subject = isConfirmed
-            ? `Your RohaTours Booking is Confirmed — ${trip.package || 'Custom Tour'}`
-            : `Update on Your RohaTours Booking — ${trip.package || 'Custom Tour'}`;
+            ? `Your Iconic Ethiopia Tours Booking is Confirmed — ${trip.package || 'Custom Tour'}`
+            : `Update on Your Iconic Ethiopia Tours Booking — ${trip.package || 'Custom Tour'}`;
         const body = isConfirmed
-            ? `Dear ${trip.customerName || 'Traveler'},\n\nWe are delighted to confirm your booking for ${trip.package || 'your expedition'}.\n\nOur team will be in touch shortly with full itinerary details and next steps.\n\nWarm regards,\nRohaTours Team`
-            : `Dear ${trip.customerName || 'Traveler'},\n\nThank you for your interest in ${trip.package || 'traveling with RohaTours'}.\n\nWe wanted to reach out regarding your booking request.\n\n\n\nWarm regards,\nRohaTours Team`;
+            ? `Dear ${trip.customerName || 'Traveler'},\n\nWe are delighted to confirm your booking for ${trip.package || 'your expedition'}.\n\nOur team will be in touch shortly with full itinerary details and next steps.\n\nWarm regards,\nIconic Ethiopia Tours Team`
+            : `Dear ${trip.customerName || 'Traveler'},\n\nThank you for your interest in ${trip.package || 'traveling with Iconic Ethiopia Tours'}.\n\nWe wanted to reach out regarding your booking request.\n\n\n\nWarm regards,\nIconic Ethiopia Tours Team`;
 
         setMessageModal({
             to: trip.customerEmail,
@@ -198,7 +198,7 @@ export default function StaffPage() {
         const encodedUri = encodeURI(csvContent);
         const link = document.createElement('a');
         link.setAttribute('href', encodedUri);
-        link.setAttribute('download', `rohatours_bookings_${new Date().toISOString().split('T')[0]}.csv`);
+        link.setAttribute('download', `iconic_ethiopia_bookings_${new Date().toISOString().split('T')[0]}.csv`);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -256,7 +256,7 @@ export default function StaffPage() {
                     <div className="bg-white rounded-[32px] shadow-sm border border-stone-200 p-10 w-full max-w-md">
                         <div className="text-center mb-8">
                             <Link href="/#landing">
-                                <img src="/Logoo.png" alt="RohaTours" className="h-20 w-auto object-contain mx-auto mb-2" />
+                                <img src="/Logoo.png" alt="Iconic Ethiopia Tours" className="h-20 w-auto object-contain mx-auto mb-2" />
                             </Link>
                             <p className="text-slate-500 text-sm mt-2 font-semibold">Staff Portal</p>
                         </div>
@@ -307,7 +307,7 @@ export default function StaffPage() {
                     <nav className="bg-[#1B3022] text-white px-6 py-4 flex justify-between items-center sticky top-0 z-50">
                         <span className="flex items-center gap-3">
                             <Link href="/#landing">
-                                <img src="/Logoo.png" alt="RohaTours" className="h-14 w-auto object-contain brightness-0 invert" />
+                                <img src="/Logoo.png" alt="Iconic Ethiopia Tours" className="h-14 w-auto object-contain brightness-0 invert" />
                             </Link>
                             <span className="text-sm font-sans font-normal text-slate-400">Staff Dashboard</span>
                         </span>

@@ -9,22 +9,22 @@ import FestivalModal from '@/components/FestivalModal';
 import EthiopiaMap from '@/components/EthiopiaMap';
 
 const SLIDE_IMAGES = [
-    { src: '/IMG-20241225-WA0003.jpg', alt: 'Travelers exploring Ethiopia with RohaTours, Christmas 2024' },
-    { src: '/IMG-20241225-WA0008.jpg', alt: 'RohaTours group at an Ethiopian landmark, December 2024' },
+    { src: '/IMG-20241225-WA0003.jpg', alt: 'Travelers exploring Ethiopia with Iconic Ethiopia Tours, Christmas 2024' },
+    { src: '/IMG-20241225-WA0008.jpg', alt: 'Iconic Ethiopia Tours group at an Ethiopian landmark, December 2024' },
     { src: '/IMG-20241225-WA0010.jpg', alt: 'Private tour experience in Ethiopia, December 2024' },
-    { src: '/IMG-20241225-WA0011.jpg', alt: 'Travelers on a RohaTours expedition, December 2024' },
-    { src: '/IMG-20250103-WA0001.jpg', alt: 'RohaTours cultural experience, January 2025' },
-    { src: '/IMG-20250127-WA0009.jpg', alt: 'Travelers discovering Ethiopia with RohaTours, January 2025' },
+    { src: '/IMG-20241225-WA0011.jpg', alt: 'Travelers on an Iconic Ethiopia Tours expedition, December 2024' },
+    { src: '/IMG-20250103-WA0001.jpg', alt: 'Iconic Ethiopia Tours cultural experience, January 2025' },
+    { src: '/IMG-20250127-WA0009.jpg', alt: 'Travelers discovering Ethiopia with Iconic Ethiopia Tours, January 2025' },
     { src: '/IMG-20250127-WA0011.jpg', alt: 'Private expedition in Ethiopia, January 2025' },
-    { src: '/IMG-20250127-WA0012.jpg', alt: 'RohaTours guided tour moment, January 2025' },
+    { src: '/IMG-20250127-WA0012.jpg', alt: 'Iconic Ethiopia Tours guided tour moment, January 2025' },
     { src: '/IMG-20250214-WA0002.jpg', alt: 'Travelers at an Ethiopian heritage site, February 2025' },
-    { src: '/IMG-20250214-WA0011.jpg', alt: 'RohaTours authentic Ethiopia experience, February 2025' },
-    { src: '/IMG-20251007-WA0006.jpg', alt: 'RohaTours expedition in the Ethiopian highlands, October 2025' },
-    { src: '/IMG-20251129-WA0000.jpg', alt: 'Travelers on a private RohaTours journey, November 2025' },
-    { src: '/IMG-20251129-WA0004.jpg', alt: 'Cultural immersion tour with RohaTours, November 2025' },
-    { src: '/IMG-20251129-WA0005.jpg', alt: 'RohaTours group exploring Ethiopia, November 2025' },
-    { src: '/1740917821723.jpg', alt: 'RohaTours private expedition in Ethiopia' },
-    { src: '/IMG-20230128-WA0014.jpg', alt: 'Early RohaTours expedition, January 2023' },
+    { src: '/IMG-20250214-WA0011.jpg', alt: 'Iconic Ethiopia Tours authentic Ethiopia experience, February 2025' },
+    { src: '/IMG-20251007-WA0006.jpg', alt: 'Iconic Ethiopia Tours expedition in the Ethiopian highlands, October 2025' },
+    { src: '/IMG-20251129-WA0000.jpg', alt: 'Travelers on a private Iconic Ethiopia Tours journey, November 2025' },
+    { src: '/IMG-20251129-WA0004.jpg', alt: 'Cultural immersion tour with Iconic Ethiopia Tours, November 2025' },
+    { src: '/IMG-20251129-WA0005.jpg', alt: 'Iconic Ethiopia Tours group exploring Ethiopia, November 2025' },
+    { src: '/1740917821723.jpg', alt: 'Iconic Ethiopia Tours private expedition in Ethiopia' },
+    { src: '/IMG-20230128-WA0014.jpg', alt: 'Early Iconic Ethiopia Tours expedition, January 2023' },
 ];
 
 const DESTINATION_LIST = [
@@ -362,7 +362,9 @@ export default function HomePage() {
                             {
                                 '@type': 'TravelAgency',
                                 '@id': 'https://rohatours.vercel.app/#organization',
-                                'name': 'RohaTours',
+                                'name': 'Iconic Ethiopia Tours',
+                                'legalName': 'Iconic Ethiopia tours',
+                                'alternateName': 'አይኮኒክ ኢትዮጵያ ቱርስ',
                                 'description': 'Expert-led private expeditions across Ethiopia. Lalibela, Gondar, Danakil, Omo Valley and beyond.',
                                 'url': 'https://rohatours.vercel.app/',
                                 'logo': 'https://rohatours.vercel.app/Logoo.png',
@@ -371,7 +373,9 @@ export default function HomePage() {
                                 'email': 'expeditions@rohatours.com',
                                 'address': {
                                     '@type': 'PostalAddress',
-                                    'addressLocality': 'Addis Ababa',
+                                    'streetAddress': 'Meskele Kibra',
+                                    'addressLocality': 'Lalibela',
+                                    'addressRegion': 'Amhara',
                                     'addressCountry': 'ET'
                                 },
                                 'sameAs': ['https://www.instagram.com/mekuanintasnake'],
@@ -389,8 +393,16 @@ export default function HomePage() {
             {/* Navigation Header */}
             <nav className="fixed w-full z-50 glass-nav border-b border-stone-200">
                 <div className="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
-                    <a href="#landing" className="cursor-pointer">
-                        <img src="/Logoo.png" alt="RohaTours" className="h-20 w-auto object-contain" />
+                    <a href="#landing" className="cursor-pointer flex items-center gap-3 group">
+                        <img src="/Logoo.png" alt="Iconic Ethiopia Tours" className="h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
+                        <div className="flex flex-col">
+                            <span className="font-serif text-lg md:text-xl font-bold tracking-wide leading-none text-[#1B3022] dark:text-[#f0e8d8]">
+                                Iconic Ethiopia
+                            </span>
+                            <span className="text-[9px] md:text-[10px] uppercase font-bold tracking-[0.25em] text-[#C5A059] mt-1">
+                                Tours &amp; Expeditions
+                            </span>
+                        </div>
                     </a>
                     <div className="hidden md:flex items-center space-x-8">
                         <a href="#landing" className={`nav-link text-sm font-semibold hover:text-[#C5A059] ${currentPage === 'landing' ? 'active' : ''}`}>Home</a>
@@ -431,7 +443,13 @@ export default function HomePage() {
             {mobileMenuOpen && (
                 <div id="mobile-menu" className="fixed inset-0 bg-white z-[60] p-8 flex flex-col">
                     <div className="flex justify-between items-center mb-12">
-                        <img src="/Logoo.png" alt="RohaTours" className="h-20 w-auto object-contain" />
+                        <div className="flex items-center gap-3">
+                            <img src="/Logoo.png" alt="Iconic Ethiopia Tours" className="h-14 w-auto object-contain" />
+                            <div className="flex flex-col">
+                                <span className="font-serif text-base font-bold text-[#1B3022]">Iconic Ethiopia</span>
+                                <span className="text-[9px] uppercase font-bold tracking-[0.2em] text-[#C5A059]">Tours</span>
+                            </div>
+                        </div>
                         <button onClick={() => setMobileMenuOpen(false)} className="text-3xl" aria-label="Close menu">&times;</button>
                     </div>
                     <div className="flex flex-col space-y-6 text-xl font-serif">
@@ -605,6 +623,13 @@ export default function HomePage() {
                                                 className="flex-shrink-0 px-2"
                                                 style={{ width: `${100 / visibleSlides}%` }}
                                             >
+                                                <img
+                                                    src={img.src}
+                                                    alt={img.alt}
+                                                    className="w-full h-80 object-cover rounded-2xl cursor-pointer hover:opacity-95 transition"
+                                                    loading="lazy"
+                                                    onClick={() => setLightboxSrc(img.src)}
+                                                />
                                                 <div className="relative w-full h-80 rounded-2xl overflow-hidden cursor-pointer shadow-md">
                                                     <Image
                                                         src={img.src}
@@ -663,12 +688,12 @@ export default function HomePage() {
                         </div>
                     </section>
 
-                    {/* Why RohaTours Trust Strip */}
+                    {/* Why Iconic Ethiopia Tours Trust Strip */}
                     <section className="py-20 border-b" style={{ backgroundColor: 'var(--cream)' }}>
                         <div className="max-w-7xl mx-auto px-4">
                             <div className="text-center mb-14">
                                 <span className="text-[#C5A059] font-bold uppercase tracking-[0.3em] text-sm mb-3 block">Why Travel With Us</span>
-                                <h2 className="text-4xl font-serif" style={{ color: 'var(--green-deep)' }}>The RohaTours Difference</h2>
+                                <h2 className="text-4xl font-serif" style={{ color: 'var(--green-deep)' }}>The Iconic Ethiopia Difference</h2>
                                 <div className="gold-divider"></div>
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -718,6 +743,7 @@ export default function HomePage() {
                                                 alt={item.key}
                                                 fill
                                                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                                className="object-cover group-hover:scale-110 transition duration-700"
                                                 style={{ objectFit: 'cover', objectPosition: 'center' }}
                                                 className="group-hover:scale-110 transition duration-700"
                                             />
@@ -764,6 +790,7 @@ export default function HomePage() {
                                                     alt={item.key}
                                                     fill
                                                     sizes="(max-width: 768px) 100vw, 33vw"
+                                                    className="object-cover hover:scale-105 transition duration-700"
                                                     style={{ objectFit: 'cover', objectPosition: 'center' }}
                                                     className="hover:scale-105 transition duration-700"
                                                 />
@@ -882,7 +909,7 @@ export default function HomePage() {
                                             <i key={i} className="fas fa-star text-[#C5A059] text-sm"></i>
                                         ))}
                                     </div>
-                                    <p className="text-slate-600 leading-relaxed italic flex-grow">&quot;We did the Omo Valley tribes tour and it changed our perspective on the world. RohaTours handled everything with such care and respect for the local communities. We&apos;ll be back.&quot;</p>
+                                    <p className="text-slate-600 leading-relaxed italic flex-grow">&quot;We did the Omo Valley tribes tour and it changed our perspective on the world. Iconic Ethiopia Tours handled everything with such care and respect for the local communities. We&apos;ll be back.&quot;</p>
                                     <div className="flex items-center gap-3 mt-6 pt-6 border-t border-stone-100">
                                         <div className="w-10 h-10 rounded-full bg-[#1B3022] flex items-center justify-center text-white font-bold text-sm">A</div>
                                         <div>
@@ -904,7 +931,7 @@ export default function HomePage() {
                                 <div className="relative aspect-[4/5] rounded-[40px] overflow-hidden shadow-2xl">
                                     <Image
                                         src="/IMG-20230128-WA0030.jpg"
-                                        alt="Mekuanent, Lead Tour Guide"
+                                        alt="Mekonnt Asnake Tariko, Founder & Lead Tour Guide"
                                         fill
                                         sizes="(max-width: 768px) 100vw, 50vw"
                                         style={{ objectFit: 'cover', objectPosition: 'center top' }}
@@ -913,18 +940,26 @@ export default function HomePage() {
                                 </div>
                                 <div className="absolute -bottom-6 -right-6 bg-[#1B3022] p-8 rounded-3xl text-white shadow-xl hidden lg:block max-w-xs">
                                     <p className="font-serif italic text-lg mb-2">&quot;Ethiopia is not a destination you visit; it is a story you enter.&quot;</p>
-                                    <span className="text-[#C5A059] font-bold text-xs uppercase tracking-widest">Mekuanent, Lead Explorer</span>
+                                    <span className="text-[#C5A059] font-bold text-xs uppercase tracking-widest">Mekonnt Asnake Tariko, Founder</span>
                                 </div>
                             </div>
                             <div>
                                 <span className="text-[#C5A059] font-bold uppercase tracking-widest text-sm mb-4 block">Meet Your Host</span>
                                 <h2 className="text-4xl md:text-5xl font-serif mb-8">Guided by Heritage</h2>
                                 <p className="text-slate-600 leading-relaxed mb-6">
-                                    <b>Mekuanent</b>, our lead guide and founder, has spent over 15 years navigating the rugged plateaus and ancient pathways of Ethiopia. Born in the shadows of Lalibela’s rock-hewn churches, his connection to this land is ancestral.
+                                    <b>Mekonnt (Mekuanent) Asnake Tariko</b>, our founder and licensed lead tour operator, has spent over 15 years navigating the rugged plateaus and ancient pathways of Ethiopia. Born in the sacred shadows of Lalibela’s rock-hewn churches, his connection to this land is ancestral.
                                 </p>
-                                <p className="text-slate-600 leading-relaxed mb-8">
-                                    With a deep background in archaeology and local history, Mekuanent specializes in creating private, low-impact journeys that bridge the gap between traveler and local culture.
+                                <p className="text-slate-600 leading-relaxed mb-6">
+                                    Operating under the officially registered trade name <b>Iconic Ethiopia tours (አይኮኒክ ኢትዮጵያ ቱርስ)</b>, Mekonnt specializes in private, bespoke expeditions that bridge the gap between discerning travelers and local Ethiopian heritage.
                                 </p>
+                                <div className="bg-stone-50 border border-stone-200 rounded-2xl p-4 mb-8 text-xs text-slate-500 space-y-1.5">
+                                    <div className="flex items-center gap-2 text-[#1B3022] font-semibold">
+                                        <i className="fas fa-certificate text-[#C5A059]"></i>
+                                        <span>Licensed Tour Operation Services (የአስጎብኚነት አገልግሎት)</span>
+                                    </div>
+                                    <p>Amhara Trade Bureau Reg: <span className="font-mono text-slate-700">AM/NW/LA/1/0001007/2012</span> • License: <span className="font-mono text-slate-700">AM/NW/LA/03/222211111/1893621/2012</span> • TIN: <span className="font-mono text-slate-700">0066224913</span></p>
+                                    <p>Registered Address: Meskele Kibra, Lalibela, North Wello, Amhara, Ethiopia</p>
+                                </div>
                                 <div className="flex gap-8">
                                     <div>
                                         <span className="block text-3xl font-serif text-[#1B3022]">15+</span>
@@ -962,7 +997,7 @@ export default function HomePage() {
                                         <span className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: 'rgba(197,160,89,0.12)' }}>
                                             <i className="fas fa-map-marker-alt" style={{ color: 'var(--gold)' }}></i>
                                         </span>
-                                        <span>Addis Ababa, Ethiopia</span>
+                                        <span>Lalibela (Meskele Kibra) &amp; Addis Ababa, Ethiopia</span>
                                     </li>
                                     <li className="flex items-center gap-3 text-sm text-slate-600">
                                         <span className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: 'rgba(197,160,89,0.12)' }}>
@@ -1412,8 +1447,8 @@ export default function HomePage() {
                         <div className="gold-divider" style={{ margin: '0 0 2rem 0' }}></div>
                         <div className="prose text-slate-600 space-y-6 text-sm leading-relaxed">
                             <p><strong>Last updated:</strong> April 2026</p>
-                            <p>RohaTours (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) collects personal information you provide when making a booking or sending a message — including your name, email address, phone number, and travel preferences. This information is used solely to process your booking and communicate with you about your trip.</p>
-                            <p>We do not sell, trade, or share your personal data with third parties except as necessary to deliver our services (e.g., local guides, accommodation partners). All data is stored securely in our database and is accessible only to authorized RohaTours staff.</p>
+                            <p>Iconic Ethiopia Tours (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) collects personal information you provide when making a booking or sending a message — including your name, email address, phone number, and travel preferences. This information is used solely to process your booking and communicate with you about your trip.</p>
+                            <p>We do not sell, trade, or share your personal data with third parties except as necessary to deliver our services (e.g., local guides, accommodation partners). All data is stored securely in our database and is accessible only to authorized Iconic Ethiopia Tours staff.</p>
                             <p>You may request deletion of your data at any time by contacting us at <a href="mailto:expeditions@rohatours.com" className="text-[#C5A059] hover:underline">expeditions@rohatours.com</a>.</p>
                             <p>By using this website, you consent to this privacy policy.</p>
                         </div>
@@ -1428,10 +1463,10 @@ export default function HomePage() {
                         <div className="gold-divider" style={{ margin: '0 0 2rem 0' }}></div>
                         <div className="text-slate-600 space-y-6 text-sm leading-relaxed">
                             <p><strong>Last updated:</strong> April 2026</p>
-                            <p>By submitting a booking request through this website, you agree to be contacted by RohaTours regarding your inquiry. A booking is not confirmed until you receive written confirmation from our team.</p>
-                            <p>All itineraries are subject to change due to weather, safety conditions, or circumstances beyond our control. RohaTours will make every effort to provide alternative arrangements of equal value.</p>
+                            <p>By submitting a booking request through this website, you agree to be contacted by Iconic Ethiopia Tours regarding your inquiry. A booking is not confirmed until you receive written confirmation from our team.</p>
+                            <p>All itineraries are subject to change due to weather, safety conditions, or circumstances beyond our control. Iconic Ethiopia Tours will make every effort to provide alternative arrangements of equal value.</p>
                             <p>Cancellations must be communicated in writing to <a href="mailto:expeditions@rohatours.com" className="text-[#C5A059] hover:underline">expeditions@rohatours.com</a>. Cancellation terms will be outlined in your booking confirmation.</p>
-                            <p>RohaTours is not liable for any loss, injury, or damage sustained during a tour. Travelers are advised to obtain comprehensive travel insurance prior to departure.</p>
+                            <p>Iconic Ethiopia Tours is not liable for any loss, injury, or damage sustained during a tour. Travelers are advised to obtain comprehensive travel insurance prior to departure.</p>
                             <p>These terms are governed by the laws of the Federal Democratic Republic of Ethiopia.</p>
                         </div>
                     </div>
@@ -1502,10 +1537,34 @@ export default function HomePage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 mb-12">
                         {/* Brand & Mission (5 cols) */}
                         <div className="lg:col-span-5">
-                            <img src="/Logoo.png" alt="RohaTours" className="h-20 w-auto object-contain mb-4 brightness-0 invert" />
-                            <p className="text-slate-400 max-w-md text-sm leading-relaxed mb-6">
-                                Pioneering luxury private destinations through the heart of Ethiopia. From the rock-hewn heights of Lalibela to the vibrant tribal cultures of the South, we reveal the soul of the Land of Origins.
+                            <div className="flex items-center gap-3 mb-4">
+                                <img src="/Logoo.png" alt="Iconic Ethiopia Tours" className="h-16 w-auto object-contain brightness-0 invert" />
+                                <div className="flex flex-col">
+                                    <span className="font-serif text-2xl font-bold tracking-wide text-white">
+                                        Iconic Ethiopia
+                                    </span>
+                                    <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#C5A059]">
+                                        Tours &amp; Expeditions
+                                    </span>
+                                    <span className="text-[10px] text-slate-400 font-sans">
+                                        አይኮኒክ ኢትዮጵያ ቱርስ
+                                    </span>
+                                </div>
+                            </div>
+                            <p className="text-slate-400 max-w-md text-sm leading-relaxed mb-4">
+                                Pioneering luxury private expeditions through the heart of Ethiopia. From the rock-hewn heights of Lalibela to the vibrant tribal cultures of the South, we reveal the soul of the Land of Origins.
                             </p>
+
+                            {/* Official Registration & Licensing Badge */}
+                            <div className="bg-white/5 border border-white/10 rounded-2xl p-4 mb-5 max-w-md text-[11px] text-slate-400 space-y-1.5">
+                                <div className="flex items-center gap-2 text-[#C5A059] font-bold uppercase tracking-wider text-[10px]">
+                                    <i className="fas fa-certificate"></i>
+                                    <span>Officially Licensed Tour Operator (የአስጎብኚነት አገልግሎት)</span>
+                                </div>
+                                <p>Trade Name Reg: <span className="font-mono text-slate-300">AM/NW/LA/1/0001007/2012</span></p>
+                                <p>Business License: <span className="font-mono text-slate-300">AM/NW/LA/03/222211111/1893621/2012</span> • TIN: <span className="font-mono text-slate-300">0066224913</span></p>
+                                <p>Manager: <span className="text-slate-300 font-semibold">Mekonnt Asnake Tariko</span> • Meskele Kibra, Lalibela</p>
+                            </div>
 
                             {/* Social Media Channels Strip */}
                             <div className="mb-4">
@@ -1639,7 +1698,7 @@ export default function HomePage() {
                             <ul className="space-y-3 text-sm text-slate-400">
                                 <li className="flex items-start gap-2">
                                     <i className="fas fa-map-marker-alt text-[#C5A059] mt-1"></i>
-                                    <span>Lalibela &amp; Addis Ababa, Ethiopia</span>
+                                    <span>Meskele Kibra, Lalibela &amp; Addis Ababa, Ethiopia</span>
                                 </li>
                                 <li className="flex items-center gap-2">
                                     <i className="fas fa-envelope text-[#C5A059]"></i>
@@ -1675,19 +1734,19 @@ export default function HomePage() {
                                 <li>
                                     <a href="https://t.me/rohatours" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 hover:text-[#229ED9] transition group">
                                         <i className="fab fa-telegram-plane text-[#229ED9] w-4"></i>
-                                        <span>Telegram <span className="text-slate-500 group-hover:text-slate-300">@rohatours</span></span>
+                                        <span>Telegram <span className="text-slate-500 group-hover:text-slate-300">Iconic Ethiopia Tours</span></span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 hover:text-[#FE2C55] transition group">
                                         <i className="fab fa-tiktok text-[#FE2C55] w-4"></i>
-                                        <span>TikTok <span className="text-slate-500 group-hover:text-slate-300">@rohatours</span></span>
+                                        <span>TikTok <span className="text-slate-500 group-hover:text-slate-300">@iconicethiopia</span></span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 hover:text-[#FF0000] transition group">
                                         <i className="fab fa-youtube text-[#FF0000] w-4"></i>
-                                        <span>YouTube <span className="text-slate-500 group-hover:text-slate-300">Roha Expeditions</span></span>
+                                        <span>YouTube <span className="text-slate-500 group-hover:text-slate-300">Iconic Ethiopia Expeditions</span></span>
                                     </a>
                                 </li>
                                 <li>
@@ -1699,13 +1758,13 @@ export default function HomePage() {
                                 <li>
                                     <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 hover:text-[#1877F2] transition group">
                                         <i className="fab fa-facebook-f text-[#1877F2] w-4"></i>
-                                        <span>Facebook <span className="text-slate-500 group-hover:text-slate-300">RohaTours Official</span></span>
+                                        <span>Facebook <span className="text-slate-500 group-hover:text-slate-300">Iconic Ethiopia Tours Official</span></span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 hover:text-[#C5A059] transition group">
                                         <i className="fab fa-twitter text-[#C5A059] w-4"></i>
-                                        <span>X (Twitter) <span className="text-slate-500 group-hover:text-slate-300">@rohatours</span></span>
+                                        <span>X (Twitter) <span className="text-slate-500 group-hover:text-slate-300">@iconicethiopia</span></span>
                                     </a>
                                 </li>
                             </ul>
@@ -1714,7 +1773,7 @@ export default function HomePage() {
 
                     {/* Bottom Bar */}
                     <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
-                        <p className="text-xs text-slate-500 uppercase tracking-[0.2em]">© {new Date().getFullYear()} RohaTours Private Ltd.</p>
+                        <p className="text-xs text-slate-500 uppercase tracking-[0.2em]">© {new Date().getFullYear()} Iconic Ethiopia Tours (አይኮኒክ ኢትዮጵያ ቱርስ). All rights reserved.</p>
                         <div className="flex gap-4 text-xs uppercase tracking-widest text-slate-500">
                             <a href="#privacy" className="hover:text-white transition">Privacy Policy</a>
                             <a href="#terms" className="hover:text-white transition">Terms &amp; Conditions</a>

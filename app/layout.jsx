@@ -1,9 +1,9 @@
 import './globals.css';
 
 export const metadata = {
-    title: 'RohaTours | Private Expeditions & Authentic Ethiopia Travel',
-    description: 'Discover Ethiopia with RohaTours. Expert-led private expeditions to Lalibela, Gondar, Axum, Danakil, Omo Valley and beyond. Book your journey today.',
-    authors: [{ name: 'RohaTours' }],
+    title: 'Iconic Ethiopia Tours | Private Expeditions & Authentic Ethiopia Travel',
+    description: 'Discover Ethiopia with Iconic Ethiopia Tours. Expert-led private expeditions to Lalibela, Gondar, Axum, Danakil, Omo Valley and beyond. Book your journey today.',
+    authors: [{ name: 'Iconic Ethiopia Tours' }],
     metadataBase: new URL('https://rohatours.vercel.app'),
     alternates: {
         canonical: '/',
@@ -11,16 +11,16 @@ export const metadata = {
     openGraph: {
         type: 'website',
         url: 'https://rohatours.vercel.app/',
-        title: 'RohaTours | Private Expeditions & Authentic Ethiopia Travel',
+        title: 'Iconic Ethiopia Tours | Private Expeditions & Authentic Ethiopia Travel',
         description: 'Expert-led private expeditions to Lalibela, Gondar, Axum, Danakil and beyond. Discover the soul of Ethiopia.',
         images: ['/Timkat Festival.jpg'],
-        siteName: 'RohaTours',
+        siteName: 'Iconic Ethiopia Tours',
         locale: 'en_US',
     },
     twitter: {
         card: 'summary_large_image',
-        site: '@rohatours',
-        title: 'RohaTours | Private Expeditions & Authentic Ethiopia Travel',
+        site: '@iconicethiopia',
+        title: 'Iconic Ethiopia Tours | Private Expeditions & Authentic Ethiopia Travel',
         description: 'Expert-led private expeditions to Lalibela, Gondar, Axum, Danakil and beyond. Discover the soul of Ethiopia.',
         images: ['/Timkat Festival.jpg'],
     },

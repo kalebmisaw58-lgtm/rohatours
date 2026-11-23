@@ -15,13 +15,13 @@ export async function generateMetadata({ params }) {
     if (!destination) return { title: 'Destination Not Found' };
 
     return {
-        title: `${destination.name} Expedition | RohaTours Ethiopia`,
+        title: `${destination.name} Expedition | Iconic Ethiopia Tours`,
         description: destination.shortDesc || destination.description[0],
         alternates: {
             canonical: `/destinations/${destination.slug}`,
         },
         openGraph: {
-            title: `${destination.name} | RohaTours Private Ethiopia Tours`,
+            title: `${destination.name} | Iconic Ethiopia Tours Private Expeditions`,
             description: destination.shortDesc,
             images: [destination.image],
             type: 'article',
