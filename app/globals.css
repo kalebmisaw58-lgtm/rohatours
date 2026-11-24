@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
     --gold: #C5A059;
     --gold-light: #E8C97A;
@@ -81,6 +83,29 @@ img[data-nimg="fill"],
     background: rgba(253, 250, 244, 0.97);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--stone-dark);
+}
+
+/* Nav Brand Title & Subtitle */
+.nav-brand-title {
+    color: #112217 !important;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    transition: color 0.3s ease;
+}
+.nav-brand-subtitle {
+    color: #7A5310 !important;
+    font-weight: 800;
+    letter-spacing: 0.25em;
+    transition: color 0.3s ease;
+}
+
+body.dark .nav-brand-title,
+.dark .nav-brand-title {
+    color: #FAF4E8 !important;
+}
+body.dark .nav-brand-subtitle,
+.dark .nav-brand-subtitle {
+    color: #E8C97A !important;
 }
 
 /* Buttons */
@@ -227,7 +252,7 @@ body.dark .glass-nav .nav-link {
 body.dark .glass-nav .nav-link:hover {
     color: var(--gold) !important;
 }
-body.dark .glass-nav span {
+body.dark .glass-nav span:not(.nav-brand-title):not(.nav-brand-subtitle) {
     color: #e8e0d0 !important;
 }
 

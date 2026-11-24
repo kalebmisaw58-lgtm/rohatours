@@ -392,10 +392,10 @@ export default function HomePage() {
                     <a href="#landing" className="cursor-pointer flex items-center gap-3 group">
                         <img src="/Logoo.png" alt="Iconic Ethiopia Tours" className="h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105" />
                         <div className="flex flex-col">
-                            <span className="font-serif text-lg md:text-xl font-bold tracking-wide leading-none text-[#1B3022] dark:text-[#f0e8d8]">
+                            <span className="font-serif text-xl md:text-2xl font-bold tracking-tight md:tracking-normal leading-none nav-brand-title">
                                 Iconic Ethiopia
                             </span>
-                            <span className="text-[10px] md:text-[11px] uppercase font-bold tracking-[0.25em] text-[#C5A059] mt-1">
+                            <span className="text-[11px] md:text-[12px] uppercase font-extrabold tracking-[0.26em] nav-brand-subtitle mt-1">
                                 Tours
                             </span>
                         </div>
@@ -442,8 +442,8 @@ export default function HomePage() {
                         <div className="flex items-center gap-3">
                             <img src="/Logoo.png" alt="Iconic Ethiopia Tours" className="h-14 w-auto object-contain" />
                             <div className="flex flex-col">
-                                <span className="font-serif text-base font-bold text-[#1B3022]">Iconic Ethiopia</span>
-                                <span className="text-[9px] uppercase font-bold tracking-[0.2em] text-[#C5A059]">Tours</span>
+                                <span className="font-serif text-lg font-bold nav-brand-title">Iconic Ethiopia</span>
+                                <span className="text-[10px] uppercase font-extrabold tracking-[0.22em] nav-brand-subtitle mt-0.5">Tours</span>
                             </div>
                         </div>
                         <button onClick={() => setMobileMenuOpen(false)} className="text-3xl" aria-label="Close menu">&times;</button>
